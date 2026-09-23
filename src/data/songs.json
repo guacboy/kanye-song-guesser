@@ -1,0 +1,13 @@
+[
+  { "title": "Stronger", "artists": ["Kanye West"], "album": "Graduation", "file": "audio/stronger.mp3", "tier": "1b" },
+  { "title": "Heartless", "artists": ["Kanye West"], "album": "808s & Heartbreak", "file": "audio/heartless.mp3", "tier": "1b" },
+  { "title": "Flashing Lights", "artists": ["Kanye West"], "features": ["Dwele"], "album": "Graduation", "file": "audio/flashing-lights.mp3", "tier": "1b" },
+  { "title": "Gold Digger", "artists": ["Kanye West"], "features": ["Jamie Foxx"], "album": "Late Registration", "file": "audio/gold-digger.mp3", "tier": "1b" },
+  { "title": "Father Stretch My Hands Pt. 1", "artists": ["Kanye West"], "album": "The Life of Pablo", "file": "audio/father-stretch-my-hands-pt-1.mp3", "tier": "1b", "aliases": ["Father Stretch My Hands"] },
+  { "title": "Can't Tell Me Nothing", "artists": ["Kanye West"], "album": "Graduation", "file": "audio/cant-tell-me-nothing.mp3", "tier": "100m" },
+  { "title": "Black Skinhead", "artists": ["Kanye West"], "album": "Yeezus", "file": "audio/black-skinhead.mp3", "tier": "100m" },
+  { "title": "Bound 2", "artists": ["Kanye West"], "album": "Yeezus", "file": "audio/bound-2.mp3", "tier": "100m" },
+  { "title": "Ultralight Beam", "artists": ["Kanye West"], "album": "The Life of Pablo", "file": "audio/ultralight-beam.mp3", "tier": "100m" },
+  { "title": "Drunk and Hot Girls", "artists": ["Kanye West"], "features": ["Mos Def"], "album": "Graduation", "file": "audio/drunk-and-hot-girls.mp3", "tier": "1m" },
+  { "title": "Pinocchio Story", "artists": ["Kanye West"], "album": "808s & Heartbreak", "file": "audio/pinocchio-story.mp3", "tier": "1m" }
+]

@@ -1,0 +1,18 @@
+export type Tier = '1b' | '100m' | '1m' | '100k';
+
+export interface Song {
+  title: string;
+  /** Main credited artists, e.g. ["Kanye West"] or ["JAY-Z", "Kanye West"]. */
+  artists: string[];
+  /** Featured artists. */
+  features?: string[];
+  album: string;
+  /** Path relative to /public, e.g. 'audio/stronger.mp3'. */
+  file: string;
+  /** Stream bracket the song falls in (its *highest* bracket). */
+  tier: Tier;
+  /** Second in the file where the clip starts. Defaults to 0. */
+  start?: number;
+  /** Extra accepted spellings for the answer. */
+  aliases?: string[];
+}

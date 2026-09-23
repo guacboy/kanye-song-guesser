@@ -1,0 +1,27 @@
+#!/bin/sh
+# Blocks `git push` unless the pytest suite passes.
+# Enabled by `npm install` (the "prepare" script runs: git config core.hooksPath .githooks).
+# Bypass in an emergency with: git push --no-verify
+
+cd "$(git rev-parse --show-toplevel)" || exit 1
+
+PYTHON=""
+for candidate in .venv/Scripts/python.exe .venv/bin/python python3 python py; do
+  if command -v "$candidate" >/dev/null 2>&1 && "$candidate" -c "import pytest" >/dev/null 2>&1; then
+    PYTHON="$candidate"
+    break
+  fi
+done
+
+if [ -z "$PYTHON" ]; then
+  echo "pre-push: pytest not found. Set it up with:" >&2
+  echo "  python -m venv .venv && .venv/Scripts/python -m pip install -r requirements-dev.txt" >&2
+  exit 1
+fi
+
+echo "pre-push: running pytest..."
+if ! "$PYTHON" -m pytest -q; then
+  echo "pre-push: tests failed, push aborted." >&2
+  exit 1
+fi
+echo "pre-push: all tests passed."

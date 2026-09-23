@@ -1,0 +1,124 @@
+:root {
+  --text: #e6e6e6;
+  --bg: #0e0e0e;
+  --muted: #8a8a8a;
+  --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: radial-gradient(ellipse at top, #3a3a3a 0%, #1c1c1c 45%, #0a0a0a 100%) fixed;
+  color: var(--text);
+  font-family: var(--font);
+}
+
+#game {
+  width: 100vw;
+  height: 100vh;
+}
+
+/* ---------- DOM widgets rendered by Phaser (guess input) ---------- */
+
+.guess {
+  position: relative;
+  width: 420px;
+  font-family: var(--font);
+}
+
+.guess-row {
+  display: flex;
+  gap: 8px;
+}
+
+.guess-input {
+  flex: 1;
+  height: 48px;
+  padding: 0 14px;
+  font: 18px var(--font);
+  color: var(--text);
+  background: transparent;
+  border: 2px solid var(--text);
+  outline: none;
+}
+
+.guess-input::placeholder {
+  color: var(--muted);
+}
+
+.guess-input:disabled {
+  opacity: 0.35;
+}
+
+.btn {
+  height: 48px;
+  min-width: 48px;
+  font: 22px var(--font);
+  color: var(--text);
+  background: transparent;
+  border: 2px solid var(--text);
+  cursor: pointer;
+  transition: background 0.1s, color 0.1s;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.suggestions {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 56px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--bg);
+  border: 2px solid var(--text);
+  max-height: 240px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted) var(--bg);
+  z-index: 10;
+}
+
+.suggestions:empty {
+  display: none;
+}
+
+.suggestions li {
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.suggestion-title {
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.suggestion-credits {
+  font-size: 12px;
+  line-height: 1.3;
+  opacity: 0.65;
+}
+
+.suggestions li:hover,
+.suggestions li.active {
+  background: var(--text);
+  color: var(--bg);
+}

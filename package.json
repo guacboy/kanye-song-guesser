@@ -1,0 +1,25 @@
+{
+  "name": "kanye-song-guesser",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Guess the Kanye West song from a 0.5s / 1s / 4s / 8s clip.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "zip": "npm run build && powershell -NoProfile -Command \"Compress-Archive -Path dist/* -DestinationPath kanye-song-guesser.zip -Force\"",
+    "prepare": "git config core.hooksPath .githooks"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guacboy/kanye-song-guesser.git"
+  },
+  "dependencies": {
+    "phaser": "^3.90.0"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "vite": "^8.3.0"
+  }
+}
