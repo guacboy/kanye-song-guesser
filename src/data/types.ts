@@ -15,4 +15,8 @@ export interface Song {
   start?: number;
   /** Extra accepted spellings for the answer. */
   aliases?: string[];
+  /** Total Spotify streams when last synced (scripts/sync_songs.py). */
+  streams?: number;
+  /** Spotify track id the entry was synced from. */
+  spotifyId?: string;
 }

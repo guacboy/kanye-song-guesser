@@ -1,4 +1,4 @@
-# KanyeGuess
+# kanye-song-guesser
 
 Guess the Kanye West song from a 0.5s → 1s → 4s → 8s clip. Built with Phaser 3 + TypeScript + Vite, for playing in the browser on itch.io.
 
@@ -12,23 +12,35 @@ npm run dev      # http://localhost:5173
 ## Adding songs
 
 1. Put the audio file in `public/audio/` (mp3, ogg, m4a or wav).
-2. Add an entry to [src/data/songs.json](src/data/songs.json):
+2. Add a line to [src/data/spotify_links.txt](src/data/spotify_links.txt) with the file name and the song's Spotify link (in Spotify: right-click the song → Share → Copy Song Link):
 
-   ```json
-   { "title": "Flashing Lights", "artists": ["Kanye West"], "features": ["Dwele"],
-     "album": "Graduation", "file": "audio/flashing-lights.mp3", "tier": "1b", "start": 0 }
+   ```
+   flashing-lights.mp3   https://open.spotify.com/track/5TRPicyLGbAF2LGBFbHGvO
    ```
 
-   - `artists`: the main credited artists. `features` (optional) lists featured artists. The dropdown shows them under the title as "Kanye West feat. Dwele".
-   - `tier`: the song's highest stream bracket (`"1b" | "100m" | "1m" | "100k"`). Brackets are cumulative, so the "> 1M" playlist also includes the "> 100M" and "> 1B" songs.
-   - `start` (optional): where in the file the clip begins, in seconds.
-   - `aliases` (optional): other spellings that count as correct.
+3. Run the sync script. It fills in [src/data/songs.json](src/data/songs.json) for you:
 
-The game and the dropdown only use songs whose file exists in `public/audio/`. The list is sorted alphabetically. Entries without a file are ignored. The folder is scanned at build time; the dev server restarts itself when you add or remove a file.
+   ```sh
+   python scripts/sync_songs.py            # or --dry-run to preview
+   ```
+
+   - Title, artists, features and album come from Spotify. Main artists are the track's artists who are also credited on the album; everyone else counts as a feature. So "Otis" gets JAY-Z and Kanye West as main artists, with Otis Redding as the feature.
+   - Total streams come from [kworb.net](https://kworb.net/spotify/artist/5K4W6rqBFWDnAN6FQUkS6x_songs.html), matched by Spotify track ID. They set the playlist (`tier`): > 1B, > 100M, > 1M or > 100K. Re-run the script now and then to update the counts.
+   - `start` (when the clip begins, in seconds) and `aliases` (other spellings that count as correct) are yours to add by hand in songs.json. Re-running the script keeps them.
+   - Entries without a Spotify link are left alone, so you can still write an entry by hand. Give it `title`, `artists`, `album`, `file` and `tier`.
+
+The game and the dropdown only use songs whose file exists in `public/audio/`, sorted alphabetically. The folder is scanned at build time; the dev server restarts itself when you add or remove a file.
+
+### Spotify credentials (one-time)
+
+1. Create an app at [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard). Any name works; set the redirect URI to `http://127.0.0.1:8888/callback` (it isn't used). Tick **Web API**.
+2. Copy `.env.example` to `.env` and paste in the app's Client ID and Client Secret. `.env` is git-ignored.
+
+Since February 2026, Spotify requires the owner of a Development Mode app to have an **active Spotify Premium subscription**.
 
 ## Tests
 
-The tests check the manifest (fields, tiers, duplicates) and that every audio file has an entry with matching filename casing. They also test the answer-checking, sorting and search logic, and that the game builds with itch.io-safe relative paths.
+The tests check the manifest (fields, tiers, duplicates, tier vs. stream count), the sync script (link parsing, artist/feature split, kworb matching; the network is faked) and that every audio file has an entry with matching filename casing. They also test the answer-checking, sorting and search logic, and that the game builds with itch.io-safe relative paths.
 
 ```sh
 python -m venv .venv

@@ -23,7 +23,8 @@ export class MenuScene extends Phaser.Scene {
     fitCamera(this);
     const cx = WIDTH / 2;
 
-    makeText(this, 32, 40, 'KanyeGuess', 32).setOrigin(0, 0.5).setFontStyle('bold');
+    const kanye = makeText(this, 32, 40, 'Kanye', 32).setOrigin(0, 0.5).setFontStyle('bold');
+    makeText(this, kanye.x + kanye.width, 40, 'Guess', 32, COLORS.accent).setOrigin(0, 0.5).setFontStyle('bold');
 
     makeText(this, cx, CARD_Y - CARD_SIZE / 2 - 36, 'CHOOSE A PLAYLIST', 14, COLORS.muted).setLetterSpacing(3);
 

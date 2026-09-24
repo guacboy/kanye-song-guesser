@@ -6,7 +6,7 @@ import pytest
 
 VALID_TIERS = {"1b", "100m", "1m", "100k"}
 REQUIRED = {"title": str, "artists": list, "album": str, "file": str, "tier": str}
-OPTIONAL = {"features": list, "start": (int, float), "aliases": list}
+OPTIONAL = {"features": list, "start": (int, float), "aliases": list, "streams": int, "spotifyId": str}
 FILE_PATTERN = re.compile(r"^audio/[^/\\]+\.(mp3|ogg|m4a|wav)$", re.IGNORECASE)
 
 
@@ -88,3 +88,14 @@ def test_title_and_artist_pairs_are_unique(manifest):
         key = (song["title"].lower(), tuple(a.lower() for a in song["artists"]))
         assert key not in seen, f"duplicate song entry: {label(song)}"
         seen.add(key)
+
+
+def test_tier_matches_stream_count(manifest):
+    """Synced entries carry a stream count; their tier must agree with it."""
+    from sync_songs import tier_for_streams
+
+    for song in manifest:
+        if "streams" in song:
+            assert song["tier"] == tier_for_streams(song["streams"]), (
+                f"{label(song)}: {song['streams']:,} streams should be tier '{tier_for_streams(song['streams'])}'"
+            )

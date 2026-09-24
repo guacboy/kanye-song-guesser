@@ -33,10 +33,10 @@ export class Button extends Phaser.GameObjects.Container {
       this.isHovered = true;
       this.refresh();
     });
-    this.on('pointerout', () => {
-      this.isHovered = false;
-      this.refresh();
-    });
+    this.on('pointerout', () => this.clearHover());
+    // Phaser doesn't send pointerout when the cursor leaves the canvas from on top of an object.
+    scene.input.on(Phaser.Input.Events.GAME_OUT, this.clearHover, this);
+    this.once(Phaser.GameObjects.Events.DESTROY, () => scene.input.off(Phaser.Input.Events.GAME_OUT, this.clearHover, this));
     this.on('pointerup', () => {
       if (this.isEnabled) onClick();
     });
@@ -60,6 +60,11 @@ export class Button extends Phaser.GameObjects.Container {
     this.isSelected = selected;
     this.refresh();
     return this;
+  }
+
+  private clearHover(): void {
+    this.isHovered = false;
+    this.refresh();
   }
 
   private refresh(): void {

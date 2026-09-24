@@ -10,6 +10,7 @@ export const COLORS = {
   muted: '#8a8a8a',
   mutedNum: 0x8a8a8a,
   dim: 0x3a3a3a,
+  accent: '#3cd470',
 };
 
 export const FONT = '"Helvetica Neue", Helvetica, Arial, sans-serif';

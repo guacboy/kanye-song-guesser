@@ -1,0 +1,6 @@
+# One song per line: <audio file in public/audio/>  <Spotify track link>
+# Get the link in Spotify: right-click the song → Share → Copy Song Link.
+# Then run: python scripts/sync_songs.py
+
+# The College Dropout
+we-don't-care.mp3 https://open.spotify.com/track/0IW0qaeyxL5Et4UG2MrJKB?si=18c6998658a74605

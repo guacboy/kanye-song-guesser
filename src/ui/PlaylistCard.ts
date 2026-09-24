@@ -1,8 +1,12 @@
 import Phaser from 'phaser';
-import { COLORS, RENDER_SCALE, makeText } from '../theme';
+import { COLORS, makeText } from '../theme';
 
-const GLOW_TEXTURE = 'card-glow';
 const GLOW_PAD = 28;
+const GLOW_MAX_BLUR = 22;
+/** Pre-rendered glow sizes, from a thin line at the border (0) to the full glow (GLOW_STEPS - 1). */
+const GLOW_STEPS = 16;
+const GLOW_GROW_MS = 400;
+const glowTexture = (step: number) => `card-glow-${step}`;
 
 /**
  * Square playlist tile: optional background image, song count, stream label.
@@ -29,7 +33,7 @@ export class PlaylistCard extends Phaser.GameObjects.Container {
     super(scene, x, y);
     PlaylistCard.ensureGlowTexture(scene, size);
 
-    this.glow = scene.add.image(0, 0, GLOW_TEXTURE).setScale(1 / RENDER_SCALE).setVisible(false);
+    this.glow = scene.add.image(0, 0, glowTexture(0)).setVisible(false);
     this.add(this.glow);
 
     this.hasImage = scene.textures.exists(imageKey);
@@ -48,27 +52,47 @@ export class PlaylistCard extends Phaser.GameObjects.Container {
     this.setInteractive({ useHandCursor: true });
     this.on('pointerover', () => this.setHovered(true));
     this.on('pointerout', () => this.setHovered(false));
+    // Phaser doesn't send pointerout when the cursor leaves the canvas from on top of an object.
+    const clearHover = () => this.setHovered(false);
+    scene.input.on(Phaser.Input.Events.GAME_OUT, clearHover);
+    this.once(Phaser.GameObjects.Events.DESTROY, () => scene.input.off(Phaser.Input.Events.GAME_OUT, clearHover));
     this.on('pointerup', onClick);
 
     scene.add.existing(this);
   }
 
   setSelected(selected: boolean): this {
-    this.glow.setVisible(selected);
+    if (selected === this.glow.visible) return this;
     this.glowTween?.remove();
     this.glowTween = undefined;
-    if (selected) {
-      this.glow.setAlpha(1);
-      this.glowTween = this.scene.tweens.add({
-        targets: this.glow,
-        alpha: 0.55,
-        duration: 1100,
-        yoyo: true,
-        repeat: -1,
-        ease: 'Sine.easeInOut',
-      });
-    }
+    this.glow.setVisible(selected);
+    if (selected) this.growGlow();
     return this;
+  }
+
+  /** Spread the glow out from the border, then hand off to the idle pulse. */
+  private growGlow(): void {
+    this.glow.setTexture(glowTexture(0)).setAlpha(1);
+    const progress = { t: 0 };
+    this.glowTween = this.scene.tweens.add({
+      targets: progress,
+      t: 1,
+      duration: GLOW_GROW_MS,
+      ease: 'Cubic.easeOut',
+      onUpdate: () => this.glow.setTexture(glowTexture(Math.round(progress.t * (GLOW_STEPS - 1)))),
+      onComplete: () => this.pulseGlow(),
+    });
+  }
+
+  private pulseGlow(): void {
+    this.glowTween = this.scene.tweens.add({
+      targets: this.glow,
+      alpha: 0.55,
+      duration: 1100,
+      yoyo: true,
+      repeat: -1,
+      ease: 'Sine.easeInOut',
+    });
   }
 
   private setHovered(hovered: boolean): void {
@@ -87,20 +111,23 @@ export class PlaylistCard extends Phaser.GameObjects.Container {
     return img.setScale(scale).setCrop((img.width - cw) / 2, (img.height - ch) / 2, cw, ch);
   }
 
-  /** White outer glow drawn once with canvas shadowBlur; the card area itself is cut out. */
+  /**
+   * White outer glow at each spread step, drawn once with canvas shadowBlur; the card area is cut out.
+   * Drawn at 1× — it's a blur, so extra resolution wouldn't show.
+   */
   private static ensureGlowTexture(scene: Phaser.Scene, size: number): void {
-    if (scene.textures.exists(GLOW_TEXTURE)) return;
-    const s = RENDER_SCALE;
-    const pad = GLOW_PAD * s;
-    const inner = size * s;
-    const tex = scene.textures.createCanvas(GLOW_TEXTURE, inner + pad * 2, inner + pad * 2)!;
-    const ctx = tex.getContext();
-    ctx.shadowColor = 'rgba(255, 255, 255, 0.95)';
-    ctx.shadowBlur = 22 * s;
-    ctx.fillStyle = '#ffffff';
-    for (let i = 0; i < 3; i++) ctx.fillRect(pad, pad, inner, inner);
-    ctx.shadowBlur = 0;
-    ctx.clearRect(pad, pad, inner, inner);
-    tex.refresh();
+    if (scene.textures.exists(glowTexture(0))) return;
+    const full = size + GLOW_PAD * 2;
+    for (let step = 0; step < GLOW_STEPS; step++) {
+      const tex = scene.textures.createCanvas(glowTexture(step), full, full)!;
+      const ctx = tex.getContext();
+      ctx.shadowColor = 'rgba(255, 255, 255, 0.95)';
+      ctx.shadowBlur = 2 + (GLOW_MAX_BLUR - 2) * (step / (GLOW_STEPS - 1));
+      ctx.fillStyle = '#ffffff';
+      for (let i = 0; i < 3; i++) ctx.fillRect(GLOW_PAD, GLOW_PAD, size, size);
+      ctx.shadowBlur = 0;
+      ctx.clearRect(GLOW_PAD, GLOW_PAD, size, size);
+      tex.refresh();
+    }
   }
 }
