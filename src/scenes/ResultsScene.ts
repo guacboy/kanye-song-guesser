@@ -5,7 +5,7 @@ import { Button } from '../ui/Button';
 import { hideDim } from '../ui/backdrop';
 import { goTo } from '../transition';
 import { playSfx } from '../sfx';
-import { breakdownLines } from '../logic/score';
+import { breakdownLines, songsGuessed } from '../logic/score';
 
 export type EndReason = 'out-of-lives' | 'finished' | 'no-audio';
 
@@ -14,6 +14,8 @@ export interface ResultsData {
   score: number;
   /** hits[i] = songs guessed on clip i. */
   hits: number[];
+  /** Songs in the playlist (that could be loaded). */
+  total: number;
   reason: EndReason;
 }
 
@@ -40,7 +42,7 @@ export class ResultsScene extends Phaser.Scene {
     super('Results');
   }
 
-  create({ tier, score, hits, reason }: ResultsData): void {
+  create({ tier, score, hits, total, reason }: ResultsData): void {
     fitCamera(this);
     this.leaving = false;
     this.input.enabled = true; // leave() turned it off; the plugin keeps that across launches
@@ -70,6 +72,7 @@ export class ResultsScene extends Phaser.Scene {
         makeText(this, 0, TOP + 122, `${score}`, 52).setFontStyle('bold'),
         ...lines.map((line, i) => makeText(this, 0, linesY + i * LINE_GAP, line, 14, COLORS.muted)),
         makeText(this, 0, linesY + lines.length * LINE_GAP + 16, `Best: ${best}`, 15),
+        makeText(this, 0, linesY + lines.length * LINE_GAP + 42, `You guessed ${songsGuessed(hits)} / ${total} songs correct!`, 14, COLORS.muted),
       ]);
     }
 

@@ -75,6 +75,8 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
   /** hits[i] = songs guessed on clip i; the score and the results breakdown come from it. */
   private hits: number[] = [];
   private played = 0;
+  /** Songs in this playlist; drops if a file fails to load. */
+  private total = 0;
   private alive = false;
   private ended = false;
   private pending = new Map<string, Promise<boolean>>();
@@ -107,6 +109,7 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
     this.lives = MAX_LIVES;
     this.hits = CLIP_LENGTHS.map(() => 0);
     this.played = 0;
+    this.total = this.queue.length;
     this.pending.clear();
     this.alive = true;
     this.ended = false;
@@ -185,6 +188,7 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
         return;
       }
       console.warn(`[game] could not load ${song.file}, skipping "${song.title}"`);
+      this.total--;
     }
     this.endGame(this.played === 0 ? 'no-audio' : 'finished');
   }
@@ -251,7 +255,7 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
     this.ended = true;
     this.stopClip();
     this.freeze(true);
-    this.scene.launch('Results', { tier: this.tier, score: totalScore(this.hits), hits: this.hits, reason });
+    this.scene.launch('Results', { tier: this.tier, score: totalScore(this.hits), hits: this.hits, total: this.total, reason });
   }
 
   private openSettings(): void {

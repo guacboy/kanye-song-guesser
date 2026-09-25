@@ -14,7 +14,7 @@ The score in the top left starts at 0. A correct guess scores by the clip it was
 | 8s | 25 |
 | Missed | 0 |
 
-The results pop-up shows the total, a breakdown per clip (for example `300 x 2 = 600 pts`) and the best score for that playlist.
+The results pop-up shows the total, a breakdown per clip (for example `300 x 2 = 600 pts`) the best score for that playlist, and how many of the playlist's songs you guessed.
 
 ## Run it
 

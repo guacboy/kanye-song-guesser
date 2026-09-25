@@ -33,3 +33,8 @@ def test_breakdown_lines(call):
         "75 x 1 = 75 pts",
         "25 x 0 = 0 pts",
     ]
+
+
+def test_songs_guessed(call):
+    assert call("songsGuessed", [2, 1, 0, 3]) == 6
+    assert call("songsGuessed", [0, 0, 0, 0]) == 0

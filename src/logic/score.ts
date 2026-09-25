@@ -11,6 +11,11 @@ export function totalScore(hits: number[]): number {
   return hits.reduce((sum, n, i) => sum + n * pointsFor(i), 0);
 }
 
+/** Songs guessed correctly on any clip. */
+export function songsGuessed(hits: number[]): number {
+  return hits.reduce((sum, n) => sum + n, 0);
+}
+
 /** Results breakdown, one line per clip: "300 x 2 = 600 pts". */
 export function breakdownLines(hits: number[]): string[] {
   return CLIP_POINTS.map((pts, i) => {
