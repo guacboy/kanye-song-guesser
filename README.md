@@ -40,7 +40,7 @@ npm run dev      # http://localhost:5173
 
    - Title, artists, features, album and album cover come from Spotify. Covers are saved to `public/assets/albums/<album id>.jpg` (one per album) and shown when a song is revealed. Main artists are the track's artists who are also credited on the album; everyone else counts as a feature. So "Otis" gets JAY-Z and Kanye West as main artists, with Otis Redding as the feature.
    - Total streams come from [kworb.net](https://kworb.net/spotify/artist/5K4W6rqBFWDnAN6FQUkS6x_songs.html), matched by Spotify track ID. They set the playlist (`tier`): > 1B, > 100M or > 1M. A song with 1M streams or fewer can't be synced. Re-run the script now and then to update the counts.
-   - `start` (when the clip begins, in seconds) and `aliases` (other spellings that count as correct) are yours to add by hand in songs.json. Re-running the script keeps them.
+   - Clips skip any silence at the start of a song automatically, so even the 0.1s clip has sound. `start` (when the clip begins, in seconds; the silence skip still applies after it) and `aliases` (other spellings that count as correct) are yours to add by hand in songs.json. Re-running the script keeps them.
    - Entries without a Spotify link are left alone, so you can still write an entry by hand. Give it `title`, `artists`, `album`, `file` and `tier`.
 
 The game and the dropdown only use songs whose file exists in `public/audio/`, sorted alphabetically. Typing a title, artist or album name brings up matching songs. The folder is scanned at build time; the dev server restarts itself when you add or remove a file.

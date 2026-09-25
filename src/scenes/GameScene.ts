@@ -13,6 +13,7 @@ import {
 import { SONGS, Song, Tier, songsForTier } from '../data/songs';
 import { creditLine, isCorrect } from '../logic/search';
 import { totalScore } from '../logic/score';
+import { firstAudible } from '../logic/audio';
 import { Button } from '../ui/Button';
 import { GuessInput } from '../ui/GuessInput';
 import { roundedCoverTexture } from '../ui/roundedTexture';
@@ -80,6 +81,8 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
   private alive = false;
   private ended = false;
   private pending = new Map<string, Promise<boolean>>();
+  /** Where each song's clips begin (seconds), past any silent intro. */
+  private clipStarts = new Map<string, number>();
 
   private clip?: Phaser.Sound.WebAudioSound | Phaser.Sound.HTML5AudioSound;
   private clipLen = 0;
@@ -436,12 +439,28 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
     this.stopClip();
 
     const clip = this.sound.add(songKey(this.song)) as NonNullable<typeof this.clip>;
-    clip.addMarker({ name: 'clip', start: this.song.start ?? 0, duration: length });
+    clip.addMarker({ name: 'clip', start: this.clipStart(this.song), duration: length });
     // Volume goes here: playing a marker swaps in the marker's own config (volume 1).
     clip.play('clip', { volume: getVolume('music') });
     this.clip = clip;
     this.clipLen = length;
     this.clipStartedAt = this.time.now;
+  }
+
+  /** `song.start` (or 0), moved past any silence so even the 0.1s clip has sound. */
+  private clipStart(song: Song): number {
+    const key = songKey(song);
+    let start = this.clipStarts.get(key);
+    if (start === undefined) {
+      const from = song.start ?? 0;
+      const buffer = this.cache.audio.get(key) as AudioBuffer | undefined;
+      start =
+        buffer && typeof buffer.getChannelData === 'function' // WebAudio only; HTML5 audio has no samples
+          ? firstAudible(Array.from({ length: buffer.numberOfChannels }, (_, i) => buffer.getChannelData(i)), buffer.sampleRate, from)
+          : from;
+      this.clipStarts.set(key, start);
+    }
+    return start;
   }
 
   private stopClip(): void {
