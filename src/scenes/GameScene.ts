@@ -12,6 +12,7 @@ import {
 } from '../theme';
 import { SONGS, Song, Tier, songsForTier } from '../data/songs';
 import { creditLine, isCorrect } from '../logic/search';
+import { totalScore } from '../logic/score';
 import { Button } from '../ui/Button';
 import { GuessInput } from '../ui/GuessInput';
 import { roundedCoverTexture } from '../ui/roundedTexture';
@@ -27,7 +28,7 @@ import { getVolume, onVolumeChange } from '../settings';
 type Phase = 'loading' | 'guessing' | 'revealed';
 
 const CX = WIDTH / 2;
-const TOP_Y = 86; // song counter, lives and settings gear share this row
+const TOP_Y = 86; // score, lives and settings gear share this row
 const LIFE_SIZE = 120;
 const LIFE_GAP = 130;
 const DEAD_LIFE_SCALE = 0.75; // a lost life shrinks...
@@ -71,10 +72,9 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
   private phase: Phase = 'loading';
   private attempt = 0;
   private lives = MAX_LIVES;
-  private score = 0;
+  /** hits[i] = songs guessed on clip i; the score and the results breakdown come from it. */
+  private hits: number[] = [];
   private played = 0;
-  /** Songs in this run; drops if a file fails to load. */
-  private total = 0;
   private alive = false;
   private ended = false;
   private pending = new Map<string, Promise<boolean>>();
@@ -92,7 +92,7 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
   private revealView?: Phaser.GameObjects.Container;
   private guess!: GuessInput;
   private skipBtn!: Button;
-  private progressText!: Phaser.GameObjects.Text;
+  private scoreText!: Phaser.GameObjects.Text;
 
   constructor() {
     super('Game');
@@ -105,9 +105,8 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
     this.phase = 'loading';
     this.attempt = 0;
     this.lives = MAX_LIVES;
-    this.score = 0;
+    this.hits = CLIP_LENGTHS.map(() => 0);
     this.played = 0;
-    this.total = this.queue.length;
     this.pending.clear();
     this.alive = true;
     this.ended = false;
@@ -117,8 +116,8 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
 
   create(): void {
     fitCamera(this);
-    // Top bar: songs counter | lives (centered) | settings gear (RESTART / QUIT live in there)
-    this.progressText = makeText(this, 32, TOP_Y, '', 18).setOrigin(0, 0.5);
+    // Top bar: score | lives (centered) | settings gear (RESTART / QUIT live in there)
+    this.scoreText = makeText(this, 32, TOP_Y, '', 18).setOrigin(0, 0.5).setFontStyle('bold');
     this.gearBtn = new Button(this, WIDTH - 48, TOP_Y, '', () => this.openSettings(), 38, 38, 14, true)
       .setIcon((g, color, active) => drawGear(g, color, 14, active)) // fills in on hover
       .setBorderless(COLORS.textNum);
@@ -181,14 +180,11 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
       if (ok) {
         this.song = song;
         this.played++;
-        this.refreshHud();
         if (this.queue[0]) void this.loadSong(this.queue[0]); // preload the next one
         this.startAttempt();
         return;
       }
       console.warn(`[game] could not load ${song.file}, skipping "${song.title}"`);
-      this.total--;
-      this.refreshHud();
     }
     this.endGame(this.played === 0 ? 'no-audio' : 'finished');
   }
@@ -203,7 +199,7 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
   private submitGuess(guess: string): void {
     if (this.phase !== 'guessing' || !this.song) return;
     if (isCorrect(this.song, guess)) {
-      this.score++;
+      this.hits[this.attempt]++;
       playSfx(this, 'correct');
       this.reveal();
     } else {
@@ -255,7 +251,7 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
     this.ended = true;
     this.stopClip();
     this.freeze(true);
-    this.scene.launch('Results', { tier: this.tier, score: this.score, played: this.played, reason });
+    this.scene.launch('Results', { tier: this.tier, score: totalScore(this.hits), hits: this.hits, reason });
   }
 
   private openSettings(): void {
@@ -297,7 +293,7 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
 
   private refreshHud(): void {
     this.drawLives();
-    this.progressText.setText(`${this.played} / ${this.total}`);
+    this.scoreText.setText(`${totalScore(this.hits)}`);
   }
 
   private drawLives(): void {

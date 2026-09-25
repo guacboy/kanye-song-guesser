@@ -5,13 +5,15 @@ import { Button } from '../ui/Button';
 import { hideDim } from '../ui/backdrop';
 import { goTo } from '../transition';
 import { playSfx } from '../sfx';
+import { breakdownLines } from '../logic/score';
 
 export type EndReason = 'out-of-lives' | 'finished' | 'no-audio';
 
 export interface ResultsData {
   tier: Tier;
   score: number;
-  played: number;
+  /** hits[i] = songs guessed on clip i. */
+  hits: number[];
   reason: EndReason;
 }
 
@@ -22,7 +24,9 @@ const TITLES: Record<EndReason, string> = {
 };
 
 const PANEL_W = 380;
-const PANEL_H = 340;
+const PANEL_H = 420;
+const TOP = -PANEL_H / 2;
+const LINE_GAP = 22; // between breakdown lines
 
 /**
  * Results pop-up, launched on top of the (dimmed, inactive) game scene. Its buttons leave through
@@ -36,7 +40,7 @@ export class ResultsScene extends Phaser.Scene {
     super('Results');
   }
 
-  create({ tier, score, played, reason }: ResultsData): void {
+  create({ tier, score, hits, reason }: ResultsData): void {
     fitCamera(this);
     this.leaving = false;
     this.input.enabled = true; // leave() turned it off; the plugin keeps that across launches
@@ -49,8 +53,8 @@ export class ResultsScene extends Phaser.Scene {
     box.lineStyle(2, COLORS.textNum).strokeRoundedRect(-PANEL_W / 2, -PANEL_H / 2, PANEL_W, PANEL_H, RADIUS * 1.5);
     panel.add([
       box,
-      makeText(this, 0, -128, TITLES[reason], 28).setFontStyle('bold'),
-      makeText(this, 0, -98, TIERS.find((t) => t.id === tier)?.label ?? '', 13, COLORS.muted),
+      makeText(this, 0, TOP + 42, TITLES[reason], 28).setFontStyle('bold'),
+      makeText(this, 0, TOP + 72, TIERS.find((t) => t.id === tier)?.label ?? '', 13, COLORS.muted),
     ]);
 
     if (reason === 'no-audio') {
@@ -60,16 +64,18 @@ export class ResultsScene extends Phaser.Scene {
       );
     } else {
       const best = this.updateBest(tier, score);
+      const lines = breakdownLines(hits);
+      const linesY = TOP + 174;
       panel.add([
-        makeText(this, 0, -30, `${score}`, 52).setFontStyle('bold'),
-        makeText(this, 0, 12, `song${score === 1 ? '' : 's'} guessed of ${played}`, 14, COLORS.muted),
-        makeText(this, 0, 40, `Best: ${best}`, 15),
+        makeText(this, 0, TOP + 122, `${score}`, 52).setFontStyle('bold'),
+        ...lines.map((line, i) => makeText(this, 0, linesY + i * LINE_GAP, line, 14, COLORS.muted)),
+        makeText(this, 0, linesY + lines.length * LINE_GAP + 16, `Best: ${best}`, 15),
       ]);
     }
 
     panel.add([
-      new Button(this, 82, 118, 'PLAY AGAIN', () => this.leave('Game', { tier }), 150, 40, 14),
-      new Button(this, -82, 118, 'MAIN MENU', () => this.leave('Menu'), 150, 40, 14),
+      new Button(this, 82, PANEL_H / 2 - 46, 'PLAY AGAIN', () => this.leave('Game', { tier }), 150, 40, 14),
+      new Button(this, -82, PANEL_H / 2 - 46, 'MAIN MENU', () => this.leave('Menu'), 150, 40, 14),
     ]);
     this.panel = panel;
 
@@ -96,7 +102,7 @@ export class ResultsScene extends Phaser.Scene {
   }
 
   private updateBest(tier: Tier, score: number): number {
-    const key = `ksg-best-${tier}`;
+    const key = `ksg-best-score-${tier}`; // points; the old ksg-best-<tier> counted songs
     try {
       const best = Math.max(Number(localStorage.getItem(key)) || 0, score);
       localStorage.setItem(key, String(best));

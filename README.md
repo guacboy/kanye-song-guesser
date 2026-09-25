@@ -2,6 +2,20 @@
 
 Guess the Kanye West song from a 0.1s -> 0.5s -> 2s -> 8s clip. Each wrong guess or skip unlocks the next length; miss all four and you lose one of three lives. The page has a grey gradient from the top. Once a song is revealed, its album cover appears, the gradient takes on the cover's main color, and 15 seconds of the song play. Built with Phaser 3 + TypeScript + Vite, for playing in the browser on itch.io.
 
+## Scoring
+
+The score in the top left starts at 0. A correct guess scores by the clip it was guessed on:
+
+| Guessed on | Points |
+| --- | --- |
+| 0.1s | 300 |
+| 0.5s | 150 |
+| 2s | 75 |
+| 8s | 25 |
+| Missed | 0 |
+
+The results pop-up shows the total, a breakdown per clip (for example `300 x 2 = 600 pts`) and the best score for that playlist.
+
 ## Run it
 
 ```sh
@@ -40,7 +54,7 @@ Since February 2026, Spotify requires the owner of a Development Mode app to hav
 
 ## Tests
 
-The tests check the manifest (fields, tiers, duplicates, tier vs. stream count), the sync script (link parsing, artist/feature split, kworb matching; the network is faked) and that every audio file has an entry with matching filename casing. They also test the answer-checking, sorting and search logic, the album backdrop color, the saved volume parsing, that every sound effect file exists, and that the game builds with itch.io-safe relative paths.
+The tests check the manifest (fields, tiers, duplicates, tier vs. stream count), the sync script (link parsing, artist/feature split, kworb matching; the network is faked) and that every audio file has an entry with matching filename casing. They also test the answer-checking, scoring, sorting and search logic, the album backdrop color, the saved volume parsing, that every sound effect file exists, and that the game builds with itch.io-safe relative paths.
 
 ```sh
 python -m venv .venv
