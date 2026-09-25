@@ -418,5 +418,195 @@
     "tier": "1m",
     "streams": 56999939,
     "spotifyId": "1mFHMzbaECWFaPfoePoEYl"
+  },
+  {
+    "title": "Good Morning",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "Graduation",
+    "file": "audio/good-morning.mp3",
+    "cover": "assets/albums/4SZko61aMnmgvNhfhgTuD3.jpg",
+    "tier": "100m",
+    "streams": 435159382,
+    "spotifyId": "6MXXY2eiWkpDCezVCc0cMH"
+  },
+  {
+    "title": "Champion",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "Graduation",
+    "file": "audio/champion.mp3",
+    "cover": "assets/albums/4SZko61aMnmgvNhfhgTuD3.jpg",
+    "tier": "100m",
+    "streams": 367821844,
+    "spotifyId": "4UQMOPSUVJVicIQzjAcRRZ"
+  },
+  {
+    "title": "Stronger",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "Graduation",
+    "file": "audio/stronger.mp3",
+    "cover": "assets/albums/4SZko61aMnmgvNhfhgTuD3.jpg",
+    "tier": "1b",
+    "streams": 1893709030,
+    "spotifyId": "0j2T0R9dR9qdJYsB7ciXhf"
+  },
+  {
+    "title": "I Wonder",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "Graduation",
+    "file": "audio/i-wonder.mp3",
+    "cover": "assets/albums/4SZko61aMnmgvNhfhgTuD3.jpg",
+    "tier": "1b",
+    "streams": 1229063947,
+    "spotifyId": "7rbECVPkY5UODxoOUVKZnA"
+  },
+  {
+    "title": "Good Life",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "T-Pain"
+    ],
+    "album": "Graduation",
+    "file": "audio/good-life.mp3",
+    "cover": "assets/albums/4SZko61aMnmgvNhfhgTuD3.jpg",
+    "tier": "100m",
+    "streams": 629640857,
+    "spotifyId": "4ZPdLEztrlZqbJkgHNw54L"
+  },
+  {
+    "title": "Can't Tell Me Nothing",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "Graduation",
+    "file": "audio/can't-tell-me-nothing.mp3",
+    "cover": "assets/albums/4SZko61aMnmgvNhfhgTuD3.jpg",
+    "tier": "1b",
+    "streams": 1091400109,
+    "spotifyId": "0mEdbdeRFQwBhN4xfyIeUM"
+  },
+  {
+    "title": "Barry Bonds",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "Lil Wayne"
+    ],
+    "album": "Graduation",
+    "file": "audio/barry-bonds.mp3",
+    "cover": "assets/albums/4SZko61aMnmgvNhfhgTuD3.jpg",
+    "tier": "1m",
+    "streams": 92896902,
+    "spotifyId": "7387VaiHpOsSIZ5nmjseya"
+  },
+  {
+    "title": "Drunk and Hot Girls",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "Mos Def"
+    ],
+    "album": "Graduation",
+    "file": "audio/drunk-and-hot-girls.mp3",
+    "cover": "assets/albums/4SZko61aMnmgvNhfhgTuD3.jpg",
+    "tier": "1m",
+    "streams": 80065826,
+    "spotifyId": "7DRuzSlhjKadgdsQRYZ0tr"
+  },
+  {
+    "title": "Flashing Lights",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "Dwele"
+    ],
+    "album": "Graduation",
+    "file": "audio/flashing-lights.mp3",
+    "cover": "assets/albums/4SZko61aMnmgvNhfhgTuD3.jpg",
+    "tier": "1b",
+    "streams": 1912121673,
+    "spotifyId": "5TRPicyLGbAF2LGBFbHGvO"
+  },
+  {
+    "title": "Everything I Am",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "DJ Premier"
+    ],
+    "album": "Graduation",
+    "file": "audio/everything-i-am.mp3",
+    "cover": "assets/albums/4SZko61aMnmgvNhfhgTuD3.jpg",
+    "tier": "100m",
+    "streams": 383725962,
+    "spotifyId": "0NrtwAmRAdLxua31SzHvXr"
+  },
+  {
+    "title": "The Glory",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "Graduation",
+    "file": "audio/the-glory.mp3",
+    "cover": "assets/albums/4SZko61aMnmgvNhfhgTuD3.jpg",
+    "tier": "100m",
+    "streams": 134113230,
+    "spotifyId": "0lWjRSzq5chA9fps3pM8Zr"
+  },
+  {
+    "title": "Homecoming",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "Chris Martin"
+    ],
+    "album": "Graduation",
+    "file": "audio/homecoming.mp3",
+    "cover": "assets/albums/4SZko61aMnmgvNhfhgTuD3.jpg",
+    "tier": "1b",
+    "streams": 1144753832,
+    "spotifyId": "4iz9lGMjU1lXS51oPmUmTe"
+  },
+  {
+    "title": "Big Brother",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "Graduation",
+    "file": "audio/big-brother.mp3",
+    "cover": "assets/albums/4SZko61aMnmgvNhfhgTuD3.jpg",
+    "tier": "100m",
+    "streams": 101062923,
+    "spotifyId": "2L47m9erkB5KBZcaqWtYen"
+  },
+  {
+    "title": "Good Night",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "Mos Def",
+      "Albe Back"
+    ],
+    "album": "Graduation",
+    "file": "audio/good-night.mp3",
+    "cover": "assets/albums/4SZko61aMnmgvNhfhgTuD3.jpg",
+    "tier": "1m",
+    "streams": 61729221,
+    "spotifyId": "3bhyo2ED5Yd4RLydQBDtD6"
   }
 ]

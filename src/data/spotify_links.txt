@@ -37,17 +37,17 @@ gone.mp3 https://open.spotify.com/track/5RjbFGeWVsCpw8EcE8OrvZ?si=e7861504b40d4f
 late.mp3 https://open.spotify.com/track/1mFHMzbaECWFaPfoePoEYl?si=fb1d4f7dfd334276
 
 # Graduation
-good-morning.mp3
-champion.mp3
-stronger.mp3
-i-wonder.mp3
-good-life.mp3
-can't-tell-me-nothing.mp3
-barry-bonds.mp3
-drunk-and-hot-girls.mp3
-flashing-lights.mp3
-everything-i-am.mp3
-the-glory.mp3
-homecoming.mp3
-big-brother.mp3
-good-night.mp3
+good-morning.mp3 https://open.spotify.com/track/6MXXY2eiWkpDCezVCc0cMH?si=c405aa7aab124238
+champion.mp3 https://open.spotify.com/track/4UQMOPSUVJVicIQzjAcRRZ?si=93652f018a9d4724
+stronger.mp3 https://open.spotify.com/track/0j2T0R9dR9qdJYsB7ciXhf?si=9a07f7032fef43a1
+i-wonder.mp3 https://open.spotify.com/track/7rbECVPkY5UODxoOUVKZnA?si=9607e7a16ff1414e
+good-life.mp3 https://open.spotify.com/track/4ZPdLEztrlZqbJkgHNw54L?si=09f38b18b94640f9
+can't-tell-me-nothing.mp3 https://open.spotify.com/track/0mEdbdeRFQwBhN4xfyIeUM?si=c5a173adce7e4d22
+barry-bonds.mp3 https://open.spotify.com/track/7387VaiHpOsSIZ5nmjseya?si=8ec44ae440b548ef
+drunk-and-hot-girls.mp3 https://open.spotify.com/track/7DRuzSlhjKadgdsQRYZ0tr?si=c7b0cf4f3c664cd2
+flashing-lights.mp3 https://open.spotify.com/track/5TRPicyLGbAF2LGBFbHGvO?si=0d0e7b1b8e414a23
+everything-i-am.mp3 https://open.spotify.com/track/0NrtwAmRAdLxua31SzHvXr?si=d9a456b95ac04ee8
+the-glory.mp3 https://open.spotify.com/track/0lWjRSzq5chA9fps3pM8Zr?si=08f05ae7b6774b0a
+homecoming.mp3 https://open.spotify.com/track/4iz9lGMjU1lXS51oPmUmTe?si=cf797471211340a3
+big-brother.mp3 https://open.spotify.com/track/2L47m9erkB5KBZcaqWtYen?si=e0a73b5ca0014cc3
+good-night.mp3 https://open.spotify.com/track/3bhyo2ED5Yd4RLydQBDtD6?si=456452123c85454b
