@@ -65,3 +65,16 @@ bad-news.mp3 https://open.spotify.com/track/1nNPoG2hygEvrFGlHdhvJ9?si=e05e571a52
 see-you-in-my-nightmares.mp3 https://open.spotify.com/track/5zuoz1NBnpoHK6g5sbEH8F?si=ede6eeb69158449b
 coldest-winter.mp3 https://open.spotify.com/track/2RRFTLIglxHgAYQzsSLI4Y?si=a5f37849829f4ce7
 pinocchio-story.mp3 https://open.spotify.com/track/6giHsGo1eSYZSXKdNwTC62?si=c0aceeab80db4b7c
+
+# MBDTF
+dark-fantasy.mp3 https://open.spotify.com/track/7yNK27ZTpHew0c55VvIJgm?si=a5ad494dab1f4c9c
+gorgeous.mp3 https://open.spotify.com/track/23SZWX2IaDnxmhFsSLvkG2?si=0b997a1cd12d49e0
+power.mp3 https://open.spotify.com/track/2gZUPNdnz5Y45eiGxpHGSc?si=b9941d0f82c74b50
+all-of-the-lights.mp3 https://open.spotify.com/track/22L7bfCiAkJo5xGSQgmiIO?si=19f8754a3d0c40a7
+monster.mp3 https://open.spotify.com/track/1ZHYJ2Wwgxes4m8Ba88PeK?si=b894614c79524576
+so-appalled.mp3 https://open.spotify.com/track/6K07Ahf6V7CAQn0ikrOztl?si=633dd6adbaa4493e
+devil-in-a-new-dress.mp3 https://open.spotify.com/track/1UGD3lW3tDmgZfAVDh6w7r?si=3388381da9a84ec1
+runaway.mp3 https://open.spotify.com/track/3DK6m7It6Pw857FcQftMds?si=b24e19de5f014baa
+hell-of-a-life.mp3 https://open.spotify.com/track/3rCNmRonlHN1TXQLcG3dSk?si=df81157529294c43
+blame-game.mp3 https://open.spotify.com/track/4EndPA8b6FDWYp1RgsnLEB?si=88d1304291da4a8e
+lost-in-the-world.mp3 https://open.spotify.com/track/2Im64pIz6m0EJKdUe6eZ8r?si=68aedd0c535b4d6a
