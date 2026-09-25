@@ -39,7 +39,7 @@ def node() -> str:
 
 @pytest.fixture(scope="session")
 def call(node):
-    """Call a function exported from src/logic/ (search.ts, color.ts): call("sortSongs", songs)."""
+    """Call a function exported from src/logic/ (search.ts, color.ts, settings.ts): call("sortSongs", songs)."""
 
     def _call(fn: str, *args):
         result = subprocess.run(

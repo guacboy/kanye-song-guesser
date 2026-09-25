@@ -15,16 +15,19 @@ import { formatCredits, isCorrect } from '../logic/search';
 import { Button } from '../ui/Button';
 import { GuessInput } from '../ui/GuessInput';
 import { roundedCoverTexture } from '../ui/roundedTexture';
-import { albumColor, hideBackdrop, hideDim, showBackdrop, showDim } from '../ui/backdrop';
+import { albumColor, hideBackdrop, hideDim, showBackdrop } from '../ui/backdrop';
 import { LIFE_TEXTURE } from './BootScene';
 import type { EndReason } from './ResultsScene';
 import { playSfx } from '../sfx';
-import { enterScene, goTo } from '../transition';
+import { dimScene, enterScene } from '../transition';
+import { drawGear } from '../ui/icons';
+import type { OverlayHost } from './SettingsScene';
+import { getVolume, onVolumeChange } from '../settings';
 
 type Phase = 'loading' | 'guessing' | 'revealed';
 
 const CX = WIDTH / 2;
-const TOP_Y = 36; // QUIT, lives and song counter share this row
+const TOP_Y = 36; // song counter, lives and settings gear share this row
 const LIFE_SIZE = 30;
 const LIFE_GAP = 40;
 
@@ -54,13 +57,11 @@ const PLAY_D = 56;
 const FEEDBACK_Y = 470;
 
 const MAX_CLIP = CLIP_LENGTHS[CLIP_LENGTHS.length - 1];
-/** How visible the game stays behind the results pop-up. */
-const DIMMED_ALPHA = 0.3;
 
 const songKey = (song: Song) => `song:${song.file}`;
 const coverKey = (song: Song) => `cover:${song.cover}`;
 
-export class GameScene extends Phaser.Scene {
+export class GameScene extends Phaser.Scene implements OverlayHost {
   private tier!: Tier;
   private queue: Song[] = [];
   private song?: Song;
@@ -75,12 +76,13 @@ export class GameScene extends Phaser.Scene {
   private ended = false;
   private pending = new Map<string, Promise<boolean>>();
 
-  private clip?: Phaser.Sound.BaseSound;
+  private clip?: Phaser.Sound.WebAudioSound | Phaser.Sound.HTML5AudioSound;
   private clipLen = 0;
   private clipStartedAt = 0;
 
   private lifeIcons: Phaser.GameObjects.Image[] = [];
   private playBtn!: Button;
+  private gearBtn!: Button;
   private bar!: Phaser.GameObjects.Graphics;
   private barY = BAR_IDLE_Y;
   private tickLabel!: Phaser.GameObjects.Text;
@@ -113,9 +115,11 @@ export class GameScene extends Phaser.Scene {
 
   create(): void {
     fitCamera(this);
-    // Top bar: QUIT | lives (centered) | songs counter
-    new Button(this, 70, TOP_Y, 'QUIT', () => goTo(this, 'Menu'), 110, 36, 14);
-    this.progressText = makeText(this, WIDTH - 70, TOP_Y, '', 18);
+    // Top bar: songs counter | lives (centered) | settings gear (RESTART / QUIT live in there)
+    this.progressText = makeText(this, 32, TOP_Y, '', 18).setOrigin(0, 0.5);
+    this.gearBtn = new Button(this, WIDTH - 48, TOP_Y, '', () => this.openSettings(), 38, 38, 14, true)
+      .setIcon((g, color, active) => drawGear(g, color, 14, active)) // fills in on hover
+      .setBorderless(COLORS.textNum);
     this.lifeIcons = [];
     for (let i = 0; i < MAX_LIVES; i++) {
       const img = this.add.image(CX + (i - (MAX_LIVES - 1) / 2) * LIFE_GAP, TOP_Y, LIFE_TEXTURE);
@@ -139,7 +143,9 @@ export class GameScene extends Phaser.Scene {
 
     this.feedback = makeText(this, CX, FEEDBACK_Y, '', 18, COLORS.muted).setAlign('center');
 
+    const offVolume = onVolumeChange(() => this.clip?.setVolume(getVolume('music')));
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      offVolume();
       this.alive = false;
       this.stopClip();
       hideBackdrop();
@@ -249,15 +255,29 @@ export class GameScene extends Phaser.Scene {
     this.ended = true;
     this.stopClip();
     this.feedback.setText('');
-    this.input.enabled = false;
-    this.guess.setEnabled(false);
-    // The answer box is a DOM element drawn above the canvas, so fade it out rather than dim it.
-    this.tweens.add({ targets: this.guess.element, alpha: 0, duration: 200 });
-    const cam = this.cameras.main;
-    this.tweens.killTweensOf(cam);
-    this.tweens.add({ targets: cam, alpha: DIMMED_ALPHA, zoom: RENDER_SCALE, duration: 300, ease: 'Cubic.easeOut' });
-    showDim();
+    this.freeze(true);
     this.scene.launch('Results', { tier: this.tier, score: this.score, played: this.played, reason });
+  }
+
+  private openSettings(): void {
+    this.scene.launch('Settings', { host: 'Game', tier: this.tier });
+  }
+
+  /** OverlayHost: the settings pop-up opened/closed over the game. */
+  setOverlayOpen(open: boolean): void {
+    this.freeze(open);
+  }
+
+  /** Dim + disable the game behind a pop-up, or restore it. */
+  private freeze(frozen: boolean): void {
+    this.gearBtn.resetHover();
+    dimScene(this, frozen);
+    // The answer box is a DOM element drawn above the canvas (and the pop-up), so fade it out
+    // entirely rather than dimming it.
+    this.tweens.killTweensOf(this.guess.element);
+    this.tweens.add({ targets: this.guess.element, alpha: frozen ? 0 : 1, duration: 200 });
+    this.guess.setEnabled(!frozen && this.phase === 'guessing');
+    if (!frozen && this.phase === 'guessing') this.guess.focus();
   }
 
   // ---------- UI state ----------
@@ -407,7 +427,7 @@ export class GameScene extends Phaser.Scene {
     const length = this.phase === 'revealed' ? REVEAL_CLIP : CLIP_LENGTHS[this.attempt];
     this.stopClip();
 
-    const clip = this.sound.add(songKey(this.song));
+    const clip = this.sound.add(songKey(this.song), { volume: getVolume('music') }) as NonNullable<typeof this.clip>;
     clip.addMarker({ name: 'clip', start: this.song.start ?? 0, duration: length });
     clip.play('clip');
     this.clip = clip;

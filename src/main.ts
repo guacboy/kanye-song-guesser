@@ -4,6 +4,7 @@ import { BootScene } from './scenes/BootScene';
 import { MenuScene } from './scenes/MenuScene';
 import { GameScene } from './scenes/GameScene';
 import { ResultsScene } from './scenes/ResultsScene';
+import { SettingsScene } from './scenes/SettingsScene';
 
 new Phaser.Game({
   type: Phaser.AUTO,
@@ -17,5 +18,6 @@ new Phaser.Game({
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
-  scene: [BootScene, MenuScene, GameScene, ResultsScene], // Results renders on top of Game
+  // Overlay scenes (Results, Settings) come last so they render on top.
+  scene: [BootScene, MenuScene, GameScene, ResultsScene, SettingsScene],
 });

@@ -39,6 +39,7 @@ export class ResultsScene extends Phaser.Scene {
   create({ tier, score, played, reason }: ResultsData): void {
     fitCamera(this);
     this.leaving = false;
+    this.input.enabled = true; // leave() turned it off; the plugin keeps that across launches
     if (reason === 'finished') playSfx(this, 'win');
     else if (reason === 'out-of-lives') playSfx(this, 'lose');
 

@@ -12,6 +12,8 @@ export const COLORS = {
   dim: 0x3a3a3a,
   accent: '#3cd470',
   accentNum: 0x3cd470,
+  danger: '#e5484d',
+  dangerNum: 0xe5484d,
 };
 
 /** Corner radius for buttons, cards and inputs (keep in sync with --radius in style.css). */

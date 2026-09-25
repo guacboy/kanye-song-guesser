@@ -4,7 +4,9 @@ import { TIERS, Tier, songsForTier } from '../data/songs';
 import { Button } from '../ui/Button';
 import { PlaylistCard } from '../ui/PlaylistCard';
 import { playSfx } from '../sfx';
-import { enterScene, goTo } from '../transition';
+import { dimScene, enterScene, goTo } from '../transition';
+import { drawGear } from '../ui/icons';
+import type { OverlayHost } from './SettingsScene';
 import { playlistTexture } from './BootScene';
 
 const LAST_TIER_KEY = 'ksg-last-tier';
@@ -13,9 +15,10 @@ const CARD_SIZE = 130;
 const CARD_GAP = 20;
 const CARD_Y = 290;
 
-export class MenuScene extends Phaser.Scene {
+export class MenuScene extends Phaser.Scene implements OverlayHost {
   private selected: Tier = '1b';
   private cards = new Map<Tier, PlaylistCard>();
+  private gearBtn!: Button;
 
   constructor() {
     super('Menu');
@@ -27,6 +30,11 @@ export class MenuScene extends Phaser.Scene {
 
     const kanye = makeText(this, 32, 40, 'Kanye', 32).setOrigin(0, 0.5).setFontStyle('bold');
     makeText(this, kanye.x + kanye.width, 40, 'Guess', 32, COLORS.accent).setOrigin(0, 0.5).setFontStyle('bold');
+
+    // Settings, opposite the title
+    this.gearBtn = new Button(this, WIDTH - 48, 40, '', () => this.scene.launch('Settings', { host: 'Menu' }), 38, 38, 14, true)
+      .setIcon((g, color, active) => drawGear(g, color, 14, active)) // fills in on hover
+      .setBorderless(COLORS.textNum);
 
     makeText(this, cx, CARD_Y - CARD_SIZE / 2 - 36, 'CHOOSE A PLAYLIST', 14, COLORS.muted).setLetterSpacing(3);
 
@@ -49,6 +57,11 @@ export class MenuScene extends Phaser.Scene {
 
     this.select(this.loadLastTier());
     enterScene(this);
+  }
+
+  setOverlayOpen(open: boolean): void {
+    this.gearBtn.resetHover();
+    dimScene(this, open);
   }
 
   private select(tier: Tier): void {

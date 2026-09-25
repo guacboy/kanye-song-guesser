@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { RENDER_SCALE } from './theme';
+import { hideDim, showDim } from './ui/backdrop';
 
 /** How small a scene gets while fading out / starts while fading in (1 = full size). */
 const SHRUNK = 0.9;
@@ -37,4 +38,17 @@ export function goTo(scene: Phaser.Scene, key: string, data?: object): void {
       scene.scene.start(key, data);
     },
   });
+}
+
+/** How visible a scene stays behind a pop-up. */
+const DIMMED_ALPHA = 0.3;
+
+/** Dim + freeze a scene behind a pop-up (Results, Settings), or bring it back. */
+export function dimScene(scene: Phaser.Scene, dim: boolean): void {
+  scene.input.enabled = !dim;
+  const cam = scene.cameras.main;
+  scene.tweens.killTweensOf(cam);
+  scene.tweens.add({ targets: cam, alpha: dim ? DIMMED_ALPHA : 1, zoom: RENDER_SCALE, duration: 300, ease: 'Cubic.easeOut' });
+  if (dim) showDim();
+  else hideDim();
 }

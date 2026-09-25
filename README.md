@@ -40,7 +40,7 @@ Since February 2026, Spotify requires the owner of a Development Mode app to hav
 
 ## Tests
 
-The tests check the manifest (fields, tiers, duplicates, tier vs. stream count), the sync script (link parsing, artist/feature split, kworb matching; the network is faked) and that every audio file has an entry with matching filename casing. They also test the answer-checking, sorting and search logic, the album backdrop color, that every sound effect file exists, and that the game builds with itch.io-safe relative paths.
+The tests check the manifest (fields, tiers, duplicates, tier vs. stream count), the sync script (link parsing, artist/feature split, kworb matching; the network is faked) and that every audio file has an entry with matching filename casing. They also test the answer-checking, sorting and search logic, the album backdrop color, the saved volume parsing, that every sound effect file exists, and that the game builds with itch.io-safe relative paths.
 
 ```sh
 python -m venv .venv
@@ -49,6 +49,16 @@ python -m venv .venv
 ```
 
 **Pre-push gate:** `npm install` enables the hook in `.githooks/pre-push`, which runs pytest and blocks `git push` if any test fails. To enable it manually, run `git config core.hooksPath .githooks`. To skip it in an emergency, use `git push --no-verify`.
+
+## Settings
+
+The gear icon (top right of the main menu and the game) opens a settings pop-up:
+
+- **AUDIO**: volume of the song clips (changes apply live, even mid-clip).
+- **SFX**: volume of the sound effects; releasing the slider plays a click at the new level.
+- In a game, also **RESTART** (new run, same playlist) and **QUIT** (back to the main menu).
+
+Volumes are saved in the browser (`localStorage`). A new player starts at 25% audio and 50% SFX. Close the pop-up with the × button, Esc, or a click outside it.
 
 ## Art
 

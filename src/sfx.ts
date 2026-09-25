@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { getVolume } from './settings';
 
 /** Game sound effects in public/assets/audio/, loaded once in BootScene. */
 export const SFX = {
@@ -21,5 +22,5 @@ export function loadSfx(scene: Phaser.Scene): void {
 
 /** Fire-and-forget; a missing file is silently skipped. */
 export function playSfx(scene: Phaser.Scene, name: SfxName): void {
-  if (scene.cache.audio.exists(key(name))) scene.sound.play(key(name));
+  if (scene.cache.audio.exists(key(name))) scene.sound.play(key(name), { volume: getVolume('sfx') });
 }

@@ -3,8 +3,9 @@
 import { readFileSync } from 'node:fs';
 import * as search from '../../src/logic/search.ts';
 import * as color from '../../src/logic/color.ts';
+import * as settings from '../../src/logic/settings.ts';
 
-const fns = { ...search, ...color };
+const fns = { ...search, ...color, ...settings };
 
 const { fn, args } = JSON.parse(readFileSync(0, 'utf8'));
 if (typeof fns[fn] !== 'function') {
