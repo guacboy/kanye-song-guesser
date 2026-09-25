@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { COLORS, WIDTH, fitCamera, makeText } from '../theme';
 import { TIERS, Tier } from '../data/songs';
 import { Button } from '../ui/Button';
+import { playSfx } from '../sfx';
 
 export type EndReason = 'out-of-lives' | 'finished' | 'no-audio';
 
@@ -25,6 +26,8 @@ export class GameOverScene extends Phaser.Scene {
 
   create({ tier, score, played, reason }: GameOverData): void {
     fitCamera(this);
+    if (reason === 'finished') playSfx(this, 'win');
+    else if (reason === 'out-of-lives') playSfx(this, 'lose');
     const cx = WIDTH / 2;
     const tierLabel = TIERS.find((t) => t.id === tier)?.label ?? '';
 
@@ -32,7 +35,7 @@ export class GameOverScene extends Phaser.Scene {
     makeText(this, cx, 180, tierLabel, 16, COLORS.muted);
 
     if (reason === 'no-audio') {
-      makeText(this, cx, 260, 'None of the songs in this playlist could be loaded.\nAdd audio files to public/audio/ — see README.', 16, COLORS.muted).setAlign('center');
+      makeText(this, cx, 260, 'None of the songs in this playlist could be loaded.\nAdd audio files to public/audio/ - see README.', 16, COLORS.muted).setAlign('center');
     } else {
       const best = this.updateBest(tier, score);
       makeText(this, cx, 250, `${score}`, 72).setFontStyle('bold');

@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { COLORS, RADIUS, RENDER_SCALE, makeText } from '../theme';
 import { roundedCoverTexture } from './roundedTexture';
+import { playSfx } from '../sfx';
 
 const GLOW_PAD = 28;
 const GLOW_MAX_BLUR = 22;
@@ -63,7 +64,10 @@ export class PlaylistCard extends Phaser.GameObjects.Container {
     this.on('pointerdown', () => (pressed = true));
     this.on('pointerout', () => (pressed = false));
     this.on('pointerup', () => {
-      if (pressed) onClick();
+      if (pressed) {
+        playSfx(scene, 'click');
+        onClick();
+      }
       pressed = false;
     });
 

@@ -3,6 +3,7 @@ import { COLORS, WIDTH, fitCamera, makeText } from '../theme';
 import { TIERS, Tier, songsForTier } from '../data/songs';
 import { Button } from '../ui/Button';
 import { PlaylistCard } from '../ui/PlaylistCard';
+import { playSfx } from '../sfx';
 import { playlistTexture } from './BootScene';
 
 const LAST_TIER_KEY = 'ksg-last-tier';
@@ -42,7 +43,8 @@ export class MenuScene extends Phaser.Scene {
       this.cards.set(t.id, card);
     });
 
-    new Button(this, cx, 430, 'START', () => this.startGame(), 150, 42, 16);
+    // Own sound instead of the regular click; hover uses the "Guess" green.
+    new Button(this, cx, 430, 'START', () => this.startGame(), 150, 42, 16, false, false).setHoverColor(COLORS.accentNum);
 
     this.select(this.loadLastTier());
   }
@@ -53,10 +55,11 @@ export class MenuScene extends Phaser.Scene {
   }
 
   private startGame(): void {
+    playSfx(this, 'start');
     try {
       localStorage.setItem(LAST_TIER_KEY, this.selected);
     } catch {
-      // storage unavailable (private mode / sandboxed iframe) — not important
+      // storage unavailable (private mode / sandboxed iframe) - not important
     }
     this.scene.start('Game', { tier: this.selected });
   }

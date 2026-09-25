@@ -11,6 +11,7 @@ export const COLORS = {
   mutedNum: 0x8a8a8a,
   dim: 0x3a3a3a,
   accent: '#3cd470',
+  accentNum: 0x3cd470,
 };
 
 /** Corner radius for buttons, cards and inputs (keep in sync with --radius in style.css). */

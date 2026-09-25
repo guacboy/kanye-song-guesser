@@ -18,6 +18,7 @@ import { roundedCoverTexture } from '../ui/roundedTexture';
 import { albumColor, hideBackdrop, showBackdrop } from '../ui/backdrop';
 import { LIFE_TEXTURE } from './BootScene';
 import type { EndReason } from './GameOverScene';
+import { playSfx } from '../sfx';
 
 type Phase = 'loading' | 'guessing' | 'revealed';
 
@@ -124,10 +125,11 @@ export class GameScene extends Phaser.Scene {
     // Answer row: text box, then skip/next
     this.guess = new GuessInput(this, ROW_LEFT + GUESS_W / 2, ROW_Y, SONGS, (g) => this.submitGuess(g));
     const skipX = ROW_LEFT + GUESS_W + ROW_GAP + SKIP_W / 2;
-    this.skipBtn = new Button(this, skipX, ROW_Y, '', () => this.onSkip(), SKIP_W, ROW_H, 14);
+    // Silent button: onSkip picks the sound (click, or just the oof for GIVE UP).
+    this.skipBtn = new Button(this, skipX, ROW_Y, '', () => this.onSkip(), SKIP_W, ROW_H, 14, false, false);
 
     // Replay: round button with just the play symbol. ▶'s weight sits left of its box, so nudge it right.
-    this.playBtn = new Button(this, CX, PLAY_Y, '▶', () => this.onPlay(), PLAY_D, PLAY_D, 20, true);
+    this.playBtn = new Button(this, CX, PLAY_Y, '▶', () => this.onPlay(), PLAY_D, PLAY_D, 20, true, false);
     this.playBtn.setLabelOffset(2, -1);
 
     this.feedback = makeText(this, CX, FEEDBACK_Y, '', 18, COLORS.muted).setAlign('center');
@@ -187,13 +189,22 @@ export class GameScene extends Phaser.Scene {
     if (this.phase !== 'guessing' || !this.song) return;
     if (isCorrect(this.song, guess)) {
       this.score++;
+      playSfx(this, 'correct');
       this.reveal();
     } else {
+      // On the last clip this also costs a life, and advance() plays only the oof.
+      if (!this.onLastClip()) playSfx(this, 'incorrect');
       this.advance(`✗  ${guess}`);
     }
   }
 
+  private onLastClip(): boolean {
+    return this.attempt >= CLIP_LENGTHS.length - 1;
+  }
+
   private onSkip(): void {
+    // SKIP and NEXT/RESULTS click; GIVE UP only plays the oof (from advance()).
+    if (!(this.phase === 'guessing' && this.onLastClip())) playSfx(this, 'click');
     if (this.phase === 'guessing') this.advance('Skipped');
     else if (this.phase === 'revealed') {
       if (this.lives <= 0) this.endGame('out-of-lives');
@@ -207,6 +218,7 @@ export class GameScene extends Phaser.Scene {
     if (this.attempt >= CLIP_LENGTHS.length) {
       this.attempt = CLIP_LENGTHS.length - 1;
       this.lives--;
+      playSfx(this, 'lifeLost');
       this.reveal();
       return;
     }
@@ -240,7 +252,7 @@ export class GameScene extends Phaser.Scene {
     if (this.phase === 'revealed') {
       this.skipBtn.setLabel(this.lives <= 0 ? 'RESULTS' : 'NEXT', 14).setEnabled(true);
     } else {
-      const last = this.attempt >= CLIP_LENGTHS.length - 1;
+      const last = this.onLastClip();
       this.skipBtn.setLabel(last ? 'GIVE UP' : 'SKIP', 14).setEnabled(guessing);
     }
   }

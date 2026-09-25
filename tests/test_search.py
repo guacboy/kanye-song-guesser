@@ -1,4 +1,4 @@
-"""Tests src/logic/search.ts (run through Node) — answer checking, credits, sorting and dropdown filtering."""
+"""Tests src/logic/search.ts (run through Node) - answer checking, credits, sorting and dropdown filtering."""
 
 import pytest
 

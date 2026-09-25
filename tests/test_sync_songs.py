@@ -122,7 +122,7 @@ def test_tier_for_streams(streams, tier):
     assert s.tier_for_streams(streams) == tier
 
 
-# ---------- Spotify track → entry ----------
+# ---------- Spotify track -> entry ----------
 
 @pytest.mark.parametrize(
     ("raw", "clean"),

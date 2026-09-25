@@ -286,7 +286,7 @@ def sync(dry_run: bool) -> int:
         raise SyncError(f"{LINKS_PATH.relative_to(ROOT)} not found")
     links = parse_links(LINKS_PATH.read_text(encoding="utf-8"))
     if not links:
-        print("spotify_links.txt has no entries — nothing to do.")
+        print("spotify_links.txt has no entries - nothing to do.")
         return 0
 
     load_env()
@@ -309,7 +309,7 @@ def sync(dry_run: bool) -> int:
         synced.append(entry)
         note = "" if how == "exact" else f"  [{how}]"
         count = f"{entry['streams']:,}" if "streams" in entry else "?"
-        print(f"  ✓ {file_name}: {entry['title']} — {count} streams → {entry['tier']}{note}")
+        print(f"  ✓ {file_name}: {entry['title']} - {count} streams -> {entry['tier']}{note}")
 
     merged = merge(manifest, synced)
     if dry_run:

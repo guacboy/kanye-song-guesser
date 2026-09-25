@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { COLORS, RENDER_SCALE } from '../theme';
 import { TIERS, Tier } from '../data/songs';
+import { loadSfx } from '../sfx';
 
 export const LIFE_TEXTURE = 'life';
 export const playlistTexture = (tier: Tier) => `playlist-${tier}`;
@@ -14,6 +15,7 @@ export class BootScene extends Phaser.Scene {
     // Optional art. Anything missing falls back to a drawn placeholder / plain card.
     this.load.image(LIFE_TEXTURE, 'assets/life.png');
     for (const t of TIERS) this.load.image(playlistTexture(t.id), `assets/playlists/${t.id}.png`);
+    loadSfx(this);
     this.load.on(Phaser.Loader.Events.FILE_LOAD_ERROR, (file: Phaser.Loader.File) => {
       console.info(`[boot] ${file.src} not found, using fallback`);
     });

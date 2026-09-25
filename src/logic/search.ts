@@ -1,4 +1,4 @@
-// Pure song logic, no Phaser/DOM imports — the pytest suite runs this file directly under Node.
+// Pure song logic, no Phaser/DOM imports - the pytest suite runs this file directly under Node.
 import type { Song, Tier } from '../data/types';
 
 export const TIER_RANK: Record<Tier, number> = { '1b': 0, '100m': 1, '1m': 2, '100k': 3 };

@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { COLORS, RADIUS, makeText } from '../theme';
+import { playSfx } from '../sfx';
 
 /**
  * Outlined button: transparent fill + text-colored border.
@@ -12,6 +13,8 @@ export class Button extends Phaser.GameObjects.Container {
   private isSelected = false;
   private isHovered = false;
   private isPressed = false;
+  /** Fill + border color while hovered/selected. */
+  private hoverColor: number = COLORS.textNum;
 
   constructor(
     scene: Phaser.Scene,
@@ -23,6 +26,7 @@ export class Button extends Phaser.GameObjects.Container {
     height = 50,
     fontSize = 20,
     private circle = false,
+    clickSound = true,
   ) {
     super(scene, x, y);
     this.box = scene.add.graphics();
@@ -47,7 +51,9 @@ export class Button extends Phaser.GameObjects.Container {
     this.on('pointerup', () => {
       const wasPressed = this.isPressed;
       this.isPressed = false;
-      if (wasPressed && this.isEnabled) onClick();
+      if (!wasPressed || !this.isEnabled) return;
+      if (clickSound) playSfx(scene, 'click');
+      onClick();
     });
 
     this.refresh();
@@ -57,6 +63,12 @@ export class Button extends Phaser.GameObjects.Container {
   setLabel(text: string, fontSize?: number): this {
     this.label.setText(text);
     if (fontSize) this.label.setFontSize(fontSize);
+    return this;
+  }
+
+  setHoverColor(color: number): this {
+    this.hoverColor = color;
+    this.refresh();
     return this;
   }
 
@@ -91,11 +103,11 @@ export class Button extends Phaser.GameObjects.Container {
     this.box.clear();
     if (this.circle) {
       const r = Math.min(w, h) / 2;
-      if (inverted) this.box.fillStyle(COLORS.textNum).fillCircle(0, 0, r);
-      this.box.lineStyle(2, COLORS.textNum).strokeCircle(0, 0, r);
+      if (inverted) this.box.fillStyle(this.hoverColor).fillCircle(0, 0, r);
+      this.box.lineStyle(2, inverted ? this.hoverColor : COLORS.textNum).strokeCircle(0, 0, r);
     } else {
-      if (inverted) this.box.fillStyle(COLORS.textNum).fillRoundedRect(-w / 2, -h / 2, w, h, RADIUS);
-      this.box.lineStyle(2, COLORS.textNum).strokeRoundedRect(-w / 2, -h / 2, w, h, RADIUS);
+      if (inverted) this.box.fillStyle(this.hoverColor).fillRoundedRect(-w / 2, -h / 2, w, h, RADIUS);
+      this.box.lineStyle(2, inverted ? this.hoverColor : COLORS.textNum).strokeRoundedRect(-w / 2, -h / 2, w, h, RADIUS);
     }
     this.label.setColor(inverted ? COLORS.bg : COLORS.text);
     this.setAlpha(this.isEnabled ? 1 : 0.35);
