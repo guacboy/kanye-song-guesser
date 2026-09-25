@@ -205,5 +205,218 @@
     "tier": "1m",
     "streams": 73786425,
     "spotifyId": "7iOhWWYjhhQiXzF4o4HhXN"
+  },
+  {
+    "title": "Heard 'Em Say",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "Adam Levine"
+    ],
+    "album": "Late Registration",
+    "file": "audio/heard-em-say.mp3",
+    "cover": "assets/albums/5ll74bqtkcXlKE7wwkMq4g.jpg",
+    "tier": "100m",
+    "streams": 195616278,
+    "spotifyId": "6yIjtVtnOBeC8SwdVHzAuF"
+  },
+  {
+    "title": "Touch The Sky",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "Lupe Fiasco"
+    ],
+    "album": "Late Registration",
+    "file": "audio/touch-the-sky.mp3",
+    "cover": "assets/albums/5ll74bqtkcXlKE7wwkMq4g.jpg",
+    "tier": "100m",
+    "streams": 587885041,
+    "spotifyId": "2dxjKgT0li4qBI3QwuN9Ih"
+  },
+  {
+    "title": "Gold Digger",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "Jamie Foxx"
+    ],
+    "album": "Late Registration",
+    "file": "audio/gold-digger.mp3",
+    "cover": "assets/albums/5ll74bqtkcXlKE7wwkMq4g.jpg",
+    "tier": "1b",
+    "streams": 1572433056,
+    "spotifyId": "1PS1QMdUqOal0ai3Gt7sDQ"
+  },
+  {
+    "title": "Drive Slow",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "Paul Wall",
+      "GLC"
+    ],
+    "album": "Late Registration",
+    "file": "audio/drive-slow.mp3",
+    "cover": "assets/albums/5ll74bqtkcXlKE7wwkMq4g.jpg",
+    "tier": "100m",
+    "streams": 138683692,
+    "spotifyId": "6vB49BJ70zBpDrrAPwdaB8"
+  },
+  {
+    "title": "My Way Home",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "Common"
+    ],
+    "album": "Late Registration",
+    "file": "audio/my-way-home.mp3",
+    "cover": "assets/albums/5ll74bqtkcXlKE7wwkMq4g.jpg",
+    "tier": "1m",
+    "streams": 42479821,
+    "spotifyId": "0TzIHqhAbvYR6qJKrMMFlk"
+  },
+  {
+    "title": "Crack Music",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "The Game"
+    ],
+    "album": "Late Registration",
+    "file": "audio/crack-music.mp3",
+    "cover": "assets/albums/5ll74bqtkcXlKE7wwkMq4g.jpg",
+    "tier": "1m",
+    "streams": 40963323,
+    "spotifyId": "4fRTe59xEeNHT4uyAGsV27"
+  },
+  {
+    "title": "Roses",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "Late Registration",
+    "file": "audio/roses.mp3",
+    "cover": "assets/albums/5ll74bqtkcXlKE7wwkMq4g.jpg",
+    "tier": "100m",
+    "streams": 115934986,
+    "spotifyId": "2DHNCWZYmVr1Lv08q5b0kB"
+  },
+  {
+    "title": "Bring Me Down",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "Brandy"
+    ],
+    "album": "Late Registration",
+    "file": "audio/bring-me-down.mp3",
+    "cover": "assets/albums/5ll74bqtkcXlKE7wwkMq4g.jpg",
+    "tier": "1m",
+    "streams": 37467413,
+    "spotifyId": "25K9cWrxNv991UYiOzBJqR"
+  },
+  {
+    "title": "Addiction",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "Late Registration",
+    "file": "audio/addiction.mp3",
+    "cover": "assets/albums/5ll74bqtkcXlKE7wwkMq4g.jpg",
+    "tier": "1m",
+    "streams": 66698406,
+    "spotifyId": "5VzeI5JM2y9t21JwrWAnkH"
+  },
+  {
+    "title": "Diamonds From Sierra Leone - Remix",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "JAŸ-Z"
+    ],
+    "album": "Late Registration",
+    "file": "audio/diamonds-from-sierra-leone-remix.mp3",
+    "cover": "assets/albums/5ll74bqtkcXlKE7wwkMq4g.jpg",
+    "tier": "100m",
+    "streams": 104374122,
+    "spotifyId": "34KUIBsIUiPV7oCIzSdDAU"
+  },
+  {
+    "title": "We Major",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "Nas",
+      "Really Doe"
+    ],
+    "album": "Late Registration",
+    "file": "audio/we-major.mp3",
+    "cover": "assets/albums/5ll74bqtkcXlKE7wwkMq4g.jpg",
+    "tier": "100m",
+    "streams": 106653095,
+    "spotifyId": "46fk9wjYcPm0sgym2b7EEE"
+  },
+  {
+    "title": "Hey Mama",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "Late Registration",
+    "file": "audio/hey-mama.mp3",
+    "cover": "assets/albums/5ll74bqtkcXlKE7wwkMq4g.jpg",
+    "tier": "100m",
+    "streams": 138875270,
+    "spotifyId": "46OFHBw45fNi7QNjSetITR"
+  },
+  {
+    "title": "Celebration",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "Late Registration",
+    "file": "audio/celebration.mp3",
+    "cover": "assets/albums/5ll74bqtkcXlKE7wwkMq4g.jpg",
+    "tier": "1m",
+    "streams": 38053971,
+    "spotifyId": "7jAxGkXU58FwNMjqoMahn7"
+  },
+  {
+    "title": "Gone",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "Consequence",
+      "Cam'ron"
+    ],
+    "album": "Late Registration",
+    "file": "audio/gone.mp3",
+    "cover": "assets/albums/5ll74bqtkcXlKE7wwkMq4g.jpg",
+    "tier": "1m",
+    "streams": 64529826,
+    "spotifyId": "5RjbFGeWVsCpw8EcE8OrvZ"
+  },
+  {
+    "title": "Late",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "Late Registration",
+    "file": "audio/late.mp3",
+    "cover": "assets/albums/5ll74bqtkcXlKE7wwkMq4g.jpg",
+    "tier": "1m",
+    "streams": 56999939,
+    "spotifyId": "1mFHMzbaECWFaPfoePoEYl"
   }
 ]

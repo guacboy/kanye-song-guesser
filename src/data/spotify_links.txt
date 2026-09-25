@@ -20,3 +20,34 @@ family-business.mp3 https://open.spotify.com/track/5DBmXF7QO43Cuy9yqva116?si=a6a
 last-call.mp3 https://open.spotify.com/track/7iOhWWYjhhQiXzF4o4HhXN?si=7ec9526c84544265
 
 # Late Registration
+heard-em-say.mp3 https://open.spotify.com/track/6yIjtVtnOBeC8SwdVHzAuF?si=efb08d215edf4f7f
+touch-the-sky.mp3 https://open.spotify.com/track/2dxjKgT0li4qBI3QwuN9Ih?si=a952042ab0284ba6
+gold-digger.mp3 https://open.spotify.com/track/1PS1QMdUqOal0ai3Gt7sDQ?si=de25fa18aa4744ec
+drive-slow.mp3 https://open.spotify.com/track/6vB49BJ70zBpDrrAPwdaB8?si=79cf642033c9428f
+my-way-home.mp3 https://open.spotify.com/track/0TzIHqhAbvYR6qJKrMMFlk?si=d835f41183704407
+crack-music.mp3 https://open.spotify.com/track/4fRTe59xEeNHT4uyAGsV27?si=b3ce3dfbdbb54ed0
+roses.mp3 https://open.spotify.com/track/2DHNCWZYmVr1Lv08q5b0kB?si=9b921b23a68b45fb
+bring-me-down.mp3 https://open.spotify.com/track/25K9cWrxNv991UYiOzBJqR?si=d41e5eeb332747e3
+addiction.mp3 https://open.spotify.com/track/5VzeI5JM2y9t21JwrWAnkH?si=19cea1b123484fc3
+diamonds-from-sierra-leone-remix.mp3 https://open.spotify.com/track/34KUIBsIUiPV7oCIzSdDAU?si=6d02a84ee3794d87
+we-major.mp3 https://open.spotify.com/track/46fk9wjYcPm0sgym2b7EEE?si=3de62046da5841c6
+hey-mama.mp3 https://open.spotify.com/track/46OFHBw45fNi7QNjSetITR?si=3c13295df8d24a32
+celebration.mp3 https://open.spotify.com/track/7jAxGkXU58FwNMjqoMahn7?si=6c560f53476341c5
+gone.mp3 https://open.spotify.com/track/5RjbFGeWVsCpw8EcE8OrvZ?si=e7861504b40d4ff7
+late.mp3 https://open.spotify.com/track/1mFHMzbaECWFaPfoePoEYl?si=fb1d4f7dfd334276
+
+# Graduation
+good-morning.mp3
+champion.mp3
+stronger.mp3
+i-wonder.mp3
+good-life.mp3
+can't-tell-me-nothing.mp3
+barry-bonds.mp3
+drunk-and-hot-girls.mp3
+flashing-lights.mp3
+everything-i-am.mp3
+the-glory.mp3
+homecoming.mp3
+big-brother.mp3
+good-night.mp3
