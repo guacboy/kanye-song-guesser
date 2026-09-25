@@ -14,7 +14,7 @@ interface GameOverData {
 
 const TITLES: Record<EndReason, string> = {
   'out-of-lives': 'GAME OVER',
-  finished: 'PLAYLIST COMPLETE',
+  finished: 'RESULTS',
   'no-audio': 'NO AUDIO FOUND',
 };
 
@@ -40,8 +40,8 @@ export class GameOverScene extends Phaser.Scene {
       makeText(this, cx, 345, `Best: ${best}`, 18);
     }
 
-    new Button(this, cx, 430, 'PLAY AGAIN', () => this.scene.start('Game', { tier }), 280, 52);
-    new Button(this, cx, 495, 'MAIN MENU', () => this.scene.start('Menu'), 280, 52);
+    new Button(this, cx, 430, 'PLAY AGAIN', () => this.scene.start('Game', { tier }), 180, 42, 16);
+    new Button(this, cx, 484, 'MAIN MENU', () => this.scene.start('Menu'), 180, 42, 16);
   }
 
   private updateBest(tier: Tier, score: number): number {

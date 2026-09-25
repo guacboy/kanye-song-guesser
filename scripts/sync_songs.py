@@ -1,4 +1,4 @@
-"""Fill src/data/songs.json from Spotify (title, artists, features, album) and kworb.net (stream counts).
+"""Fill src/data/songs.json from Spotify (title, artists, features, album, cover art) and kworb.net (stream counts).
 
 Usage:
     python scripts/sync_songs.py            # update songs.json
@@ -33,6 +33,11 @@ ENV_PATH = ROOT / ".env"
 
 USER_AGENT = "KanyeGuess-sync/1.0 (+https://github.com/guacboy/kanye-song-guesser)"
 KWORB_URL = "https://kworb.net/spotify/artist/{artist_id}_songs.html"
+
+# Album covers are saved here (served as assets/albums/<album id>.jpg). A cover is downloaded once per album.
+COVERS_SUBDIR = Path("public") / "assets" / "albums"
+# Smallest cover at least this wide is used (150 layout px shown at up to 3x render scale).
+COVER_MIN_PX = 450
 
 # Fields the script owns (refreshed every run) vs. fields only a human sets (always preserved).
 PRESERVED_FIELDS = ("start", "aliases")
@@ -125,7 +130,18 @@ def split_artists(track: dict) -> tuple[list[str], list[str]]:
     return main, features
 
 
-def build_entry(file_name: str, track: dict, streams: int | None, previous: dict | None) -> dict:
+def pick_cover_url(images: list[dict]) -> str | None:
+    """Smallest image that's at least COVER_MIN_PX wide, else the largest available."""
+    if not images:
+        return None
+    by_size = sorted(images, key=lambda i: i.get("width") or 0)
+    big_enough = [i for i in by_size if (i.get("width") or 0) >= COVER_MIN_PX]
+    return (big_enough[0] if big_enough else by_size[-1])["url"]
+
+
+def build_entry(
+    file_name: str, track: dict, streams: int | None, previous: dict | None, cover: str | None = None
+) -> dict:
     main, features = split_artists(track)
     entry: dict = {
         "title": clean_title(track["name"]),
@@ -135,6 +151,9 @@ def build_entry(file_name: str, track: dict, streams: int | None, previous: dict
         entry["features"] = features
     entry["album"] = track["album"]["name"]
     entry["file"] = f"audio/{file_name}"
+    cover = cover or (previous or {}).get("cover")
+    if cover:
+        entry["cover"] = cover
 
     if streams is None and previous and "streams" in previous:
         streams = previous["streams"]  # kworb didn't have it this time; keep the last known count
@@ -216,6 +235,23 @@ def fetch_track(track_id: str, token: str) -> dict:
     return json.loads(body)
 
 
+def download_cover(track: dict) -> str | None:
+    """Saves the album cover (once per album) and returns its path relative to public/, or None."""
+    url = pick_cover_url(track["album"].get("images") or [])
+    if url is None:
+        return None
+    rel = f"assets/albums/{track['album']['id']}.jpg"
+    path = ROOT / COVERS_SUBDIR / f"{track['album']['id']}.jpg"
+    if not path.is_file():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            path.write_bytes(http(url))
+        except urllib.error.URLError as e:
+            print(f"    (couldn't download cover for {track['album']['name']}: {e})")
+            return None
+    return rel
+
+
 class Kworb:
     """Looks up total streams by track id, fetching each artist's kworb page at most once."""
 
@@ -264,7 +300,8 @@ def sync(dry_run: bool) -> int:
         try:
             track = fetch_track(track_id, token)
             streams, how = kworb.streams(track)
-            entry = build_entry(file_name, track, streams, previous.get(f"audio/{file_name}"))
+            cover = None if dry_run else download_cover(track)
+            entry = build_entry(file_name, track, streams, previous.get(f"audio/{file_name}"), cover)
         except SyncError as e:
             failures.append(str(e))
             print(f"  ✗ {file_name}: {e}")

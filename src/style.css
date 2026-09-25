@@ -1,7 +1,8 @@
 :root {
   --text: #e6e6e6;
-  --bg: #0e0e0e;
+  --bg: #161616;
   --muted: #8a8a8a;
+  --radius: 10px;
   --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -17,37 +18,46 @@ body {
 }
 
 body {
-  background: radial-gradient(ellipse at top, #3a3a3a 0%, #1c1c1c 45%, #0a0a0a 100%) fixed;
+  background: var(--bg);
   color: var(--text);
   font-family: var(--font);
 }
 
 #game {
+  position: relative;
+  z-index: 1;
   width: 100vw;
   height: 100vh;
+}
+
+/* Album-colored gradient behind the game, faded in on a song reveal (see ui/backdrop.ts). */
+#backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+  pointer-events: none;
 }
 
 /* ---------- DOM widgets rendered by Phaser (guess input) ---------- */
 
 .guess {
   position: relative;
-  width: 420px;
+  width: 300px; /* GUESS_W in GameScene.ts */
   font-family: var(--font);
 }
 
-.guess-row {
-  display: flex;
-  gap: 8px;
-}
-
 .guess-input {
-  flex: 1;
-  height: 48px;
-  padding: 0 14px;
-  font: 18px var(--font);
+  display: block;
+  width: 100%;
+  height: 40px; /* ROW_H in GameScene.ts */
+  padding: 0 12px;
+  font: 16px var(--font);
   color: var(--text);
   background: transparent;
   border: 2px solid var(--text);
+  border-radius: var(--radius);
   outline: none;
 }
 
@@ -59,37 +69,17 @@ body {
   opacity: 0.35;
 }
 
-.btn {
-  height: 48px;
-  min-width: 48px;
-  font: 22px var(--font);
-  color: var(--text);
-  background: transparent;
-  border: 2px solid var(--text);
-  cursor: pointer;
-  transition: background 0.1s, color 0.1s;
-}
-
-.btn:hover:not(:disabled) {
-  background: var(--text);
-  color: var(--bg);
-}
-
-.btn:disabled {
-  opacity: 0.35;
-  cursor: default;
-}
-
 .suggestions {
   position: absolute;
   top: calc(100% + 4px);
   left: 0;
-  right: 56px;
+  right: 0;
   margin: 0;
   padding: 0;
   list-style: none;
   background: var(--bg);
   border: 2px solid var(--text);
+  border-radius: var(--radius);
   max-height: 240px;
   overflow-y: auto;
   scrollbar-width: thin;

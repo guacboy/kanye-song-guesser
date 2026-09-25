@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
-import { COLORS, makeText } from '../theme';
+import { COLORS, RADIUS, RENDER_SCALE, makeText } from '../theme';
+import { roundedCoverTexture } from './roundedTexture';
 
 const GLOW_PAD = 28;
 const GLOW_MAX_BLUR = 22;
@@ -14,17 +15,16 @@ const glowTexture = (step: number) => `card-glow-${step}`;
  */
 export class PlaylistCard extends Phaser.GameObjects.Container {
   private glow: Phaser.GameObjects.Image;
-  private overlay: Phaser.GameObjects.Rectangle;
+  private box: Phaser.GameObjects.Graphics;
   private texts: Phaser.GameObjects.Text[];
   private hasImage: boolean;
   private glowTween?: Phaser.Tweens.Tween;
-  private isHovered = false;
 
   constructor(
     scene: Phaser.Scene,
     x: number,
     y: number,
-    size: number,
+    private size: number,
     count: string,
     label: string,
     imageKey: string,
@@ -37,16 +37,18 @@ export class PlaylistCard extends Phaser.GameObjects.Container {
     this.add(this.glow);
 
     this.hasImage = scene.textures.exists(imageKey);
-    if (this.hasImage) this.add(PlaylistCard.coverImage(scene, imageKey, size));
+    if (this.hasImage) {
+      const key = roundedCoverTexture(scene, imageKey, size);
+      this.add(scene.add.image(0, 0, key).setScale(1 / RENDER_SCALE));
+    }
 
-    // Darkens a background image so text stays readable; becomes the inverted fill on hover.
-    this.overlay = scene.add.rectangle(0, 0, size, size, COLORS.bgNum, this.hasImage ? 0.45 : 0);
-    const border = scene.add.rectangle(0, 0, size, size).setStrokeStyle(2, COLORS.textNum);
+    // Tint over the image (so text stays readable) + border; becomes the inverted fill on hover.
+    this.box = scene.add.graphics();
     this.texts = [
-      makeText(scene, 0, -10, count, 30).setFontStyle('bold'),
-      makeText(scene, 0, 24, label, 14),
+      makeText(scene, 0, -size * 0.0625, count, Math.round(size * 0.19)).setFontStyle('bold'),
+      makeText(scene, 0, size * 0.15, label, Math.round(size * 0.09)),
     ];
-    this.add([this.overlay, border, ...this.texts]);
+    this.add([this.box, ...this.texts]);
 
     this.setSize(size, size);
     this.setInteractive({ useHandCursor: true });
@@ -56,8 +58,16 @@ export class PlaylistCard extends Phaser.GameObjects.Container {
     const clearHover = () => this.setHovered(false);
     scene.input.on(Phaser.Input.Events.GAME_OUT, clearHover);
     this.once(Phaser.GameObjects.Events.DESTROY, () => scene.input.off(Phaser.Input.Events.GAME_OUT, clearHover));
-    this.on('pointerup', onClick);
+    // Only a press that starts on the card counts (see Button).
+    let pressed = false;
+    this.on('pointerdown', () => (pressed = true));
+    this.on('pointerout', () => (pressed = false));
+    this.on('pointerup', () => {
+      if (pressed) onClick();
+      pressed = false;
+    });
 
+    this.setHovered(false);
     scene.add.existing(this);
   }
 
@@ -96,24 +106,18 @@ export class PlaylistCard extends Phaser.GameObjects.Container {
   }
 
   private setHovered(hovered: boolean): void {
-    this.isHovered = hovered;
-    if (this.isHovered) this.overlay.setFillStyle(COLORS.textNum, this.hasImage ? 0.85 : 1);
-    else this.overlay.setFillStyle(COLORS.bgNum, this.hasImage ? 0.45 : 0);
-    this.texts.forEach((t) => t.setColor(this.isHovered ? COLORS.bg : COLORS.text));
-  }
-
-  /** Scale the image to cover the square and crop the overflow (like CSS background-size: cover). */
-  private static coverImage(scene: Phaser.Scene, key: string, size: number): Phaser.GameObjects.Image {
-    const img = scene.add.image(0, 0, key);
-    const scale = Math.max(size / img.width, size / img.height);
-    const cw = size / scale;
-    const ch = size / scale;
-    return img.setScale(scale).setCrop((img.width - cw) / 2, (img.height - ch) / 2, cw, ch);
+    const half = this.size / 2;
+    this.box.clear();
+    if (hovered) this.box.fillStyle(COLORS.textNum, this.hasImage ? 0.85 : 1);
+    else this.box.fillStyle(COLORS.bgNum, this.hasImage ? 0.45 : 0);
+    this.box.fillRoundedRect(-half, -half, this.size, this.size, RADIUS);
+    this.box.lineStyle(2, COLORS.textNum).strokeRoundedRect(-half, -half, this.size, this.size, RADIUS);
+    this.texts.forEach((t) => t.setColor(hovered ? COLORS.bg : COLORS.text));
   }
 
   /**
    * White outer glow at each spread step, drawn once with canvas shadowBlur; the card area is cut out.
-   * Drawn at 1× — it's a blur, so extra resolution wouldn't show.
+   * Drawn at 1x: it's a blur, so extra resolution wouldn't show.
    */
   private static ensureGlowTexture(scene: Phaser.Scene, size: number): void {
     if (scene.textures.exists(glowTexture(0))) return;
@@ -124,9 +128,16 @@ export class PlaylistCard extends Phaser.GameObjects.Container {
       ctx.shadowColor = 'rgba(255, 255, 255, 0.95)';
       ctx.shadowBlur = 2 + (GLOW_MAX_BLUR - 2) * (step / (GLOW_STEPS - 1));
       ctx.fillStyle = '#ffffff';
-      for (let i = 0; i < 3; i++) ctx.fillRect(GLOW_PAD, GLOW_PAD, size, size);
+      for (let i = 0; i < 3; i++) {
+        ctx.beginPath();
+        ctx.roundRect(GLOW_PAD, GLOW_PAD, size, size, RADIUS);
+        ctx.fill();
+      }
       ctx.shadowBlur = 0;
-      ctx.clearRect(GLOW_PAD, GLOW_PAD, size, size);
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.beginPath();
+      ctx.roundRect(GLOW_PAD, GLOW_PAD, size, size, RADIUS);
+      ctx.fill();
       tex.refresh();
     }
   }

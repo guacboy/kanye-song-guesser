@@ -1,6 +1,6 @@
 # kanye-song-guesser
 
-Guess the Kanye West song from a 0.5s → 1s → 4s → 8s clip. Built with Phaser 3 + TypeScript + Vite, for playing in the browser on itch.io.
+Guess the Kanye West song from a 0.1s → 0.5s → 2s → 8s clip. Each wrong guess or skip unlocks the next length; miss all four and you lose one of three lives. Once a song is revealed, its album cover appears, the page takes on the cover's main color, and 15 seconds of the song play. Built with Phaser 3 + TypeScript + Vite, for playing in the browser on itch.io.
 
 ## Run it
 
@@ -24,7 +24,7 @@ npm run dev      # http://localhost:5173
    python scripts/sync_songs.py            # or --dry-run to preview
    ```
 
-   - Title, artists, features and album come from Spotify. Main artists are the track's artists who are also credited on the album; everyone else counts as a feature. So "Otis" gets JAY-Z and Kanye West as main artists, with Otis Redding as the feature.
+   - Title, artists, features, album and album cover come from Spotify. Covers are saved to `public/assets/albums/<album id>.jpg` (one per album) and shown when a song is revealed. Main artists are the track's artists who are also credited on the album; everyone else counts as a feature. So "Otis" gets JAY-Z and Kanye West as main artists, with Otis Redding as the feature.
    - Total streams come from [kworb.net](https://kworb.net/spotify/artist/5K4W6rqBFWDnAN6FQUkS6x_songs.html), matched by Spotify track ID. They set the playlist (`tier`): > 1B, > 100M, > 1M or > 100K. Re-run the script now and then to update the counts.
    - `start` (when the clip begins, in seconds) and `aliases` (other spellings that count as correct) are yours to add by hand in songs.json. Re-running the script keeps them.
    - Entries without a Spotify link are left alone, so you can still write an entry by hand. Give it `title`, `artists`, `album`, `file` and `tier`.
@@ -52,8 +52,8 @@ python -m venv .venv
 
 ## Art
 
-- **Life icon:** `public/assets/life.png`, scaled to fit 48 px. If it's missing, the game draws a placeholder heart.
-- **Playlist backgrounds:** `public/assets/playlists/1b.png`, `100m.png`, `1m.png`, `100k.png`. They fill the 160 px square cards; non-square images are center-cropped. Use at least 480×480 so they stay sharp on high-DPI screens. A dark overlay keeps the text readable. A card without an image is drawn as a plain outline.
+- **Life icon:** `public/assets/life.png`, scaled to fit 30 px in the top bar. If it's missing, the game draws a placeholder heart.
+- **Playlist backgrounds:** `public/assets/playlists/1b.png`, `100m.png`, `1m.png`, `100k.png`. They fill the 130 px square cards; non-square images are center-cropped. Use at least 480×480 so they stay sharp on high-DPI screens. A dark overlay keeps the text readable. A card without an image is drawn as a plain outline.
 
 ## Publishing to itch.io
 

@@ -7,8 +7,8 @@ import { playlistTexture } from './BootScene';
 
 const LAST_TIER_KEY = 'ksg-last-tier';
 
-const CARD_SIZE = 160;
-const CARD_GAP = 24;
+const CARD_SIZE = 130;
+const CARD_GAP = 20;
 const CARD_Y = 290;
 
 export class MenuScene extends Phaser.Scene {
@@ -42,7 +42,7 @@ export class MenuScene extends Phaser.Scene {
       this.cards.set(t.id, card);
     });
 
-    new Button(this, cx, 470, 'START GAME', () => this.startGame(), 300, 56, 22);
+    new Button(this, cx, 430, 'START', () => this.startGame(), 150, 42, 16);
 
     this.select(this.loadLastTier());
   }

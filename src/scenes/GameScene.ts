@@ -1,25 +1,60 @@
 import Phaser from 'phaser';
-import { CLIP_LENGTHS, COLORS, MAX_LIVES, WIDTH, fitCamera, makeText } from '../theme';
+import {
+  CLIP_LENGTHS,
+  COLORS,
+  MAX_LIVES,
+  RADIUS,
+  RENDER_SCALE,
+  REVEAL_CLIP,
+  WIDTH,
+  fitCamera,
+  makeText,
+} from '../theme';
 import { SONGS, Song, Tier, songsForTier } from '../data/songs';
 import { formatCredits, isCorrect } from '../logic/search';
 import { Button } from '../ui/Button';
 import { GuessInput } from '../ui/GuessInput';
+import { roundedCoverTexture } from '../ui/roundedTexture';
+import { albumColor, hideBackdrop, showBackdrop } from '../ui/backdrop';
 import { LIFE_TEXTURE } from './BootScene';
 import type { EndReason } from './GameOverScene';
 
 type Phase = 'loading' | 'guessing' | 'revealed';
 
 const CX = WIDTH / 2;
-const LIVES_Y = 140;
-const PLAY_Y = 225;
-const BAR_Y = 272;
+const TOP_Y = 36; // QUIT, lives and song counter share this row
+const LIFE_SIZE = 30;
+const LIFE_GAP = 40;
+
+// Reveal: album art centered where the progress bar sits while guessing; title + credits below it,
+// and the bar slides down under them.
+const ART_Y = 150;
+const ART_SIZE = 140;
+const TITLE_Y = ART_Y + ART_SIZE / 2 + 22;
+const CREDITS_Y = TITLE_Y + 22;
 const BAR_W = 360;
-const GUESS_Y = 340;
-const SKIP_Y = 420;
-const FEEDBACK_Y = 490;
+const BAR_H = 8;
+const BAR_IDLE_Y = ART_Y - BAR_H / 2;
+const BAR_REVEAL_Y = CREDITS_Y + 22;
+const TICK_H = 6; // checkpoint line under the bar
+const REVEAL_MS = 450;
+
+// Answer row: text box with the skip/next button to its right.
+const ROW_Y = 335;
+const ROW_H = 40; // .guess-input height in style.css
+const GUESS_W = 300; // .guess width in style.css
+const SKIP_W = 110;
+const ROW_GAP = 8;
+const ROW_LEFT = CX - (GUESS_W + ROW_GAP + SKIP_W) / 2;
+
+const PLAY_Y = 410;
+const PLAY_D = 56;
+const FEEDBACK_Y = 470;
+
 const MAX_CLIP = CLIP_LENGTHS[CLIP_LENGTHS.length - 1];
 
 const songKey = (song: Song) => `song:${song.file}`;
+const coverKey = (song: Song) => `cover:${song.cover}`;
 
 export class GameScene extends Phaser.Scene {
   private tier!: Tier;
@@ -30,6 +65,8 @@ export class GameScene extends Phaser.Scene {
   private lives = MAX_LIVES;
   private score = 0;
   private played = 0;
+  /** Songs in this run; drops if a file fails to load. */
+  private total = 0;
   private alive = false;
   private pending = new Map<string, Promise<boolean>>();
 
@@ -40,10 +77,13 @@ export class GameScene extends Phaser.Scene {
   private lifeIcons: Phaser.GameObjects.Image[] = [];
   private playBtn!: Button;
   private bar!: Phaser.GameObjects.Graphics;
+  private barY = BAR_IDLE_Y;
+  private tickLabel!: Phaser.GameObjects.Text;
+  private revealView?: Phaser.GameObjects.Container;
   private guess!: GuessInput;
   private skipBtn!: Button;
   private feedback!: Phaser.GameObjects.Text;
-  private scoreText!: Phaser.GameObjects.Text;
+  private progressText!: Phaser.GameObjects.Text;
 
   constructor() {
     super('Game');
@@ -58,38 +98,44 @@ export class GameScene extends Phaser.Scene {
     this.lives = MAX_LIVES;
     this.score = 0;
     this.played = 0;
+    this.total = this.queue.length;
     this.pending.clear();
     this.alive = true;
+    this.barY = BAR_IDLE_Y;
+    this.revealView = undefined;
   }
 
   create(): void {
     fitCamera(this);
-    new Button(this, 70, 36, '← MENU', () => this.scene.start('Menu'), 110, 36, 14);
-    this.scoreText = makeText(this, WIDTH - 70, 36, '', 18);
-
-    // Lives
+    // Top bar: QUIT | lives (centered) | songs counter
+    new Button(this, 70, TOP_Y, 'QUIT', () => this.scene.start('Menu'), 110, 36, 14);
+    this.progressText = makeText(this, WIDTH - 70, TOP_Y, '', 18);
     this.lifeIcons = [];
     for (let i = 0; i < MAX_LIVES; i++) {
-      const img = this.add.image(CX + (i - (MAX_LIVES - 1) / 2) * 64, LIVES_Y, LIFE_TEXTURE);
-      img.setScale(48 / Math.max(img.width, img.height));
+      const img = this.add.image(CX + (i - (MAX_LIVES - 1) / 2) * LIFE_GAP, TOP_Y, LIFE_TEXTURE);
+      img.setScale(LIFE_SIZE / Math.max(img.width, img.height));
       this.lifeIcons.push(img);
     }
 
-    // Current clip length + replay
-    this.playBtn = new Button(this, CX, PLAY_Y, '', () => this.playClip(), 200, 56, 24);
+    // Clip progress + the current checkpoint's label (positioned every frame in drawBar)
     this.bar = this.add.graphics();
+    this.tickLabel = makeText(this, 0, 0, '', 11);
 
-    // Answer box
-    this.guess = new GuessInput(this, CX, GUESS_Y, SONGS, (g) => this.submitGuess(g));
+    // Answer row: text box, then skip/next
+    this.guess = new GuessInput(this, ROW_LEFT + GUESS_W / 2, ROW_Y, SONGS, (g) => this.submitGuess(g));
+    const skipX = ROW_LEFT + GUESS_W + ROW_GAP + SKIP_W / 2;
+    this.skipBtn = new Button(this, skipX, ROW_Y, '', () => this.onSkip(), SKIP_W, ROW_H, 14);
 
-    // Skip / next
-    this.skipBtn = new Button(this, CX, SKIP_Y, '', () => this.onSkip(), 240, 50, 18);
+    // Replay: round button with just the play symbol. ▶'s weight sits left of its box, so nudge it right.
+    this.playBtn = new Button(this, CX, PLAY_Y, '▶', () => this.onPlay(), PLAY_D, PLAY_D, 20, true);
+    this.playBtn.setLabelOffset(2, -1);
 
     this.feedback = makeText(this, CX, FEEDBACK_Y, '', 18, COLORS.muted).setAlign('center');
 
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       this.alive = false;
       this.stopClip();
+      hideBackdrop();
     });
 
     this.refreshHud();
@@ -106,6 +152,7 @@ export class GameScene extends Phaser.Scene {
     this.phase = 'loading';
     this.attempt = 0;
     this.stopClip();
+    this.hideReveal();
     this.setControls();
     this.feedback.setText('Loading…').setColor(COLORS.muted);
 
@@ -116,11 +163,14 @@ export class GameScene extends Phaser.Scene {
       if (ok) {
         this.song = song;
         this.played++;
+        this.refreshHud();
         if (this.queue[0]) void this.loadSong(this.queue[0]); // preload the next one
         this.startAttempt();
         return;
       }
       console.warn(`[game] could not load ${song.file}, skipping "${song.title}"`);
+      this.total--;
+      this.refreshHud();
     }
     this.endGame(this.played === 0 ? 'no-audio' : 'finished');
   }
@@ -137,7 +187,7 @@ export class GameScene extends Phaser.Scene {
     if (this.phase !== 'guessing' || !this.song) return;
     if (isCorrect(this.song, guess)) {
       this.score++;
-      this.reveal(true);
+      this.reveal();
     } else {
       this.advance(`✗  ${guess}`);
     }
@@ -157,23 +207,21 @@ export class GameScene extends Phaser.Scene {
     if (this.attempt >= CLIP_LENGTHS.length) {
       this.attempt = CLIP_LENGTHS.length - 1;
       this.lives--;
-      this.reveal(false);
+      this.reveal();
       return;
     }
     this.startAttempt();
     this.feedback.setText(message).setColor(COLORS.muted);
   }
 
-  private reveal(correct: boolean): void {
+  private reveal(): void {
     const song = this.song!;
     this.phase = 'revealed';
     this.setControls();
     this.refreshHud();
-    this.feedback
-      .setText(`${correct ? '✓' : '✗'}  ${song.title}\n${formatCredits(song)} · ${song.album}`)
-      .setColor(correct ? COLORS.text : COLORS.muted);
-    // Reward / consolation: play the longest clip.
-    this.playClip(MAX_CLIP);
+    this.feedback.setText('');
+    this.showReveal(song);
+    this.playClip();
   }
 
   private endGame(reason: EndReason): void {
@@ -185,45 +233,98 @@ export class GameScene extends Phaser.Scene {
 
   private setControls(): void {
     const guessing = this.phase === 'guessing';
-    const len = CLIP_LENGTHS[this.attempt];
-
     this.guess.setEnabled(guessing);
-    if (this.phase !== 'guessing') this.guess.clear();
-
+    if (!guessing) this.guess.clear();
     this.playBtn.setEnabled(this.phase !== 'loading');
-    this.playBtn.setLabel(`▶  ${this.phase === 'revealed' ? MAX_CLIP : len}s`);
 
     if (this.phase === 'revealed') {
-      this.skipBtn.setLabel(this.lives <= 0 ? 'RESULTS →' : 'NEXT SONG →').setEnabled(true);
+      this.skipBtn.setLabel(this.lives <= 0 ? 'RESULTS' : 'NEXT', 14).setEnabled(true);
     } else {
-      const next = CLIP_LENGTHS[this.attempt + 1];
-      this.skipBtn.setLabel(next !== undefined ? `SKIP (+${next - len}s)` : 'GIVE UP').setEnabled(guessing);
+      const last = this.attempt >= CLIP_LENGTHS.length - 1;
+      this.skipBtn.setLabel(last ? 'GIVE UP' : 'SKIP', 14).setEnabled(guessing);
     }
   }
 
   private refreshHud(): void {
     this.lifeIcons.forEach((img, i) => img.setAlpha(i < this.lives ? 1 : 0.15));
-    this.scoreText.setText(`Score: ${this.score}`);
+    this.progressText.setText(`${this.played} / ${this.total}`);
   }
 
   private drawBar(now: number): void {
     const g = this.bar;
     const x = CX - BAR_W / 2;
-    const h = 8;
-    const unlocked = this.phase === 'revealed' ? MAX_CLIP : CLIP_LENGTHS[this.attempt];
+    const y = this.barY;
+    const revealed = this.phase === 'revealed';
+    // To scale: 0..8s while guessing, 0..15s once revealed.
+    const span = revealed ? REVEAL_CLIP : MAX_CLIP;
+    const frac = (sec: number) => Math.min(sec / span, 1);
+    const current = CLIP_LENGTHS[this.attempt];
 
     g.clear();
-    g.fillStyle(COLORS.dim).fillRect(x, BAR_Y, (unlocked / MAX_CLIP) * BAR_W, h);
+    g.fillStyle(COLORS.dim).fillRect(x, y, (revealed ? 1 : frac(current)) * BAR_W, BAR_H);
     if (this.clip?.isPlaying) {
       const played = Math.min((now - this.clipStartedAt) / 1000, this.clipLen);
-      g.fillStyle(COLORS.textNum).fillRect(x, BAR_Y, (played / MAX_CLIP) * BAR_W, h);
+      g.fillStyle(COLORS.textNum).fillRect(x, y, frac(played) * BAR_W, BAR_H);
     }
-    g.lineStyle(1, COLORS.mutedNum);
-    for (const len of CLIP_LENGTHS.slice(0, -1)) {
-      const tx = x + (len / MAX_CLIP) * BAR_W;
-      g.lineBetween(tx, BAR_Y, tx, BAR_Y + h);
+    g.lineStyle(2, COLORS.textNum).strokeRect(x, y, BAR_W, BAR_H);
+
+    // Only the current checkpoint is marked: a short line under the bar and its length.
+    this.tickLabel.setVisible(!revealed);
+    if (!revealed) {
+      const tx = x + frac(current) * BAR_W;
+      g.lineStyle(1, COLORS.textNum).lineBetween(tx, y + BAR_H, tx, y + BAR_H + TICK_H);
+      this.tickLabel.setText(`${current}s`).setPosition(tx, y + BAR_H + TICK_H + 9);
     }
-    g.lineStyle(2, COLORS.textNum).strokeRect(x, BAR_Y, BAR_W, h);
+  }
+
+  // ---------- reveal ----------
+
+  /** Bar slides down; album art, title and credits fade in where the bar was; page tints to the album. */
+  private showReveal(song: Song): void {
+    this.revealView?.destroy();
+    const view = this.add.container(CX, 0).setAlpha(0);
+
+    const hasCover = !!song.cover && this.textures.exists(coverKey(song));
+    if (hasCover) {
+      const key = roundedCoverTexture(this, coverKey(song), ART_SIZE);
+      view.add(this.add.image(0, ART_Y, key).setScale(1 / RENDER_SCALE));
+      const color = albumColor(this, coverKey(song));
+      if (color) showBackdrop(color);
+    } else {
+      const half = ART_SIZE / 2;
+      const placeholder = this.add.graphics();
+      placeholder.lineStyle(2, COLORS.textNum).strokeRoundedRect(-half, ART_Y - half, ART_SIZE, ART_SIZE, RADIUS);
+      view.add([placeholder, makeText(this, 0, ART_Y, '♪', 48, COLORS.muted)]);
+    }
+    view.add([
+      makeText(this, 0, TITLE_Y, song.title, 20).setFontStyle('bold'),
+      makeText(this, 0, CREDITS_Y, `${formatCredits(song)}  •  ${song.album}`, 14, COLORS.muted),
+    ]);
+    this.revealView = view;
+
+    this.tweens.killTweensOf(this);
+    this.tweens.add({ targets: this, barY: BAR_REVEAL_Y, duration: REVEAL_MS, ease: 'Cubic.easeInOut' });
+    view.setScale(0.92);
+    this.tweens.add({
+      targets: view,
+      alpha: 1,
+      scale: 1,
+      delay: REVEAL_MS * 0.6, // after the bar has mostly passed the title
+      duration: REVEAL_MS,
+      ease: 'Cubic.easeOut',
+    });
+  }
+
+  /** Reverse of showReveal: art fades out, bar slides back up, tint fades. */
+  private hideReveal(): void {
+    const view = this.revealView;
+    if (!view) return;
+    this.revealView = undefined;
+    hideBackdrop();
+    this.tweens.killTweensOf(view);
+    this.tweens.add({ targets: view, alpha: 0, duration: 200, onComplete: () => view.destroy() });
+    this.tweens.killTweensOf(this);
+    this.tweens.add({ targets: this, barY: BAR_IDLE_Y, duration: 300, ease: 'Cubic.easeInOut' });
   }
 
   // ---------- audio ----------
@@ -252,15 +353,27 @@ export class GameScene extends Phaser.Scene {
       this.load.on(Phaser.Loader.Events.FILE_LOAD_ERROR, onErr);
       this.load.on(Phaser.Loader.Events.COMPLETE, onBatchDone);
       this.load.audio(key, song.file);
+      // Cover art rides along in the same batch; a missing cover just shows the placeholder.
+      if (song.cover && !this.textures.exists(coverKey(song))) this.load.image(coverKey(song), song.cover);
       this.load.start();
     });
     this.pending.set(key, promise);
     return promise;
   }
 
-  private playClip(length = CLIP_LENGTHS[this.attempt]): void {
+  /** Replay button: play the clip and send a ring out from the button. */
+  private onPlay(): void {
+    this.playClip();
+    const ring = this.add.graphics({ x: CX, y: PLAY_Y });
+    ring.lineStyle(2, COLORS.textNum).strokeCircle(0, 0, PLAY_D / 2);
+    this.tweens.add({ targets: ring, scale: 1.6, alpha: 0, duration: 550, ease: 'Cubic.easeOut', onComplete: () => ring.destroy() });
+    this.tweens.add({ targets: this.playBtn, scale: 0.9, duration: 90, yoyo: true, ease: 'Quad.easeOut' });
+  }
+
+  /** Plays the current attempt's clip, or REVEAL_CLIP seconds once the song is revealed. */
+  private playClip(): void {
     if (!this.song || this.phase === 'loading') return;
-    if (this.phase === 'revealed') length = MAX_CLIP;
+    const length = this.phase === 'revealed' ? REVEAL_CLIP : CLIP_LENGTHS[this.attempt];
     this.stopClip();
 
     const clip = this.sound.add(songKey(this.song));

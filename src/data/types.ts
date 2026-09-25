@@ -19,4 +19,6 @@ export interface Song {
   streams?: number;
   /** Spotify track id the entry was synced from. */
   spotifyId?: string;
+  /** Album cover path relative to /public, e.g. 'assets/albums/<album id>.jpg'. */
+  cover?: string;
 }

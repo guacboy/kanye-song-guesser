@@ -6,7 +6,7 @@ import pytest
 
 VALID_TIERS = {"1b", "100m", "1m", "100k"}
 REQUIRED = {"title": str, "artists": list, "album": str, "file": str, "tier": str}
-OPTIONAL = {"features": list, "start": (int, float), "aliases": list, "streams": int, "spotifyId": str}
+OPTIONAL = {"features": list, "start": (int, float), "aliases": list, "streams": int, "spotifyId": str, "cover": str}
 FILE_PATTERN = re.compile(r"^audio/[^/\\]+\.(mp3|ogg|m4a|wav)$", re.IGNORECASE)
 
 
@@ -99,3 +99,11 @@ def test_tier_matches_stream_count(manifest):
             assert song["tier"] == tier_for_streams(song["streams"]), (
                 f"{label(song)}: {song['streams']:,} streams should be tier '{tier_for_streams(song['streams'])}'"
             )
+
+
+def test_cover_images_exist(manifest):
+    from conftest import ROOT
+
+    for song in manifest:
+        if "cover" in song:
+            assert (ROOT / "public" / song["cover"]).is_file(), f"{label(song)}: missing public/{song['cover']}"

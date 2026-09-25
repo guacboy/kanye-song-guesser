@@ -5,13 +5,16 @@ export const COLORS = {
   text: '#e6e6e6',
   textNum: 0xe6e6e6,
   // Used as the "background color" for inverted (hovered) buttons.
-  bg: '#0e0e0e',
-  bgNum: 0x0e0e0e,
+  bg: '#161616',
+  bgNum: 0x161616,
   muted: '#8a8a8a',
   mutedNum: 0x8a8a8a,
   dim: 0x3a3a3a,
   accent: '#3cd470',
 };
+
+/** Corner radius for buttons, cards and inputs (keep in sync with --radius in style.css). */
+export const RADIUS = 10;
 
 export const FONT = '"Helvetica Neue", Helvetica, Arial, sans-serif';
 
@@ -33,7 +36,9 @@ export function fitCamera(scene: Phaser.Scene): void {
 }
 
 /** Clip length (seconds) for each attempt. */
-export const CLIP_LENGTHS = [0.5, 1, 4, 8];
+export const CLIP_LENGTHS = [0.1, 0.5, 2, 8];
+/** How long the song plays once it's revealed. */
+export const REVEAL_CLIP = 15;
 export const MAX_LIVES = 3;
 
 export function makeText(

@@ -3,13 +3,12 @@ import type { Song } from '../data/types';
 import { formatCredits, searchSongs } from '../logic/search';
 
 /**
- * Text box + submit arrow + autocomplete dropdown, rendered as a Phaser DOM element
- * (a canvas can't host a real text input).
+ * Text box + autocomplete dropdown, rendered as a Phaser DOM element (a canvas can't host a real
+ * text input). Enter submits.
  */
 export class GuessInput {
   readonly element: Phaser.GameObjects.DOMElement;
   private input: HTMLInputElement;
-  private submitBtn: HTMLButtonElement;
   private list: HTMLUListElement;
   private matches: Song[] = [];
   private active = -1;
@@ -24,20 +23,15 @@ export class GuessInput {
     const root = document.createElement('div');
     root.className = 'guess';
     root.innerHTML = `
-      <div class="guess-row">
-        <input class="guess-input" type="text" placeholder="Know it? Search for the title"
-          autocomplete="off" spellcheck="false" />
-        <button class="btn" type="button" aria-label="Submit guess" disabled>&rarr;</button>
-      </div>
+      <input class="guess-input" type="text" placeholder="Type your answer here.."
+        autocomplete="off" spellcheck="false" />
       <ul class="suggestions"></ul>`;
     this.input = root.querySelector('input')!;
-    this.submitBtn = root.querySelector('button')!;
     this.list = root.querySelector('ul')!;
 
     this.input.addEventListener('input', () => this.update());
     this.input.addEventListener('keydown', (e) => this.onKey(e));
     this.input.addEventListener('blur', () => this.close());
-    this.submitBtn.addEventListener('click', () => this.submit());
     // mousedown (not click) so it fires before the input's blur closes the list.
     this.list.addEventListener('mousedown', (e) => {
       const li = (e.target as HTMLElement).closest('li');
@@ -45,6 +39,10 @@ export class GuessInput {
       e.preventDefault();
       this.choose(Number(li.dataset.index));
     });
+    // Keep presses on the dropdown from reaching the game canvas/window listeners underneath.
+    for (const type of ['pointerdown', 'pointerup', 'mousedown', 'mouseup', 'touchstart', 'touchend', 'click']) {
+      this.list.addEventListener(type, (e) => e.stopPropagation());
+    }
 
     this.element = scene.add.dom(x, y, root);
   }
@@ -52,13 +50,11 @@ export class GuessInput {
   setEnabled(enabled: boolean): void {
     this.input.disabled = !enabled;
     if (!enabled) this.close();
-    this.refreshSubmit();
   }
 
   clear(): void {
     this.input.value = '';
     this.close();
-    this.refreshSubmit();
   }
 
   focus(): void {
@@ -66,7 +62,6 @@ export class GuessInput {
   }
 
   private update(): void {
-    this.refreshSubmit();
     this.matches = searchSongs(this.songs, this.input.value);
     if (this.matches.length === 0) return this.close();
     this.active = -1;
@@ -114,7 +109,6 @@ export class GuessInput {
   private choose(index: number): void {
     this.input.value = this.matches[index].title;
     this.close();
-    this.refreshSubmit();
     this.input.focus();
   }
 
@@ -129,9 +123,5 @@ export class GuessInput {
     this.matches = [];
     this.active = -1;
     this.list.replaceChildren();
-  }
-
-  private refreshSubmit(): void {
-    this.submitBtn.disabled = this.input.disabled || this.input.value.trim() === '';
   }
 }

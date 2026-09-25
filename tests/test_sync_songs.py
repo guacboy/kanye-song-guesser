@@ -23,8 +23,21 @@ KWORB_PAGE = """
 """
 
 
+IMAGES = [
+    {"url": "https://i.scdn.co/image/640", "width": 640, "height": 640},
+    {"url": "https://i.scdn.co/image/300", "width": 300, "height": 300},
+    {"url": "https://i.scdn.co/image/64", "width": 64, "height": 64},
+]
+
+
 def track(tid, name, artists, album_artists, album="Graduation"):
-    return {"id": tid, "name": name, "artists": artists, "album": {"name": album, "artists": album_artists}}
+    album_id = "alb" + "".join(c for c in album if c.isalnum())
+    return {
+        "id": tid,
+        "name": name,
+        "artists": artists,
+        "album": {"id": album_id, "name": album, "artists": album_artists, "images": IMAGES},
+    }
 
 
 STRONGER = track("0j2T0R9dR9qdJYsB7ciXhf", "Stronger", [KANYE], [KANYE])
@@ -188,6 +201,26 @@ def test_build_entry_fails_below_lowest_playlist():
         s.build_entry("stronger.mp3", STRONGER, 50_000, None)
 
 
+@pytest.mark.parametrize(
+    ("images", "url"),
+    [
+        (IMAGES, "https://i.scdn.co/image/640"),  # 300 is too small for 3x render scale
+        ([{"url": "a", "width": 1000}, {"url": "b", "width": 500}], "b"),  # smallest that's big enough
+        ([{"url": "small", "width": 64}, {"url": "mid", "width": 300}], "mid"),  # none big enough: largest
+        ([], None),
+    ],
+)
+def test_pick_cover_url(images, url):
+    assert s.pick_cover_url(images) == url
+
+
+def test_build_entry_cover_new_or_previous():
+    assert s.build_entry("a.mp3", STRONGER, 2_000_000_000, None, "assets/albums/x.jpg")["cover"] == "assets/albums/x.jpg"
+    kept = s.build_entry("a.mp3", STRONGER, 2_000_000_000, {"cover": "assets/albums/old.jpg"})
+    assert kept["cover"] == "assets/albums/old.jpg"
+    assert "cover" not in s.build_entry("a.mp3", STRONGER, 2_000_000_000, None)
+
+
 def test_merge_replaces_appends_and_keeps_unlisted():
     manifest = [{"file": "audio/a.mp3", "v": 1}, {"file": "audio/manual.mp3", "v": 1}]
     synced = [{"file": "audio/a.mp3", "v": 2}, {"file": "audio/new.mp3", "v": 2}]
@@ -215,6 +248,8 @@ def fake_net(monkeypatch):
             if tid not in tracks:
                 raise urllib.error.HTTPError(url, 404, "nf", {}, None)
             return json.dumps(tracks[tid]).encode()
+        if "i.scdn.co" in url:
+            return b"FAKEJPEG"
         if "kworb.net" in url:
             if KANYE["id"] in url:
                 return KWORB_PAGE.encode()
@@ -272,6 +307,23 @@ def test_sync_end_to_end(fake_net, tmp_path, monkeypatch):
     assert result["audio/stronger.mp3"]["start"] == 3
     assert result["audio/manual.mp3"]["title"] == "Manual"
     assert result["audio/otis.mp3"]["features"] == ["Otis Redding"]
+    cover = result["audio/stronger.mp3"]["cover"]
+    assert cover == "assets/albums/albGraduation.jpg"
+    assert (tmp_path / "public" / cover).read_bytes().startswith(b"FAKEJPEG")
+
+
+def test_covers_download_once_per_album(fake_net, tmp_path, monkeypatch):
+    monkeypatch.setattr(s, "ROOT", tmp_path)
+    s.download_cover(STRONGER)
+    s.download_cover(FLASHING)  # same album (Graduation)
+    s.download_cover(STRONGER)
+    assert sum("i.scdn.co" in u for u in fake_net) == 1
+
+
+def test_album_without_images_gets_no_cover(fake_net, tmp_path, monkeypatch):
+    monkeypatch.setattr(s, "ROOT", tmp_path)
+    bare = {**STRONGER, "album": {**STRONGER["album"], "images": []}}
+    assert s.download_cover(bare) is None
 
 
 def test_sync_dry_run_does_not_write(fake_net, tmp_path, monkeypatch):
@@ -286,6 +338,7 @@ def test_sync_dry_run_does_not_write(fake_net, tmp_path, monkeypatch):
 
     assert s.sync(dry_run=True) == 0
     assert manifest.read_text(encoding="utf-8") == "[]"
+    assert not any("i.scdn.co" in u for u in fake_net)  # dry run downloads nothing
 
 
 def test_sync_reports_failures_but_writes_the_rest(fake_net, tmp_path, monkeypatch):

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Guess the Kanye West song from a 0.5s / 1s / 4s / 8s clip.",
+  "description": "Guess the Kanye West song from a 0.1s / 0.5s / 2s / 8s clip.",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
