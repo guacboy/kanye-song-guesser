@@ -35,3 +35,14 @@ export function hideBackdrop(): void {
   const el = document.getElementById('backdrop');
   if (el) el.style.opacity = '0';
 }
+
+/** Page-level dim for the results pop-up (the game scene dims its own camera). */
+export function showDim(): void {
+  const el = document.getElementById('dim');
+  if (el) el.style.opacity = '0.55';
+}
+
+export function hideDim(): void {
+  const el = document.getElementById('dim');
+  if (el) el.style.opacity = '0';
+}

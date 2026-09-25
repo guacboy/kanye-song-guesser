@@ -15,9 +15,9 @@ import { formatCredits, isCorrect } from '../logic/search';
 import { Button } from '../ui/Button';
 import { GuessInput } from '../ui/GuessInput';
 import { roundedCoverTexture } from '../ui/roundedTexture';
-import { albumColor, hideBackdrop, showBackdrop } from '../ui/backdrop';
+import { albumColor, hideBackdrop, hideDim, showBackdrop, showDim } from '../ui/backdrop';
 import { LIFE_TEXTURE } from './BootScene';
-import type { EndReason } from './GameOverScene';
+import type { EndReason } from './ResultsScene';
 import { playSfx } from '../sfx';
 import { enterScene, goTo } from '../transition';
 
@@ -54,6 +54,8 @@ const PLAY_D = 56;
 const FEEDBACK_Y = 470;
 
 const MAX_CLIP = CLIP_LENGTHS[CLIP_LENGTHS.length - 1];
+/** How visible the game stays behind the results pop-up. */
+const DIMMED_ALPHA = 0.3;
 
 const songKey = (song: Song) => `song:${song.file}`;
 const coverKey = (song: Song) => `cover:${song.cover}`;
@@ -70,6 +72,7 @@ export class GameScene extends Phaser.Scene {
   /** Songs in this run; drops if a file fails to load. */
   private total = 0;
   private alive = false;
+  private ended = false;
   private pending = new Map<string, Promise<boolean>>();
 
   private clip?: Phaser.Sound.BaseSound;
@@ -103,6 +106,7 @@ export class GameScene extends Phaser.Scene {
     this.total = this.queue.length;
     this.pending.clear();
     this.alive = true;
+    this.ended = false;
     this.barY = BAR_IDLE_Y;
     this.revealView = undefined;
   }
@@ -139,6 +143,7 @@ export class GameScene extends Phaser.Scene {
       this.alive = false;
       this.stopClip();
       hideBackdrop();
+      hideDim();
     });
 
     this.refreshHud();
@@ -238,9 +243,21 @@ export class GameScene extends Phaser.Scene {
     this.playClip();
   }
 
+  /** Dim and freeze the game, then pop the results up on top (ResultsScene). */
   private endGame(reason: EndReason): void {
+    if (this.ended) return;
+    this.ended = true;
     this.stopClip();
-    goTo(this, 'GameOver', { tier: this.tier, score: this.score, played: this.played, reason });
+    this.feedback.setText('');
+    this.input.enabled = false;
+    this.guess.setEnabled(false);
+    // The answer box is a DOM element drawn above the canvas, so fade it out rather than dim it.
+    this.tweens.add({ targets: this.guess.element, alpha: 0, duration: 200 });
+    const cam = this.cameras.main;
+    this.tweens.killTweensOf(cam);
+    this.tweens.add({ targets: cam, alpha: DIMMED_ALPHA, zoom: RENDER_SCALE, duration: 300, ease: 'Cubic.easeOut' });
+    showDim();
+    this.scene.launch('Results', { tier: this.tier, score: this.score, played: this.played, reason });
   }
 
   // ---------- UI state ----------

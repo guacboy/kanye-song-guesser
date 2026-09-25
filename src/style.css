@@ -40,6 +40,17 @@ body {
   pointer-events: none;
 }
 
+/* Darkens the page behind the canvas while the results pop-up is open (see ui/backdrop.ts). */
+#dim {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: #000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
 /* ---------- DOM widgets rendered by Phaser (guess input) ---------- */
 
 .guess {
