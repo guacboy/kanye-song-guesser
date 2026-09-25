@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { COLORS, WIDTH, fitCamera, makeText } from '../theme';
 import { TIERS, Tier } from '../data/songs';
 import { Button } from '../ui/Button';
+import { enterScene, goTo } from '../transition';
 import { playSfx } from '../sfx';
 
 export type EndReason = 'out-of-lives' | 'finished' | 'no-audio';
@@ -43,8 +44,9 @@ export class GameOverScene extends Phaser.Scene {
       makeText(this, cx, 345, `Best: ${best}`, 18);
     }
 
-    new Button(this, cx, 430, 'PLAY AGAIN', () => this.scene.start('Game', { tier }), 180, 42, 16);
-    new Button(this, cx, 484, 'MAIN MENU', () => this.scene.start('Menu'), 180, 42, 16);
+    new Button(this, cx, 430, 'PLAY AGAIN', () => goTo(this, 'Game', { tier }), 180, 42, 16);
+    new Button(this, cx, 484, 'MAIN MENU', () => goTo(this, 'Menu'), 180, 42, 16);
+    enterScene(this);
   }
 
   private updateBest(tier: Tier, score: number): number {

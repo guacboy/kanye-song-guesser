@@ -4,6 +4,7 @@ import { TIERS, Tier, songsForTier } from '../data/songs';
 import { Button } from '../ui/Button';
 import { PlaylistCard } from '../ui/PlaylistCard';
 import { playSfx } from '../sfx';
+import { enterScene, goTo } from '../transition';
 import { playlistTexture } from './BootScene';
 
 const LAST_TIER_KEY = 'ksg-last-tier';
@@ -47,6 +48,7 @@ export class MenuScene extends Phaser.Scene {
     new Button(this, cx, 430, 'START', () => this.startGame(), 150, 42, 16, false, false).setHoverColor(COLORS.accentNum);
 
     this.select(this.loadLastTier());
+    enterScene(this);
   }
 
   private select(tier: Tier): void {
@@ -61,7 +63,7 @@ export class MenuScene extends Phaser.Scene {
     } catch {
       // storage unavailable (private mode / sandboxed iframe) - not important
     }
-    this.scene.start('Game', { tier: this.selected });
+    goTo(this, 'Game', { tier: this.selected });
   }
 
   private loadLastTier(): Tier {

@@ -19,6 +19,7 @@ import { albumColor, hideBackdrop, showBackdrop } from '../ui/backdrop';
 import { LIFE_TEXTURE } from './BootScene';
 import type { EndReason } from './GameOverScene';
 import { playSfx } from '../sfx';
+import { enterScene, goTo } from '../transition';
 
 type Phase = 'loading' | 'guessing' | 'revealed';
 
@@ -109,7 +110,7 @@ export class GameScene extends Phaser.Scene {
   create(): void {
     fitCamera(this);
     // Top bar: QUIT | lives (centered) | songs counter
-    new Button(this, 70, TOP_Y, 'QUIT', () => this.scene.start('Menu'), 110, 36, 14);
+    new Button(this, 70, TOP_Y, 'QUIT', () => goTo(this, 'Menu'), 110, 36, 14);
     this.progressText = makeText(this, WIDTH - 70, TOP_Y, '', 18);
     this.lifeIcons = [];
     for (let i = 0; i < MAX_LIVES; i++) {
@@ -141,6 +142,7 @@ export class GameScene extends Phaser.Scene {
     });
 
     this.refreshHud();
+    enterScene(this);
     void this.nextSong();
   }
 
@@ -238,7 +240,7 @@ export class GameScene extends Phaser.Scene {
 
   private endGame(reason: EndReason): void {
     this.stopClip();
-    this.scene.start('GameOver', { tier: this.tier, score: this.score, played: this.played, reason });
+    goTo(this, 'GameOver', { tier: this.tier, score: this.score, played: this.played, reason });
   }
 
   // ---------- UI state ----------
