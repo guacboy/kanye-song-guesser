@@ -203,8 +203,8 @@ export class GameScene extends Phaser.Scene {
   }
 
   private onSkip(): void {
-    // SKIP and NEXT/RESULTS click; GIVE UP only plays the oof (from advance()).
-    if (!(this.phase === 'guessing' && this.onLastClip())) playSfx(this, 'click');
+    // SKIP is silent; GIVE UP only plays the oof (from advance()); NEXT/RESULTS click.
+    if (this.phase === 'revealed') playSfx(this, 'click');
     if (this.phase === 'guessing') this.advance('Skipped');
     else if (this.phase === 'revealed') {
       if (this.lives <= 0) this.endGame('out-of-lives');

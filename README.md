@@ -63,7 +63,7 @@ Stored in `public/assets/audio/` and mapped in [src/sfx.ts](src/sfx.ts):
 | --- | --- |
 | Correct answer | `ding.mp3` |
 | START (main menu) | `menu-hit.mp3` |
-| Any other button or playlist click, including SKIP (not the play button or GIVE UP) | `peggle-peg-pop.mp3` |
+| Any other button or playlist click (not SKIP, GIVE UP or the play button) | `peggle-peg-pop.mp3` |
 | Wrong answer (before the last clip) | `osu-combo-break.wav` |
 | Life lost: wrong answer on the last clip, or GIVE UP (only this sound plays) | `roblox-oof.mp3` |
 | Playlist finished (results screen) | `roblox-victory.mp3` |
