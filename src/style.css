@@ -120,6 +120,8 @@ body {
 
 .suggestions li:hover,
 .suggestions li.active {
-  background: var(--text);
+  /* Not quite opaque on purpose: when one highlighted row fills the whole list, Chrome's GPU
+     compositor treats the list as solid and can skip drawing part of the canvas (the lives). */
+  background: rgba(230, 230, 230, 0.97); /* --text */
   color: var(--bg);
 }
