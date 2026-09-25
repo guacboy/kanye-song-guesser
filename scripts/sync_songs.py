@@ -21,6 +21,7 @@ import os
 import re
 import sys
 import time
+import unicodedata
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -120,6 +121,25 @@ def clean_title(title: str) -> str:
     return title.strip()
 
 
+def plain(text: str) -> str:
+    """Lowercase letters and digits only, accents dropped; like normalizeTitle in src/logic/search.ts."""
+    text = unicodedata.normalize("NFKD", text.lower().replace("&", "and"))
+    return "".join(c for c in text if c.isascii() and c.isalnum())
+
+
+def file_alias(file_name: str) -> str:
+    """"that's-my-bitch.mp3" -> "that's my bitch": the file name, readable, as an accepted answer."""
+    return Path(file_name).stem.replace("-", " ").strip()
+
+
+def add_file_alias(entry: dict, file_name: str) -> None:
+    """Adds file_alias to entry["aliases"] unless the title or an alias already matches it."""
+    alias = file_alias(file_name)
+    aliases = entry.get("aliases", [])
+    if plain(alias) and plain(alias) not in {plain(t) for t in [entry["title"], *aliases]}:
+        entry["aliases"] = [*aliases, alias]
+
+
 def split_artists(track: dict) -> tuple[list[str], list[str]]:
     """Main artists = track artists also credited on the album; everyone else is a feature."""
     album_ids = {a["id"] for a in track["album"]["artists"]}
@@ -173,6 +193,7 @@ def build_entry(
     for key in PRESERVED_FIELDS:
         if previous and key in previous:
             entry[key] = previous[key]
+    add_file_alias(entry, file_name)
     return entry
 
 

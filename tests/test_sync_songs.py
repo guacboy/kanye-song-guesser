@@ -171,6 +171,34 @@ def test_build_entry_fields():
     }
 
 
+@pytest.mark.parametrize(
+    ("file_name", "title", "aliases"),
+    [
+        ("niggas-in-paris.mp3", "N****s In Paris", ["niggas in paris"]),
+        ("that's-my-bitch.mp3", "That's My Bitch", None),  # same as the title: nothing added
+        ("diamonds-from-sierra-leone-remix.mp3", "Diamonds From Sierra Leone - Remix", None),
+        ("ham.mp3", "H•A•M", None),
+        ("otis.mp3", "Otis", None),
+    ],
+)
+def test_file_alias_added_only_when_it_differs_from_title(file_name, title, aliases):
+    entry = {"title": title}
+    s.add_file_alias(entry, file_name)
+    assert entry.get("aliases") == aliases
+
+
+def test_file_alias_not_duplicated_on_resync():
+    entry = {"title": "N****s In Paris", "aliases": ["Niggas In Paris"]}
+    s.add_file_alias(entry, "niggas-in-paris.mp3")
+    assert entry["aliases"] == ["Niggas In Paris"]
+
+
+def test_build_entry_adds_file_alias_after_hand_set_ones():
+    previous = {"tier": "1b", "aliases": ["strong"]}
+    entry = s.build_entry("kanye-stronger.mp3", STRONGER, 1_892_923_303, previous)
+    assert entry["aliases"] == ["strong", "kanye stronger"]
+
+
 def test_build_entry_keeps_hand_set_fields_and_drops_stale_ones():
     previous = {"title": "Old", "tier": "1m", "start": 12.5, "aliases": ["strong"], "features": ["Stale"]}
     entry = s.build_entry("stronger.mp3", STRONGER, 1_892_923_303, previous)

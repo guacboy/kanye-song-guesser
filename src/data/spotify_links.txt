@@ -78,3 +78,21 @@ runaway.mp3 https://open.spotify.com/track/3DK6m7It6Pw857FcQftMds?si=b24e19de5f0
 hell-of-a-life.mp3 https://open.spotify.com/track/3rCNmRonlHN1TXQLcG3dSk?si=df81157529294c43
 blame-game.mp3 https://open.spotify.com/track/4EndPA8b6FDWYp1RgsnLEB?si=88d1304291da4a8e
 lost-in-the-world.mp3 https://open.spotify.com/track/2Im64pIz6m0EJKdUe6eZ8r?si=68aedd0c535b4d6a
+
+# Watch The Throne (Deluxe)
+no-church-in-the-wild.mp3 https://open.spotify.com/track/1jIfaHx4jUl1mqdig9wUra?si=8fb42a93f15f40f4
+lift-off.mp3 https://open.spotify.com/track/2tS99DuyfPPJLBVeD8iAuV?si=725a148236454ddf
+niggas-in-paris.mp3 https://open.spotify.com/track/0Bh5fftQH3Nnr5sH3I9G5o?si=0a11a608f88545ad
+otis.mp3 https://open.spotify.com/track/4KyMZxbMbrSPHwMczzgxqQ?si=d8efef63c1154c11
+gotta-have-it.mp3 https://open.spotify.com/track/36mTP2gYrZ13YzytQ5p0QW?si=05d3127269464550
+new-day.mp3 https://open.spotify.com/track/0q9GhLUyqu6wCgl1d1S7hO?si=5c4ef391c9cf44b3
+that's-my-bitch.mp3 https://open.spotify.com/track/07CRJ8rXcaaqtboD6QXGur?si=8e4979320c684d99
+welcome-to-the-jungle.mp3 https://open.spotify.com/track/5oXniOwyoZL3XB1C4xuiU1?si=8bcfaeb72a1046c0
+who-gon-stop-me.mp3 https://open.spotify.com/track/5vqGzocoPjRQLsnL7UBOpE?si=40b72b608ebd4322
+murder-to-excellence.mp3 https://open.spotify.com/track/5y55cugikYzqJeZfVBqDeB?si=60c9631a039f4660
+made-in-america.mp3 https://open.spotify.com/track/57CdogxwhzdHhqjj0115He?si=6ef3278ce2974335
+why-i-love-you.mp3 https://open.spotify.com/track/1xUGUTWQNqQzYOX1mkAlFw?si=843089230598401c
+illest-motherfucker-alive.mp3 https://open.spotify.com/track/7t259tTXkuNVfxdQcnEagh?si=fd5d82812d7b41ef
+ham.mp3 https://open.spotify.com/track/64rnghzDMy4cAEMZhSOp9h?si=b1352c2b94ba4d86
+primetime.mp3 https://open.spotify.com/track/4WQrG3ke074wTes10aLPBT?si=97201886031c430f
+the-joy.mp3 https://open.spotify.com/track/6SaPAcPPnp0Wq3IUxcwHNe?si=53c9cdc2255e4816
