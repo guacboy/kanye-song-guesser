@@ -4,7 +4,7 @@ import re
 
 import pytest
 
-VALID_TIERS = {"1b", "100m", "1m", "100k"}
+VALID_TIERS = {"1b", "100m", "1m"}
 REQUIRED = {"title": str, "artists": list, "album": str, "file": str, "tier": str}
 OPTIONAL = {"features": list, "start": (int, float), "aliases": list, "streams": int, "spotifyId": str, "cover": str}
 FILE_PATTERN = re.compile(r"^audio/[^/\\]+\.(mp3|ogg|m4a|wav)$", re.IGNORECASE)

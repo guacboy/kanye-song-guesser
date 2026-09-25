@@ -1,4 +1,4 @@
-export type Tier = '1b' | '100m' | '1m' | '100k';
+export type Tier = '1b' | '100m' | '1m';
 
 export interface Song {
   title: string;

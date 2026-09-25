@@ -1,7 +1,7 @@
 // Pure song logic, no Phaser/DOM imports - the pytest suite runs this file directly under Node.
 import type { Song, Tier } from '../data/types';
 
-export const TIER_RANK: Record<Tier, number> = { '1b': 0, '100m': 1, '1m': 2, '100k': 3 };
+export const TIER_RANK: Record<Tier, number> = { '1b': 0, '100m': 1, '1m': 2 };
 
 export function normalizeTitle(s: string): string {
   return s.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]/g, '');

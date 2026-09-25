@@ -23,11 +23,24 @@ export function albumColor(scene: Phaser.Scene, key: string): RGB | null {
   return color;
 }
 
-/** Fade in a gradient from `rgb` at the top of the page down into the plain background. */
-export function showBackdrop([r, g, b]: RGB): void {
+/** Grey used for the page gradient when no album is revealed. */
+const BASE_COLOR: RGB = [58, 58, 58];
+
+/** Gradient from `rgb` at the top of the page down into the plain background. */
+function gradient([r, g, b]: RGB): string {
+  return `linear-gradient(180deg, rgb(${r}, ${g}, ${b}) 0%, rgba(${r}, ${g}, ${b}, 0.35) 55%, rgba(${r}, ${g}, ${b}, 0) 100%)`;
+}
+
+/** The always-on grey page gradient (the album gradient fades in over it). Call once at startup. */
+export function applyBaseBackdrop(): void {
+  document.body.style.background = `${gradient(BASE_COLOR)}, var(--bg)`;
+}
+
+/** Cross-fade from the base gradient to one in the album's color (opaque, so the grey doesn't mix in). */
+export function showBackdrop(rgb: RGB): void {
   const el = document.getElementById('backdrop');
   if (!el) return;
-  el.style.background = `linear-gradient(180deg, rgb(${r}, ${g}, ${b}) 0%, rgba(${r}, ${g}, ${b}, 0.35) 55%, rgba(${r}, ${g}, ${b}, 0) 100%)`;
+  el.style.background = `${gradient(rgb)}, var(--bg)`;
   el.style.opacity = '1';
 }
 

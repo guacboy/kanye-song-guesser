@@ -18,7 +18,7 @@ body {
 }
 
 body {
-  background: var(--bg);
+  background: var(--bg); /* plus a grey gradient set in ui/backdrop.ts */
   color: var(--text);
   font-family: var(--font);
 }
@@ -30,7 +30,7 @@ body {
   height: 100vh;
 }
 
-/* Album-colored gradient behind the game, faded in on a song reveal (see ui/backdrop.ts). */
+/* Album-colored gradient behind the game, faded in over the grey base gradient on a song reveal (see ui/backdrop.ts). */
 #backdrop {
   position: fixed;
   inset: 0;

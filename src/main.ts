@@ -5,6 +5,9 @@ import { MenuScene } from './scenes/MenuScene';
 import { GameScene } from './scenes/GameScene';
 import { ResultsScene } from './scenes/ResultsScene';
 import { SettingsScene } from './scenes/SettingsScene';
+import { applyBaseBackdrop } from './ui/backdrop';
+
+applyBaseBackdrop();
 
 new Phaser.Game({
   type: Phaser.AUTO,

@@ -113,8 +113,8 @@ def test_parse_kworb_rows():
         (341_241_603, "100m"),
         (80_034_288, "1m"),
         (1_000_001, "1m"),
-        (250_000, "100k"),
-        (100_000, None),
+        (1_000_000, None),
+        (250_000, None),
         (5, None),
     ],
 )
@@ -198,7 +198,7 @@ def test_build_entry_fails_without_any_stream_info():
 
 def test_build_entry_fails_below_lowest_playlist():
     with pytest.raises(s.SyncError, match="below the lowest"):
-        s.build_entry("stronger.mp3", STRONGER, 50_000, None)
+        s.build_entry("stronger.mp3", STRONGER, 500_000, None)
 
 
 @pytest.mark.parametrize(

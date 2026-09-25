@@ -99,7 +99,7 @@ def test_filter_playable_with_no_audio(call):
 
 @pytest.mark.parametrize(
     ("tier", "expected"),
-    [("1b", 4), ("100m", 6), ("1m", 7), ("100k", 7)],
+    [("1b", 4), ("100m", 6), ("1m", 7)],
 )
 def test_tiers_are_cumulative(call, tier, expected):
     assert len(call("songsForTier", POOL, tier)) == expected

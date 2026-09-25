@@ -42,7 +42,7 @@ COVER_MIN_PX = 450
 # Fields the script owns (refreshed every run) vs. fields only a human sets (always preserved).
 PRESERVED_FIELDS = ("start", "aliases")
 
-TIER_THRESHOLDS = [("1b", 1_000_000_000), ("100m", 100_000_000), ("1m", 1_000_000), ("100k", 100_000)]
+TIER_THRESHOLDS = [("1b", 1_000_000_000), ("100m", 100_000_000), ("1m", 1_000_000)]
 
 TRACK_ID = re.compile(r"^[A-Za-z0-9]{22}$")
 
@@ -163,7 +163,7 @@ def build_entry(
             f"{file_name}: no stream count found and no previous tier. "
             'Add "tier" to its songs.json entry by hand.'
             if streams is None
-            else f"{file_name}: only {streams:,} streams, below the lowest playlist (100K)"
+            else f"{file_name}: only {streams:,} streams, below the lowest playlist (1M)"
         )
     entry["tier"] = tier
     if streams is not None:

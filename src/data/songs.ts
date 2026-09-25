@@ -8,7 +8,6 @@ export const TIERS: { id: Tier; label: string }[] = [
   { id: '1b', label: '> 1B streams' },
   { id: '100m', label: '> 100M streams' },
   { id: '1m', label: '> 1M streams' },
-  { id: '100k', label: '> 100K streams' },
 ];
 
 /**
