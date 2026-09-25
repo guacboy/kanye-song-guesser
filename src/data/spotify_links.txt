@@ -96,3 +96,15 @@ illest-motherfucker-alive.mp3 https://open.spotify.com/track/7t259tTXkuNVfxdQcnE
 ham.mp3 https://open.spotify.com/track/64rnghzDMy4cAEMZhSOp9h?si=b1352c2b94ba4d86
 primetime.mp3 https://open.spotify.com/track/4WQrG3ke074wTes10aLPBT?si=97201886031c430f
 the-joy.mp3 https://open.spotify.com/track/6SaPAcPPnp0Wq3IUxcwHNe?si=53c9cdc2255e4816
+
+# Yeezus
+on-sight.mp3 https://open.spotify.com/track/1gqkRc9WtOpnGIqxf2Hvzr?si=d3d5168c5b434c08
+black-skinhead.mp3 https://open.spotify.com/track/722tgOgdIbNe3BEyLnejw4?si=f022efab559743e8
+i-am-a-god.mp3 https://open.spotify.com/track/0HMCdlOPJkAGlB0MlSWIcO?si=958667f885704b2e
+new-slaves.mp3 https://open.spotify.com/track/4cAgkb0ifwn0FSHGXnr4F6?si=8e3fe23f20114347
+hold-my-liquor.mp3 https://open.spotify.com/track/5nIu0VwPOsjkF61zfevLKh?si=69cf61956caa4d62
+i'm-in-it.mp3 https://open.spotify.com/track/52NmkyHsGsHGb1UX8fTkMg?si=14a689b837174b2a
+blood-on-the-leaves.mp3 https://open.spotify.com/track/42GcjriRK6srwHkfbkBqVl?si=efa136503c1649cc
+guilt-trip.mp3 https://open.spotify.com/track/5nPOM0nFRAJ3XI8xCxNAzO?si=cea38913f6c446c5
+send-it-up.mp3 https://open.spotify.com/track/3RKblQNJs8HPvWBgXmq6nn?si=eedb02400a984837
+bound-2.mp3 https://open.spotify.com/track/3sNVsP50132BTNlImLx70i?si=7cb0416866f14b1c

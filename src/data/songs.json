@@ -940,7 +940,7 @@
     "file": "audio/no-church-in-the-wild.mp3",
     "cover": "assets/albums/2if1gb3t6IkhiKzrtS9Glc.jpg",
     "tier": "100m",
-    "streams": 625973126,
+    "streams": 626544728,
     "spotifyId": "1jIfaHx4jUl1mqdig9wUra"
   },
   {
@@ -956,7 +956,7 @@
     "file": "audio/lift-off.mp3",
     "cover": "assets/albums/2if1gb3t6IkhiKzrtS9Glc.jpg",
     "tier": "1m",
-    "streams": 76217278,
+    "streams": 76237666,
     "spotifyId": "2tS99DuyfPPJLBVeD8iAuV"
   },
   {
@@ -969,7 +969,7 @@
     "file": "audio/niggas-in-paris.mp3",
     "cover": "assets/albums/2if1gb3t6IkhiKzrtS9Glc.jpg",
     "tier": "1b",
-    "streams": 1903889275,
+    "streams": 1904618241,
     "spotifyId": "0Bh5fftQH3Nnr5sH3I9G5o",
     "aliases": [
       "niggas in paris"
@@ -988,7 +988,7 @@
     "file": "audio/otis.mp3",
     "cover": "assets/albums/2if1gb3t6IkhiKzrtS9Glc.jpg",
     "tier": "100m",
-    "streams": 341363760,
+    "streams": 341488487,
     "spotifyId": "4KyMZxbMbrSPHwMczzgxqQ"
   },
   {
@@ -1001,7 +1001,7 @@
     "file": "audio/gotta-have-it.mp3",
     "cover": "assets/albums/2if1gb3t6IkhiKzrtS9Glc.jpg",
     "tier": "100m",
-    "streams": 303913861,
+    "streams": 303996483,
     "spotifyId": "36mTP2gYrZ13YzytQ5p0QW"
   },
   {
@@ -1014,7 +1014,7 @@
     "file": "audio/new-day.mp3",
     "cover": "assets/albums/2if1gb3t6IkhiKzrtS9Glc.jpg",
     "tier": "1m",
-    "streams": 56490974,
+    "streams": 56510632,
     "spotifyId": "0q9GhLUyqu6wCgl1d1S7hO"
   },
   {
@@ -1027,7 +1027,7 @@
     "file": "audio/that's-my-bitch.mp3",
     "cover": "assets/albums/2if1gb3t6IkhiKzrtS9Glc.jpg",
     "tier": "1m",
-    "streams": 46110147,
+    "streams": 46127374,
     "spotifyId": "07CRJ8rXcaaqtboD6QXGur"
   },
   {
@@ -1040,7 +1040,7 @@
     "file": "audio/welcome-to-the-jungle.mp3",
     "cover": "assets/albums/2if1gb3t6IkhiKzrtS9Glc.jpg",
     "tier": "1m",
-    "streams": 38787974,
+    "streams": 38797239,
     "spotifyId": "5oXniOwyoZL3XB1C4xuiU1"
   },
   {
@@ -1053,7 +1053,7 @@
     "file": "audio/who-gon-stop-me.mp3",
     "cover": "assets/albums/2if1gb3t6IkhiKzrtS9Glc.jpg",
     "tier": "100m",
-    "streams": 116880882,
+    "streams": 116902558,
     "spotifyId": "5vqGzocoPjRQLsnL7UBOpE"
   },
   {
@@ -1066,7 +1066,7 @@
     "file": "audio/murder-to-excellence.mp3",
     "cover": "assets/albums/2if1gb3t6IkhiKzrtS9Glc.jpg",
     "tier": "1m",
-    "streams": 69703231,
+    "streams": 69723465,
     "spotifyId": "5y55cugikYzqJeZfVBqDeB"
   },
   {
@@ -1082,7 +1082,7 @@
     "file": "audio/made-in-america.mp3",
     "cover": "assets/albums/2if1gb3t6IkhiKzrtS9Glc.jpg",
     "tier": "1m",
-    "streams": 44996891,
+    "streams": 45013976,
     "spotifyId": "57CdogxwhzdHhqjj0115He"
   },
   {
@@ -1098,7 +1098,7 @@
     "file": "audio/why-i-love-you.mp3",
     "cover": "assets/albums/2if1gb3t6IkhiKzrtS9Glc.jpg",
     "tier": "100m",
-    "streams": 252850877,
+    "streams": 252942399,
     "spotifyId": "1xUGUTWQNqQzYOX1mkAlFw"
   },
   {
@@ -1111,7 +1111,7 @@
     "file": "audio/illest-motherfucker-alive.mp3",
     "cover": "assets/albums/2if1gb3t6IkhiKzrtS9Glc.jpg",
     "tier": "1m",
-    "streams": 5153619,
+    "streams": 5160216,
     "spotifyId": "7t259tTXkuNVfxdQcnEagh",
     "aliases": [
       "illest motherfucker alive"
@@ -1127,7 +1127,7 @@
     "file": "audio/ham.mp3",
     "cover": "assets/albums/2if1gb3t6IkhiKzrtS9Glc.jpg",
     "tier": "1m",
-    "streams": 68647691,
+    "streams": 68659768,
     "spotifyId": "64rnghzDMy4cAEMZhSOp9h"
   },
   {
@@ -1140,7 +1140,7 @@
     "file": "audio/primetime.mp3",
     "cover": "assets/albums/2if1gb3t6IkhiKzrtS9Glc.jpg",
     "tier": "1m",
-    "streams": 31718049,
+    "streams": 31731763,
     "spotifyId": "4WQrG3ke074wTes10aLPBT"
   },
   {
@@ -1156,7 +1156,127 @@
     "file": "audio/the-joy.mp3",
     "cover": "assets/albums/2if1gb3t6IkhiKzrtS9Glc.jpg",
     "tier": "1m",
-    "streams": 21837791,
+    "streams": 21843749,
     "spotifyId": "6SaPAcPPnp0Wq3IUxcwHNe"
+  },
+  {
+    "title": "On Sight",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "Yeezus",
+    "file": "audio/on-sight.mp3",
+    "cover": "assets/albums/7D2NdGvBHIavgLhmcwhluK.jpg",
+    "tier": "100m",
+    "streams": 259736950,
+    "spotifyId": "1gqkRc9WtOpnGIqxf2Hvzr"
+  },
+  {
+    "title": "Black Skinhead",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "Yeezus",
+    "file": "audio/black-skinhead.mp3",
+    "cover": "assets/albums/7D2NdGvBHIavgLhmcwhluK.jpg",
+    "tier": "100m",
+    "streams": 731869292,
+    "spotifyId": "722tgOgdIbNe3BEyLnejw4"
+  },
+  {
+    "title": "I Am A God",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "Yeezus",
+    "file": "audio/i-am-a-god.mp3",
+    "cover": "assets/albums/7D2NdGvBHIavgLhmcwhluK.jpg",
+    "tier": "1m",
+    "streams": 97972253,
+    "spotifyId": "0HMCdlOPJkAGlB0MlSWIcO"
+  },
+  {
+    "title": "New Slaves",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "Yeezus",
+    "file": "audio/new-slaves.mp3",
+    "cover": "assets/albums/7D2NdGvBHIavgLhmcwhluK.jpg",
+    "tier": "100m",
+    "streams": 183832180,
+    "spotifyId": "4cAgkb0ifwn0FSHGXnr4F6"
+  },
+  {
+    "title": "Hold My Liquor",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "Yeezus",
+    "file": "audio/hold-my-liquor.mp3",
+    "cover": "assets/albums/7D2NdGvBHIavgLhmcwhluK.jpg",
+    "tier": "100m",
+    "streams": 165306496,
+    "spotifyId": "5nIu0VwPOsjkF61zfevLKh"
+  },
+  {
+    "title": "I'm In It",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "Yeezus",
+    "file": "audio/i'm-in-it.mp3",
+    "cover": "assets/albums/7D2NdGvBHIavgLhmcwhluK.jpg",
+    "tier": "1m",
+    "streams": 78277306,
+    "spotifyId": "52NmkyHsGsHGb1UX8fTkMg"
+  },
+  {
+    "title": "Blood On The Leaves",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "Yeezus",
+    "file": "audio/blood-on-the-leaves.mp3",
+    "cover": "assets/albums/7D2NdGvBHIavgLhmcwhluK.jpg",
+    "tier": "100m",
+    "streams": 233770436,
+    "spotifyId": "42GcjriRK6srwHkfbkBqVl"
+  },
+  {
+    "title": "Guilt Trip",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "Yeezus",
+    "file": "audio/guilt-trip.mp3",
+    "cover": "assets/albums/7D2NdGvBHIavgLhmcwhluK.jpg",
+    "tier": "1m",
+    "streams": 71182933,
+    "spotifyId": "5nPOM0nFRAJ3XI8xCxNAzO"
+  },
+  {
+    "title": "Send It Up",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "Yeezus",
+    "file": "audio/send-it-up.mp3",
+    "cover": "assets/albums/7D2NdGvBHIavgLhmcwhluK.jpg",
+    "tier": "1m",
+    "streams": 78569063,
+    "spotifyId": "3RKblQNJs8HPvWBgXmq6nn"
+  },
+  {
+    "title": "Bound 2",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "Yeezus",
+    "file": "audio/bound-2.mp3",
+    "cover": "assets/albums/7D2NdGvBHIavgLhmcwhluK.jpg",
+    "tier": "1b",
+    "streams": 1428047053,
+    "spotifyId": "3sNVsP50132BTNlImLx70i"
   }
 ]
