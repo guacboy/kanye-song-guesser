@@ -12,10 +12,15 @@ export function isCorrect(song: Song, guess: string): boolean {
   return [song.title, ...(song.aliases ?? [])].some((t) => normalizeTitle(t) === g);
 }
 
-/** "Kanye West feat. Dwele" / "JAY-Z, Kanye West feat. Frank Ocean, The-Dream" */
+/** "Kanye West ft. Dwele" / "JAY-Z, Kanye West ft. Frank Ocean, The-Dream" */
 export function formatCredits(song: Song): string {
   const main = song.artists.join(', ');
-  return song.features?.length ? `${main} feat. ${song.features.join(', ')}` : main;
+  return song.features?.length ? `${main} ft. ${song.features.join(', ')}` : main;
+}
+
+/** Credits and album, for under a song title: "Kanye West ft. Dwele  •  Graduation" */
+export function creditLine(song: Song): string {
+  return `${formatCredits(song)}  •  ${song.album}`;
 }
 
 /** Alphabetical by title (case/punctuation-insensitive), ties broken by credits. */
@@ -35,13 +40,13 @@ export function songsForTier(songs: Song[], tier: Tier): Song[] {
   return songs.filter((s) => TIER_RANK[s.tier] <= TIER_RANK[tier]);
 }
 
-/** Dropdown matches: title, alias, or any credited artist contains the query. Sorted alphabetically. */
+/** Dropdown matches: title, alias, album, or any credited artist contains the query. Sorted alphabetically. */
 export function searchSongs(songs: Song[], query: string): Song[] {
   const q = normalizeTitle(query);
   if (!q) return [];
   return sortSongs(
     songs.filter((s) =>
-      [s.title, ...(s.aliases ?? []), ...s.artists, ...(s.features ?? [])].some((t) => normalizeTitle(t).includes(q)),
+      [s.title, ...(s.aliases ?? []), s.album, ...s.artists, ...(s.features ?? [])].some((t) => normalizeTitle(t).includes(q)),
     ),
   );
 }

@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import type { Song } from '../data/types';
-import { formatCredits, searchSongs } from '../logic/search';
+import { creditLine, searchSongs } from '../logic/search';
 
 /**
  * Text box + autocomplete dropdown, rendered as a Phaser DOM element (a canvas can't host a real
@@ -77,7 +77,7 @@ export class GuessInput {
         title.textContent = song.title;
         const credits = document.createElement('div');
         credits.className = 'suggestion-credits';
-        credits.textContent = formatCredits(song);
+        credits.textContent = creditLine(song);
         li.append(title, credits);
         li.dataset.index = String(i);
         if (i === this.active) li.className = 'active';

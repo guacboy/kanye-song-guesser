@@ -11,7 +11,7 @@ import {
   makeText,
 } from '../theme';
 import { SONGS, Song, Tier, songsForTier } from '../data/songs';
-import { formatCredits, isCorrect } from '../logic/search';
+import { creditLine, isCorrect } from '../logic/search';
 import { Button } from '../ui/Button';
 import { GuessInput } from '../ui/GuessInput';
 import { roundedCoverTexture } from '../ui/roundedTexture';
@@ -357,7 +357,7 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
     }
     view.add([
       makeText(this, 0, TITLE_Y, song.title, 20).setFontStyle('bold'),
-      makeText(this, 0, CREDITS_Y, `${formatCredits(song)}  •  ${song.album}`, 14, COLORS.muted),
+      makeText(this, 0, CREDITS_Y, creditLine(song), 14, COLORS.muted),
     ]);
     this.revealView = view;
 
@@ -435,9 +435,10 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
     const length = this.phase === 'revealed' ? REVEAL_CLIP : CLIP_LENGTHS[this.attempt];
     this.stopClip();
 
-    const clip = this.sound.add(songKey(this.song), { volume: getVolume('music') }) as NonNullable<typeof this.clip>;
+    const clip = this.sound.add(songKey(this.song)) as NonNullable<typeof this.clip>;
     clip.addMarker({ name: 'clip', start: this.song.start ?? 0, duration: length });
-    clip.play('clip');
+    // Volume goes here: playing a marker swaps in the marker's own config (volume 1).
+    clip.play('clip', { volume: getVolume('music') });
     this.clip = clip;
     this.clipLen = length;
     this.clipStartedAt = this.time.now;

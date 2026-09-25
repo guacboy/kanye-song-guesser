@@ -46,12 +46,20 @@ def test_credits_solo(call):
 
 
 def test_credits_with_feature(call):
-    assert call("formatCredits", FLASHING) == "Kanye West feat. Dwele"
+    assert call("formatCredits", FLASHING) == "Kanye West ft. Dwele"
 
 
 def test_credits_multiple_artists_and_features(call):
     song = make_song("X", artists=["JAY-Z", "Kanye West"], features=["Frank Ocean", "The-Dream"])
-    assert call("formatCredits", song) == "JAY-Z, Kanye West feat. Frank Ocean, The-Dream"
+    assert call("formatCredits", song) == "JAY-Z, Kanye West ft. Frank Ocean, The-Dream"
+
+
+@pytest.mark.parametrize(
+    ("song", "line"),
+    [(STRONGER, "Kanye West  •  Test Album"), (FLASHING, "Kanye West ft. Dwele  •  Test Album")],
+)
+def test_credit_line_adds_album(call, song, line):
+    assert call("creditLine", song) == line
 
 
 # ---------- sorting ----------
@@ -110,6 +118,11 @@ def test_search_matches_title_substring(call):
 
 def test_search_matches_featured_artist(call):
     assert titles(call("searchSongs", POOL, "dwele")) == ["Flashing Lights"]
+
+
+def test_search_matches_album(call):
+    pool = [make_song("Stronger", album="Graduation"), make_song("Bound 2", album="Yeezus")]
+    assert titles(call("searchSongs", pool, "graduat")) == ["Stronger"]
 
 
 def test_search_results_are_alphabetical(call):

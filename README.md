@@ -29,7 +29,7 @@ npm run dev      # http://localhost:5173
    - `start` (when the clip begins, in seconds) and `aliases` (other spellings that count as correct) are yours to add by hand in songs.json. Re-running the script keeps them.
    - Entries without a Spotify link are left alone, so you can still write an entry by hand. Give it `title`, `artists`, `album`, `file` and `tier`.
 
-The game and the dropdown only use songs whose file exists in `public/audio/`, sorted alphabetically. The folder is scanned at build time; the dev server restarts itself when you add or remove a file.
+The game and the dropdown only use songs whose file exists in `public/audio/`, sorted alphabetically. Typing a title, artist or album name brings up matching songs. The folder is scanned at build time; the dev server restarts itself when you add or remove a file.
 
 ### Spotify credentials (one-time)
 
