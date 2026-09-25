@@ -51,3 +51,17 @@ the-glory.mp3 https://open.spotify.com/track/0lWjRSzq5chA9fps3pM8Zr?si=08f05ae7b
 homecoming.mp3 https://open.spotify.com/track/4iz9lGMjU1lXS51oPmUmTe?si=cf797471211340a3
 big-brother.mp3 https://open.spotify.com/track/2L47m9erkB5KBZcaqWtYen?si=e0a73b5ca0014cc3
 good-night.mp3 https://open.spotify.com/track/3bhyo2ED5Yd4RLydQBDtD6?si=456452123c85454b
+
+# 808s & Heartbreak
+say-you-will.mp3 https://open.spotify.com/track/5e5MKPtJuFb8NaeSEyV5gD?si=b1575066560243e9
+welcome-to-heartbreak.mp3 https://open.spotify.com/track/3F18I7LhWKxlf1PytSoTBH?si=18d162f9ec2e4e04
+heartless.mp3 https://open.spotify.com/track/4EWCNWgDS8707fNSZ1oaA5?si=01f85a61a8db47c3
+amazing.mp3 https://open.spotify.com/track/0m3Ze0cy8qBHSsV2exAfCw?si=0492e8c97b2546b5
+love-lockdown.mp3 https://open.spotify.com/track/1kxeWHF9PrCVZHvVskv8lg?si=3e52f2789a174f0c
+paranoid.mp3 https://open.spotify.com/track/0w2piYWj1F2bzUftzGJgK9?si=3f2373ae8d7e41e9
+robocop.mp3 https://open.spotify.com/track/02LAK7qT1wya0klSeNO96f?si=6e2ad7f7c07e4970
+street-lights.mp3 https://open.spotify.com/track/6j8gTlbhj9KJSeypNcNAS9?si=621c13554c424a9e
+bad-news.mp3 https://open.spotify.com/track/1nNPoG2hygEvrFGlHdhvJ9?si=e05e571a52284879
+see-you-in-my-nightmares.mp3 https://open.spotify.com/track/5zuoz1NBnpoHK6g5sbEH8F?si=ede6eeb69158449b
+coldest-winter.mp3 https://open.spotify.com/track/2RRFTLIglxHgAYQzsSLI4Y?si=a5f37849829f4ce7
+pinocchio-story.mp3 https://open.spotify.com/track/6giHsGo1eSYZSXKdNwTC62?si=c0aceeab80db4b7c
