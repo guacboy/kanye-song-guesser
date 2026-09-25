@@ -3,8 +3,23 @@ import type { Song, Tier } from '../data/types';
 
 export const TIER_RANK: Record<Tier, number> = { '1b': 0, '100m': 1, '1m': 2 };
 
+/** Letters that don't split into a plain letter + accent under Unicode NFD. */
+const SPECIAL_LETTERS: Record<string, string> = {
+  æ: 'ae', œ: 'oe', ø: 'o', ß: 'ss', đ: 'd', ð: 'd', ł: 'l', þ: 'th', ı: 'i', ħ: 'h', ŧ: 't',
+};
+
+/**
+ * Lowercase letters and digits only, for matching guesses and searches. Accented and special
+ * letters count as their plain ones ("JAŸ-Z" -> "jayz", "Beyoncé" -> "beyonce").
+ */
 export function normalizeTitle(s: string): string {
-  return s.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]/g, '');
+  return s
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/\p{M}/gu, '') // accents split off by NFD
+    .replace(/[æœøßđðłþıħŧ]/g, (c) => SPECIAL_LETTERS[c])
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]/g, '');
 }
 
 export function isCorrect(song: Song, guess: string): boolean {

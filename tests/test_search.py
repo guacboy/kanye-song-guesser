@@ -125,6 +125,33 @@ def test_search_matches_album(call):
     assert titles(call("searchSongs", pool, "graduat")) == ["Stronger"]
 
 
+@pytest.mark.parametrize(
+    ("raw", "plain"),
+    [
+        ("JAŸ-Z", "jayz"),
+        ("Beyoncé", "beyonce"),
+        ("Niño", "nino"),
+        ("Søren", "soren"),
+        ("Straße", "strasse"),
+        ("ÆON", "aeon"),
+        ("Motörhead", "motorhead"),
+    ],
+)
+def test_special_letters_match_plain_ones(call, raw, plain):
+    assert call("normalizeTitle", raw) == plain
+
+
+def test_search_finds_special_letters_by_plain_ones(call):
+    otis = make_song("Otis", artists=["JAŸ-Z", "Kanye West"])
+    assert titles(call("searchSongs", [otis, STRONGER], "jay")) == ["Otis"]
+
+
+def test_guess_with_accents_is_correct(call):
+    song = make_song("Café")
+    assert call("isCorrect", song, "cafe") is True
+    assert call("isCorrect", make_song("Cafe"), "café") is True
+
+
 def test_search_results_are_alphabetical(call):
     # "t" matches every song; the result must be sorted, not in input order.
     result = titles(call("searchSongs", POOL, "t"))
