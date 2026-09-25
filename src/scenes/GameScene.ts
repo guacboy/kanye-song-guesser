@@ -16,7 +16,7 @@ import { Button } from '../ui/Button';
 import { GuessInput } from '../ui/GuessInput';
 import { roundedCoverTexture } from '../ui/roundedTexture';
 import { albumColor, hideBackdrop, hideDim, showBackdrop } from '../ui/backdrop';
-import { LIFE_TEXTURE } from './BootScene';
+import { LIFE_TEXTURES } from './BootScene';
 import type { EndReason } from './ResultsScene';
 import { playSfx } from '../sfx';
 import { dimScene, enterScene } from '../transition';
@@ -27,13 +27,17 @@ import { getVolume, onVolumeChange } from '../settings';
 type Phase = 'loading' | 'guessing' | 'revealed';
 
 const CX = WIDTH / 2;
-const TOP_Y = 36; // song counter, lives and settings gear share this row
-const LIFE_SIZE = 30;
-const LIFE_GAP = 40;
+const TOP_Y = 86; // song counter, lives and settings gear share this row
+const LIFE_SIZE = 120;
+const LIFE_GAP = 130;
+const DEAD_LIFE_SCALE = 0.75; // a lost life shrinks...
+const DEAD_LIFE_ALPHA = 0.4; // ...and dims
+const LIFE_WOBBLE = 15; // living lives swing this many degrees to each side...
+const LIFE_WOBBLE_MS = 7000; // ...once every this many ms (left and back to the right)
 
 // Reveal: album art centered where the progress bar sits while guessing; title + credits below it,
 // and the bar slides down under them.
-const ART_Y = 150;
+const ART_Y = 240;
 const ART_SIZE = 140;
 const TITLE_Y = ART_Y + ART_SIZE / 2 + 22;
 const CREDITS_Y = TITLE_Y + 22;
@@ -45,16 +49,15 @@ const TICK_H = 6; // checkpoint line under the bar
 const REVEAL_MS = 450;
 
 // Answer row: text box with the skip/next button to its right.
-const ROW_Y = 335;
+const ROW_Y = 425;
 const ROW_H = 40; // .guess-input height in style.css
 const GUESS_W = 300; // .guess width in style.css
 const SKIP_W = 110;
 const ROW_GAP = 8;
 const ROW_LEFT = CX - (GUESS_W + ROW_GAP + SKIP_W) / 2;
 
-const PLAY_Y = 410;
+const PLAY_Y = 500;
 const PLAY_D = 56;
-const FEEDBACK_Y = 470;
 
 const MAX_CLIP = CLIP_LENGTHS[CLIP_LENGTHS.length - 1];
 
@@ -89,7 +92,6 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
   private revealView?: Phaser.GameObjects.Container;
   private guess!: GuessInput;
   private skipBtn!: Button;
-  private feedback!: Phaser.GameObjects.Text;
   private progressText!: Phaser.GameObjects.Text;
 
   constructor() {
@@ -122,9 +124,7 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
       .setBorderless(COLORS.textNum);
     this.lifeIcons = [];
     for (let i = 0; i < MAX_LIVES; i++) {
-      const img = this.add.image(CX + (i - (MAX_LIVES - 1) / 2) * LIFE_GAP, TOP_Y, LIFE_TEXTURE);
-      img.setScale(LIFE_SIZE / Math.max(img.width, img.height));
-      this.lifeIcons.push(img);
+      this.lifeIcons.push(this.add.image(CX + (i - (MAX_LIVES - 1) / 2) * LIFE_GAP, TOP_Y, LIFE_TEXTURES.alive));
     }
 
     // Clip progress + the current checkpoint's label (positioned every frame in drawBar)
@@ -141,7 +141,6 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
     this.playBtn = new Button(this, CX, PLAY_Y, '▶', () => this.onPlay(), PLAY_D, PLAY_D, 20, true, false);
     this.playBtn.setLabelOffset(2, -1);
 
-    this.feedback = makeText(this, CX, FEEDBACK_Y, '', 18, COLORS.muted).setAlign('center');
 
     const offVolume = onVolumeChange(() => this.clip?.setVolume(getVolume('music')));
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
@@ -159,6 +158,11 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
 
   update(): void {
     this.drawBar(this.time.now);
+    const angle = LIFE_WOBBLE * Math.sin((this.time.now / LIFE_WOBBLE_MS) * Math.PI * 2);
+    // Dead lives stop here, keeping the tilt they had when they were lost.
+    this.lifeIcons.forEach((img, i) => {
+      if (i < this.lives) img.setAngle(angle);
+    });
   }
 
   // ---------- flow ----------
@@ -169,7 +173,6 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
     this.stopClip();
     this.hideReveal();
     this.setControls();
-    this.feedback.setText('Loading…').setColor(COLORS.muted);
 
     while (this.queue.length > 0) {
       const song = this.queue.shift()!;
@@ -192,7 +195,6 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
 
   private startAttempt(): void {
     this.phase = 'guessing';
-    this.feedback.setText('');
     this.setControls();
     this.guess.focus();
     this.playClip();
@@ -207,7 +209,7 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
     } else {
       // On the last clip this also costs a life, and advance() plays only the oof.
       if (!this.onLastClip()) playSfx(this, 'incorrect');
-      this.advance(`✗  ${guess}`);
+      this.advance();
     }
   }
 
@@ -218,7 +220,7 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
   private onSkip(): void {
     // SKIP is silent; GIVE UP only plays the oof (from advance()); NEXT/RESULTS click.
     if (this.phase === 'revealed') playSfx(this, 'click');
-    if (this.phase === 'guessing') this.advance('Skipped');
+    if (this.phase === 'guessing') this.advance();
     else if (this.phase === 'revealed') {
       if (this.lives <= 0) this.endGame('out-of-lives');
       else void this.nextSong();
@@ -226,7 +228,7 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
   }
 
   /** Wrong guess or skip: unlock the next clip length, or lose a life after the last one. */
-  private advance(message: string): void {
+  private advance(): void {
     this.attempt++;
     if (this.attempt >= CLIP_LENGTHS.length) {
       this.attempt = CLIP_LENGTHS.length - 1;
@@ -236,7 +238,6 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
       return;
     }
     this.startAttempt();
-    this.feedback.setText(message).setColor(COLORS.muted);
   }
 
   private reveal(): void {
@@ -244,7 +245,6 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
     this.phase = 'revealed';
     this.setControls();
     this.refreshHud();
-    this.feedback.setText('');
     this.showReveal(song);
     this.playClip();
   }
@@ -254,7 +254,6 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
     if (this.ended) return;
     this.ended = true;
     this.stopClip();
-    this.feedback.setText('');
     this.freeze(true);
     this.scene.launch('Results', { tier: this.tier, score: this.score, played: this.played, reason });
   }
@@ -297,8 +296,17 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
   }
 
   private refreshHud(): void {
-    this.lifeIcons.forEach((img, i) => img.setAlpha(i < this.lives ? 1 : 0.15));
+    this.drawLives();
     this.progressText.setText(`${this.played} / ${this.total}`);
+  }
+
+  private drawLives(): void {
+    this.lifeIcons.forEach((img, i) => {
+      const alive = i < this.lives; // lives are lost from the right
+      img.setTexture(alive ? LIFE_TEXTURES.alive : LIFE_TEXTURES.dead);
+      const size = alive ? LIFE_SIZE : LIFE_SIZE * DEAD_LIFE_SCALE;
+      img.setScale(size / Math.max(img.width, img.height)).setAlpha(alive ? 1 : DEAD_LIFE_ALPHA);
+    });
   }
 
   private drawBar(now: number): void {

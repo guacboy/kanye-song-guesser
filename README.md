@@ -62,7 +62,7 @@ Volumes are saved in the browser (`localStorage`). A new player starts at 25% au
 
 ## Art
 
-- **Life icon:** `public/assets/life.png`, scaled to fit 30 px in the top bar. If it's missing, the game draws a placeholder heart.
+- **Life icons:** `public/assets/lives/alive-kanye.png` and `dead-kanye.png`, scaled to fit 120 px in the top bar. All three lives start as `alive-kanye.png`. Lives are lost from the right, and a lost life switches to `dead-kanye.png` at 75% size and dimmed. Living lives slowly wobble 15 degrees to each side; a dead one freezes at the tilt it had when it was lost. A missing image falls back to a drawn heart.
 - **Playlist backgrounds:** `public/assets/playlists/1b.png`, `100m.png`, `1m.png`, `100k.png`. They fill the 130 px square cards; non-square images are center-cropped. Use at least 480×480 so they stay sharp on high-DPI screens. A dark overlay keeps the text readable. A card without an image is drawn as a plain outline.
 
 ## Sound effects

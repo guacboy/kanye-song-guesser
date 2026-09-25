@@ -10,5 +10,32 @@
     "tier": "100m",
     "streams": 138643952,
     "spotifyId": "0IW0qaeyxL5Et4UG2MrJKB"
+  },
+  {
+    "title": "Graduation Day",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "The College Dropout",
+    "file": "audio/graduation-day.mp3",
+    "cover": "assets/albums/4Uv86qWpGTxf7fU7lG5X6F.jpg",
+    "tier": "1m",
+    "streams": 37602787,
+    "spotifyId": "7wL7Lb8Q3aYyq6gmRL0PZq"
+  },
+  {
+    "title": "All Falls Down",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "Syleena Johnson"
+    ],
+    "album": "The College Dropout",
+    "file": "audio/all-falls-down.mp3",
+    "cover": "assets/albums/4Uv86qWpGTxf7fU7lG5X6F.jpg",
+    "tier": "1b",
+    "streams": 1161045482,
+    "spotifyId": "5SkRLpaGtvYPhw02vZhQQ9"
   }
 ]

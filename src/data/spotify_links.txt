@@ -4,3 +4,5 @@
 
 # The College Dropout
 we-don't-care.mp3 https://open.spotify.com/track/0IW0qaeyxL5Et4UG2MrJKB?si=18c6998658a74605
+graduation-day.mp3 https://open.spotify.com/track/7wL7Lb8Q3aYyq6gmRL0PZq?si=a45bcc7719fe4b69
+all-falls-down.mp3 https://open.spotify.com/track/5SkRLpaGtvYPhw02vZhQQ9?si=027bcfc1a5314d8a
