@@ -37,5 +37,173 @@
     "tier": "1b",
     "streams": 1161045482,
     "spotifyId": "5SkRLpaGtvYPhw02vZhQQ9"
+  },
+  {
+    "title": "Spaceship",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "GLC",
+      "Consequence"
+    ],
+    "album": "The College Dropout",
+    "file": "audio/spaceship.mp3",
+    "cover": "assets/albums/4Uv86qWpGTxf7fU7lG5X6F.jpg",
+    "tier": "100m",
+    "streams": 142840012,
+    "spotifyId": "1ko2NuvWlQdxtNRc8QQzmT"
+  },
+  {
+    "title": "Jesus Walks",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "The College Dropout",
+    "file": "audio/jesus-walks.mp3",
+    "cover": "assets/albums/4Uv86qWpGTxf7fU7lG5X6F.jpg",
+    "tier": "100m",
+    "streams": 349872422,
+    "spotifyId": "5g1vtHqi9uV7xtYeCcFOBx"
+  },
+  {
+    "title": "Never Let Me Down",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "JAŸ-Z",
+      "J. Ivy"
+    ],
+    "album": "The College Dropout",
+    "file": "audio/never-let-me-down.mp3",
+    "cover": "assets/albums/4Uv86qWpGTxf7fU7lG5X6F.jpg",
+    "tier": "100m",
+    "streams": 105301270,
+    "spotifyId": "34j4OxJxKznBs88cjSL2j9"
+  },
+  {
+    "title": "Get Em High",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "Talib Kweli",
+      "Common"
+    ],
+    "album": "The College Dropout",
+    "file": "audio/get-em-high.mp3",
+    "cover": "assets/albums/4Uv86qWpGTxf7fU7lG5X6F.jpg",
+    "tier": "1m",
+    "streams": 75936758,
+    "spotifyId": "5b2FFKC64kxqcfaFnIZxoM"
+  },
+  {
+    "title": "The New Workout Plan",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "The College Dropout",
+    "file": "audio/the-new-workout-plan.mp3",
+    "cover": "assets/albums/4Uv86qWpGTxf7fU7lG5X6F.jpg",
+    "tier": "100m",
+    "streams": 117362475,
+    "spotifyId": "1Vp4St7JcXaUoJcIahtf3L"
+  },
+  {
+    "title": "Slow Jamz",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "Twista",
+      "Jamie Foxx"
+    ],
+    "album": "The College Dropout",
+    "file": "audio/slow-jamz.mp3",
+    "cover": "assets/albums/4Uv86qWpGTxf7fU7lG5X6F.jpg",
+    "tier": "100m",
+    "streams": 324042508,
+    "spotifyId": "3A4cpTBPaIQdtPFb5JxtaX"
+  },
+  {
+    "title": "Breathe In Breathe Out",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "Ludacris"
+    ],
+    "album": "The College Dropout",
+    "file": "audio/breathe-in-breathe-out.mp3",
+    "cover": "assets/albums/4Uv86qWpGTxf7fU7lG5X6F.jpg",
+    "tier": "1m",
+    "streams": 48067977,
+    "spotifyId": "4KFY4EEv9CN6ivrzD6vEvg"
+  },
+  {
+    "title": "School Spirit",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "The College Dropout",
+    "file": "audio/school-spirit.mp3",
+    "cover": "assets/albums/4Uv86qWpGTxf7fU7lG5X6F.jpg",
+    "tier": "1m",
+    "streams": 51616607,
+    "spotifyId": "1th3G3okofWlvGWAAR7Y4V"
+  },
+  {
+    "title": "Two Words",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "Mos Def",
+      "Freeway",
+      "The Boys Choir Of Harlem"
+    ],
+    "album": "The College Dropout",
+    "file": "audio/two-words.mp3",
+    "cover": "assets/albums/4Uv86qWpGTxf7fU7lG5X6F.jpg",
+    "tier": "1m",
+    "streams": 84589260,
+    "spotifyId": "62wtttQzoIA9HnNmGVd9Yq"
+  },
+  {
+    "title": "Through The Wire",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "The College Dropout",
+    "file": "audio/through-the-wire.mp3",
+    "cover": "assets/albums/4Uv86qWpGTxf7fU7lG5X6F.jpg",
+    "tier": "100m",
+    "streams": 519878572,
+    "spotifyId": "4mmkhcEm1Ljy1U9nwtsxUo"
+  },
+  {
+    "title": "Family Business",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "The College Dropout",
+    "file": "audio/family-business.mp3",
+    "cover": "assets/albums/4Uv86qWpGTxf7fU7lG5X6F.jpg",
+    "tier": "100m",
+    "streams": 168158261,
+    "spotifyId": "5DBmXF7QO43Cuy9yqva116"
+  },
+  {
+    "title": "Last Call",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "The College Dropout",
+    "file": "audio/last-call.mp3",
+    "cover": "assets/albums/4Uv86qWpGTxf7fU7lG5X6F.jpg",
+    "tier": "1m",
+    "streams": 73786425,
+    "spotifyId": "7iOhWWYjhhQiXzF4o4HhXN"
   }
 ]
