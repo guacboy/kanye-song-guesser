@@ -128,3 +128,14 @@ no-more-parties-in-la.mp3 https://open.spotify.com/track/0zLClc0emc6qUeV1p5nc99?
 facts.mp3 https://open.spotify.com/track/3MnbXlC1N7GdS9M8HzA6no?si=ff37726597ec41fa
 fade.mp3 https://open.spotify.com/track/3cCxoOgfi6hgt8MNteuiiD?si=d9f072acd1e64414
 saint-pablo.mp3 https://open.spotify.com/track/1o0kWPueYo94LIjPYOE5Nf?si=690c5b64dd3a4892
+
+# ye
+i-thought-about-killing-you.mp3 https://open.spotify.com/track/0yhxBvedRdGxsPZHJNI4VA?si=14a72932df4c48c8
+yikes.mp3 https://open.spotify.com/track/1qsHYUd2c1wFGcn7e63QmG?si=974c096606384c5e
+all-mine.mp3 https://open.spotify.com/track/3U21A07gAloCc4P7J8rxcn?si=19bf16608e614402
+wouldn't-leave.mp3 https://open.spotify.com/track/1nGoy0cEj0extAwXYNYTWd?si=962345bdd4df4bde
+no-mistakes.mp3 https://open.spotify.com/track/35KV2Nuib6jPMVN00O8iba?si=045d4f0da04f4335
+ghost-town.mp3 https://open.spotify.com/track/7vgTNTaEz3CsBZ1N4YQalM?si=ddfe76b11bcd44a8
+violent-crimes.mp3 https://open.spotify.com/track/3s7MCdXyWmwjdcWh7GWXas?si=71d2b48e067447f4
+
+# KIDS SEE GHOSTS

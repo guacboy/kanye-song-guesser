@@ -1497,5 +1497,95 @@
     "tier": "100m",
     "streams": 277885014,
     "spotifyId": "1o0kWPueYo94LIjPYOE5Nf"
+  },
+  {
+    "title": "I Thought About Killing You",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "ye",
+    "file": "audio/i-thought-about-killing-you.mp3",
+    "cover": "assets/albums/2Ek1q2haOnxVqhvVKqMvJe.jpg",
+    "tier": "100m",
+    "streams": 126946071,
+    "spotifyId": "0yhxBvedRdGxsPZHJNI4VA"
+  },
+  {
+    "title": "Yikes",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "ye",
+    "file": "audio/yikes.mp3",
+    "cover": "assets/albums/2Ek1q2haOnxVqhvVKqMvJe.jpg",
+    "tier": "100m",
+    "streams": 256495996,
+    "spotifyId": "1qsHYUd2c1wFGcn7e63QmG"
+  },
+  {
+    "title": "All Mine",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "ye",
+    "file": "audio/all-mine.mp3",
+    "cover": "assets/albums/2Ek1q2haOnxVqhvVKqMvJe.jpg",
+    "tier": "100m",
+    "streams": 590572289,
+    "spotifyId": "3U21A07gAloCc4P7J8rxcn"
+  },
+  {
+    "title": "Wouldn't Leave",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "PARTYNEXTDOOR"
+    ],
+    "album": "ye",
+    "file": "audio/wouldn't-leave.mp3",
+    "cover": "assets/albums/2Ek1q2haOnxVqhvVKqMvJe.jpg",
+    "tier": "100m",
+    "streams": 138339963,
+    "spotifyId": "1nGoy0cEj0extAwXYNYTWd"
+  },
+  {
+    "title": "No Mistakes",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "ye",
+    "file": "audio/no-mistakes.mp3",
+    "cover": "assets/albums/2Ek1q2haOnxVqhvVKqMvJe.jpg",
+    "tier": "100m",
+    "streams": 136052443,
+    "spotifyId": "35KV2Nuib6jPMVN00O8iba"
+  },
+  {
+    "title": "Ghost Town",
+    "artists": [
+      "Kanye West"
+    ],
+    "features": [
+      "PARTYNEXTDOOR"
+    ],
+    "album": "ye",
+    "file": "audio/ghost-town.mp3",
+    "cover": "assets/albums/2Ek1q2haOnxVqhvVKqMvJe.jpg",
+    "tier": "100m",
+    "streams": 823727213,
+    "spotifyId": "7vgTNTaEz3CsBZ1N4YQalM"
+  },
+  {
+    "title": "Violent Crimes",
+    "artists": [
+      "Kanye West"
+    ],
+    "album": "ye",
+    "file": "audio/violent-crimes.mp3",
+    "cover": "assets/albums/2Ek1q2haOnxVqhvVKqMvJe.jpg",
+    "tier": "100m",
+    "streams": 989826071,
+    "spotifyId": "3s7MCdXyWmwjdcWh7GWXas"
   }
 ]
