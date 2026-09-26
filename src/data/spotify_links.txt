@@ -108,3 +108,23 @@ blood-on-the-leaves.mp3 https://open.spotify.com/track/42GcjriRK6srwHkfbkBqVl?si
 guilt-trip.mp3 https://open.spotify.com/track/5nPOM0nFRAJ3XI8xCxNAzO?si=cea38913f6c446c5
 send-it-up.mp3 https://open.spotify.com/track/3RKblQNJs8HPvWBgXmq6nn?si=eedb02400a984837
 bound-2.mp3 https://open.spotify.com/track/3sNVsP50132BTNlImLx70i?si=7cb0416866f14b1c
+
+# The Life Of Pablo
+ultralight-beam.mp3 https://open.spotify.com/track/1eQBEelI2NCy7AUTerX0KS?si=1cb102b0fcaa4e6c
+father-stretch-my-hands-pt-1.mp3 https://open.spotify.com/track/4KW1lqgSr8TKrvBII0Brf8?si=55f0c3fbe58245ad
+pt-2.mp3 https://open.spotify.com/track/1Wsbr1d2BouNGk2q92mIj7?si=8029f84593ec46ee
+famous.mp3 https://open.spotify.com/track/19a3JfW8BQwqHWUMbcqSx8?si=c45293aacdc74955
+feedback.mp3 https://open.spotify.com/track/49fT6owWuknekShh9utsjv?si=b7bcc4d593504b2f
+low-lights.mp3 https://open.spotify.com/track/36o4taPyOdnOMf01ERmn9a?si=daa7e4127eed4fcd
+highlights.mp3 https://open.spotify.com/track/4qYLPta5HZ36idWiXtqh7B?si=d276485ddbf34dbd
+freestyle-4.mp3 https://open.spotify.com/track/6wfzokDylbrJzrJcpnBkcy?si=403417d259ab424f
+i-love-kanye.mp3 https://open.spotify.com/track/5CGS4UovzA7ftCJkLVXQju?si=d44101ae15d944dd
+waves.mp3 https://open.spotify.com/track/3nAq2hCr1oWsIU54tS98pL?si=c2afc5f473984faa
+fml.mp3 https://open.spotify.com/track/30Zcjs7pgEkmJA1lEbGSWT?si=aea1087fa1e64168
+real-friends.mp3 https://open.spotify.com/track/66Q3fAmSX5eHamgbKa9alP?si=608a6cff559a4337
+wolves.mp3 https://open.spotify.com/track/432hUIl3ISDeytYW5XBQ5h?si=18f0bfa78845464b
+30-hours.mp3 https://open.spotify.com/track/2CHmgtK8OCL28WtIK96u4N?si=4536219875f145f9
+no-more-parties-in-la.mp3 https://open.spotify.com/track/0zLClc0emc6qUeV1p5nc99?si=6046cbec3cb847fd
+facts.mp3 https://open.spotify.com/track/3MnbXlC1N7GdS9M8HzA6no?si=ff37726597ec41fa
+fade.mp3 https://open.spotify.com/track/3cCxoOgfi6hgt8MNteuiiD?si=d9f072acd1e64414
+saint-pablo.mp3 https://open.spotify.com/track/1o0kWPueYo94LIjPYOE5Nf?si=690c5b64dd3a4892
