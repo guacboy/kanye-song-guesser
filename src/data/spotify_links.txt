@@ -146,3 +146,16 @@ freeee.mp3 https://open.spotify.com/track/7GRTrWsP3yo2Fx8umJfA1X?si=da3c3c8c8221
 reborn.mp3 https://open.spotify.com/track/4RVbK6cV0VqWdpCDcx3hiT?si=d11e1f6ab2c74ef0
 kids-see-ghosts.mp3 https://open.spotify.com/track/2I3dW2dCBZAJGj5X21E53k?si=6866cce39b8940c4
 cudi-montage.mp3 https://open.spotify.com/track/4kUZvXB3LC3an3HX6h0s17?si=a2073e3c35af4cbc
+
+# JESUS IS KING
+every-hour.mp3 https://open.spotify.com/track/1WnqWQcWcuQbVzgE7ecfCY?si=45a56d96e631459b
+selah.mp3 https://open.spotify.com/track/39JRmdKFka1Oe09FoOCPI4?si=ca120a2e169f499f
+follow-god.mp3 https://open.spotify.com/track/2QpGZOhTCHHiKmpSO9FW4h?si=89c8ab3b1db7445f
+closed-on-sunday.mp3 https://open.spotify.com/track/3JWiDGQX2eTlFvKj3Yssj3?si=a3914953a18e4800
+on-god.mp3 https://open.spotify.com/track/2SasoXZyv82yYgHiVOvxQn?si=5810ccd728294d9e
+everything-we-need.mp3 https://open.spotify.com/track/24bnCCysWnbNRNUT4LpHcP?si=5b566936c698458f
+water.mp3 https://open.spotify.com/track/454Epa1vrCGFddHXKyC1kb?si=f340674339e041ba
+god-is.mp3 https://open.spotify.com/track/6xRWoYwfwIKnT8bQGzKbxR?si=bf9636517416432a
+hands-on.mp3 https://open.spotify.com/track/7r6aR2f57resC5r93LwMfK?si=4edf60c9f7e04fef
+use-this-gospel.mp3 https://open.spotify.com/track/0oPOuDmmkVp3h6puekhs6P?si=5fa2cf0c8862457f
+jesus-is-lord.mp3 https://open.spotify.com/track/7sBgFMWqDWQgrsNSpIBoe8?si=ef8489c511a7434a

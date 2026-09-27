@@ -383,6 +383,98 @@ def test_sync_reports_failures_but_writes_the_rest(fake_net, tmp_path, monkeypat
     assert [e["file"] for e in json.loads(manifest.read_text(encoding="utf-8"))] == ["audio/stronger.mp3"]
 
 
+def use_files(monkeypatch, tmp_path, links_text, manifest_entries):
+    links = tmp_path / "links.txt"
+    links.write_text(links_text, encoding="utf-8")
+    manifest = tmp_path / "songs.json"
+    manifest.write_text(json.dumps(manifest_entries), encoding="utf-8")
+    monkeypatch.setattr(s, "LINKS_PATH", links)
+    monkeypatch.setattr(s, "MANIFEST_PATH", manifest)
+    monkeypatch.setattr(s, "ENV_PATH", tmp_path / "missing.env")
+    monkeypatch.setattr(s, "ROOT", tmp_path)
+    return manifest
+
+
+SYNCED_STRONGER = {
+    "title": "Stronger", "artists": ["Kanye West"], "album": "Graduation", "file": "audio/stronger.mp3",
+    "tier": "1m", "streams": 5_000_000, "spotifyId": STRONGER["id"], "start": 3,
+}
+
+
+def test_sync_skips_spotify_for_already_synced_songs(fake_net, tmp_path, monkeypatch):
+    manifest = use_files(monkeypatch, tmp_path, f"stronger.mp3 {STRONGER['id']}\n", [SYNCED_STRONGER])
+    assert s.sync(dry_run=False) == 0
+    assert not any("/v1/tracks/" in u for u in fake_net)
+    [entry] = json.loads(manifest.read_text(encoding="utf-8"))
+    assert entry["streams"] == 1_892_923_303 and entry["tier"] == "1b"  # refreshed from kworb
+    assert entry["start"] == 3 and entry["title"] == "Stronger"
+
+
+def test_sync_refetches_when_the_link_changes(fake_net, tmp_path, monkeypatch):
+    moved = dict(SYNCED_STRONGER, spotifyId="x" * 22)
+    use_files(monkeypatch, tmp_path, f"stronger.mp3 {STRONGER['id']}\n", [moved])
+    assert s.sync(dry_run=False) == 0
+    assert any(STRONGER["id"] in u for u in fake_net if "/v1/tracks/" in u)
+
+
+def test_sync_full_refetches_everything(fake_net, tmp_path, monkeypatch):
+    use_files(monkeypatch, tmp_path, f"stronger.mp3 {STRONGER['id']}\n", [SYNCED_STRONGER])
+    assert s.sync(dry_run=False, full=True) == 0
+    assert any("/v1/tracks/" in u for u in fake_net)
+
+
+def test_long_rate_limit_stops_instead_of_sleeping(monkeypatch):
+    slept = []
+    monkeypatch.setattr(s.time, "sleep", slept.append)
+
+    def limited(req, timeout):
+        raise urllib.error.HTTPError(req.full_url, 429, "Too Many Requests", {"Retry-After": "73471"}, None)
+
+    monkeypatch.setattr(s.urllib.request, "urlopen", limited)
+    with pytest.raises(s.RateLimited, match="20 h 25 min"):
+        s.http("https://api.spotify.com/v1/tracks/x")
+    assert slept == []
+
+
+def test_short_rate_limit_waits_and_retries(monkeypatch):
+    slept, attempts = [], []
+    monkeypatch.setattr(s.time, "sleep", slept.append)
+
+    class Ok:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *exc):
+            return False
+
+        def read(self):
+            return b"ok"
+
+    def flaky(req, timeout):
+        attempts.append(1)
+        if len(attempts) == 1:
+            raise urllib.error.HTTPError(req.full_url, 429, "Too Many Requests", {"Retry-After": "2"}, None)
+        return Ok()
+
+    monkeypatch.setattr(s.urllib.request, "urlopen", flaky)
+    assert s.http("https://api.spotify.com/v1/tracks/x") == b"ok"
+    assert slept == [3]
+
+
+def test_rate_limit_stops_the_run_but_saves_progress(fake_net, tmp_path, monkeypatch):
+    manifest = use_files(monkeypatch, tmp_path, f"stronger.mp3 {STRONGER['id']}\notis.mp3 {OTIS['id']}\n", [])
+    real_http = s.http
+
+    def http(url, **kwargs):
+        if OTIS["id"] in url:
+            raise s.RateLimited("api.spotify.com", 3600)
+        return real_http(url, **kwargs)
+
+    monkeypatch.setattr(s, "http", http)
+    assert s.sync(dry_run=False) == 1
+    assert [e["file"] for e in json.loads(manifest.read_text(encoding="utf-8"))] == ["audio/stronger.mp3"]
+
+
 def test_missing_credentials_is_a_clear_error(monkeypatch):
     monkeypatch.delenv("SPOTIFY_CLIENT_ID", raising=False)
     monkeypatch.delenv("SPOTIFY_CLIENT_SECRET", raising=False)

@@ -3,6 +3,10 @@
 Usage:
     python scripts/sync_songs.py            # update songs.json
     python scripts/sync_songs.py --dry-run  # show what would change
+    python scripts/sync_songs.py --full     # also re-fetch songs that are already synced
+
+Only new songs (or ones whose link changed) are fetched from Spotify; songs already synced just get
+their stream counts refreshed from kworb. This keeps runs fast and under Spotify's rate limit.
 
 Reads src/data/spotify_links.txt (one "<audio file>  <spotify track link>" per line) and Spotify
 credentials from .env (SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET). Standard library only.
@@ -34,6 +38,10 @@ ENV_PATH = ROOT / ".env"
 
 USER_AGENT = "KanyeGuess-sync/1.0 (+https://github.com/guacboy/kanye-song-guesser)"
 KWORB_URL = "https://kworb.net/spotify/artist/{artist_id}_songs.html"
+# Kanye's kworb page lists every song he's credited on; used to refresh stream counts of synced songs.
+KANYE_ID = "5K4W6rqBFWDnAN6FQUkS6x"
+# A 429 asking to wait longer than this stops the run instead of sleeping (Spotify can ask for hours).
+MAX_RETRY_WAIT = 30
 
 # Album covers are saved here (served as assets/albums/<album id>.jpg). A cover is downloaded once per album.
 COVERS_SUBDIR = Path("public") / "assets" / "albums"
@@ -50,6 +58,21 @@ TRACK_ID = re.compile(r"^[A-Za-z0-9]{22}$")
 
 class SyncError(Exception):
     pass
+
+
+class RateLimited(SyncError):
+    """A server asked us to wait too long (HTTP 429); stops the whole run."""
+
+    def __init__(self, host: str, seconds: int) -> None:
+        until = time.strftime("%a %H:%M", time.localtime(time.time() + seconds))
+        super().__init__(f"{host} is rate-limiting this app for {wait_text(seconds)} (until about {until}). Try again then.")
+        self.seconds = seconds
+
+
+def wait_text(seconds: int) -> str:
+    """73471 -> "20 h 25 min"; 90 -> "2 min"."""
+    hours, minutes = divmod(round(seconds / 60), 60)
+    return f"{hours} h {minutes} min" if hours else f"{max(minutes, 1)} min"
 
 
 # ---------- parsing (pure, unit-tested) ----------
@@ -223,10 +246,12 @@ def http(url: str, *, data: bytes | None = None, headers: dict | None = None, re
             with urllib.request.urlopen(req, timeout=20) as resp:
                 return resp.read()
         except urllib.error.HTTPError as e:
-            if e.code == 429 and attempt < retries - 1:
-                time.sleep(int(e.headers.get("Retry-After", "2")) + 1)
-                continue
-            raise
+            if e.code != 429:
+                raise
+            wait = int((e.headers or {}).get("Retry-After") or 2)
+            if wait > MAX_RETRY_WAIT or attempt == retries - 1:
+                raise RateLimited(urllib.parse.urlsplit(url).hostname or url, wait) from e
+            time.sleep(wait + 1)
     raise AssertionError("unreachable")
 
 
@@ -299,10 +324,31 @@ class Kworb:
         matches = [s for title, s in rows.values() if normalize(clean_title(title)) == want]
         return (max(matches), "title match") if matches else (None, "not found")
 
+    def streams_by_id(self, track_id: str) -> int | None:
+        """Stream count for an already-synced song, from Kanye's page or any page fetched so far."""
+        for artist_id in [KANYE_ID, *self.pages]:
+            rows = self.page(artist_id)
+            if track_id in rows:
+                return rows[track_id][1]
+        return None
+
+
+def refresh_entry(previous: dict, file_name: str, kworb: Kworb) -> dict:
+    """An already-synced song without calling Spotify: only the stream count (and tier) is updated."""
+    entry = dict(previous)
+    streams = kworb.streams_by_id(previous["spotifyId"])
+    if streams is not None:
+        tier = tier_for_streams(streams)
+        if tier is None:
+            raise SyncError(f"{file_name}: only {streams:,} streams, below the lowest playlist (1M)")
+        entry["streams"], entry["tier"] = streams, tier
+    add_file_alias(entry, file_name)
+    return entry
+
 
 # ---------- main ----------
 
-def sync(dry_run: bool) -> int:
+def sync(dry_run: bool, full: bool = False) -> int:
     if not LINKS_PATH.is_file():
         raise SyncError(f"{LINKS_PATH.relative_to(ROOT)} not found")
     links = parse_links(LINKS_PATH.read_text(encoding="utf-8"))
@@ -316,13 +362,20 @@ def sync(dry_run: bool) -> int:
     manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
     previous = {e["file"]: e for e in manifest}
 
-    synced, failures = [], []
+    synced, failures, stopped = [], [], None
     for file_name, track_id in links:
+        prev = previous.get(f"audio/{file_name}")
         try:
-            track = fetch_track(track_id, token)
-            streams, how = kworb.streams(track)
-            cover = None if dry_run else download_cover(track)
-            entry = build_entry(file_name, track, streams, previous.get(f"audio/{file_name}"), cover)
+            if not full and prev and prev.get("spotifyId") == track_id:
+                entry, how = refresh_entry(prev, file_name, kworb), "streams only"
+            else:
+                track = fetch_track(track_id, token)
+                streams, how = kworb.streams(track)
+                cover = None if dry_run else download_cover(track)
+                entry = build_entry(file_name, track, streams, prev, cover)
+        except RateLimited as e:
+            stopped = str(e)
+            break
         except SyncError as e:
             failures.append(str(e))
             print(f"  ✗ {file_name}: {e}")
@@ -338,19 +391,21 @@ def sync(dry_run: bool) -> int:
     else:
         MANIFEST_PATH.write_text(json.dumps(merged, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         print(f"\nWrote {len(synced)} song(s) to {MANIFEST_PATH.relative_to(ROOT)}.")
+    if stopped:
+        print(f"Stopped early: {stopped}", file=sys.stderr)
     if failures:
         print(f"{len(failures)} song(s) failed; fix them and re-run.", file=sys.stderr)
-        return 1
-    return 0
+    return 1 if stopped or failures else 0
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--dry-run", action="store_true", help="print results without writing songs.json")
+    parser.add_argument("--full", action="store_true", help="re-fetch already-synced songs from Spotify too")
     args = parser.parse_args()
     sys.stdout.reconfigure(encoding="utf-8")  # ✓/✗ on Windows consoles
     try:
-        return sync(args.dry_run)
+        return sync(args.dry_run, args.full)
     except SyncError as e:
         print(f"error: {e}", file=sys.stderr)
         return 1

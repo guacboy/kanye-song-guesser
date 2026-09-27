@@ -38,6 +38,10 @@ npm run dev      # http://localhost:5173
    python scripts/sync_songs.py            # or --dry-run to preview
    ```
 
+   Only new songs, or songs whose link changed, are fetched from Spotify. Songs that are already synced just get their stream counts refreshed from kworb, so re-runs are quick. Use `--full` to re-fetch every song from Spotify (slow, and it can hit Spotify's rate limit).
+
+   If Spotify rate-limits the app (HTTP 429) and asks to wait more than 30 seconds, the script stops, saves the songs synced so far and tells you when to try again. Spotify's wait can be many hours.
+
    - Title, artists, features, album and album cover come from Spotify. Covers are saved to `public/assets/albums/<album id>.jpg` (one per album) and shown when a song is revealed. Main artists are the track's artists who are also credited on the album; everyone else counts as a feature. So "Otis" gets JAY-Z and Kanye West as main artists, with Otis Redding as the feature.
    - Total streams come from [kworb.net](https://kworb.net/spotify/artist/5K4W6rqBFWDnAN6FQUkS6x_songs.html), matched by Spotify track ID. They set the playlist (`tier`): > 1B, > 100M or > 1M. A song with 1M streams or fewer can't be synced. Re-run the script now and then to update the counts.
    - The file name, with dashes turned into spaces, is added to `aliases` as another accepted answer when it differs from the title. So `niggas-in-paris.mp3` makes "niggas in paris" correct even if Spotify's title is censored.
