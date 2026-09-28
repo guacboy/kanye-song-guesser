@@ -183,3 +183,20 @@ lord-i-need-you.mp3 https://open.spotify.com/track/5Iq6pIudd4KfuxZqf8872b?si=c68
 pure-souls.mp3 https://open.spotify.com/track/5aqUqSq0SqGBAqEn27PEzc?si=6532b5cddd1f496d
 come-to-life.mp3 https://open.spotify.com/track/5xvXeuxISyXJDRbZZf4uzd?si=ece4b71e9be64ae7
 no-child-left-behind.mp3 https://open.spotify.com/track/3hd6zLhnTlbJ8PupYt3cAI?si=d1fa42c132b04a38
+
+# VULTURES 1
+stars.mp3 https://open.spotify.com/track/5ogdIq5F70xEPB3kwiiecr?si=649d52b590244348
+keys-to-my-life.mp3 https://open.spotify.com/track/4iVmy1j5C3XNxpN11RXRaO?si=b9e1e05c375a4fcb
+paid.mp3 https://open.spotify.com/track/1OFgEELgwfTOt3WcBuOPxk?si=fad6816e82ff42eb
+talking.mp3 https://open.spotify.com/track/2os3F2ZKbj02ZWXWAdWGFD?si=c5aa9d014c4d447b
+back-to-me.mp3 https://open.spotify.com/track/3g9UquSEBErZiXSDa02YfG?si=eff964236eca4fec
+hoodrat.mp3 https://open.spotify.com/track/0Ah7O76JL0pyn84jI7NPbr?si=3a352f493aa94c72
+do-it.mp3 https://open.spotify.com/track/1oNaDXXu9I4UCJ8Fh0Hfjg?si=a0007e9617ea41a5
+paperwork.mp3 https://open.spotify.com/track/2jf0ooqmXMqaGqh0bdYsHR?si=661a1f4009b74669
+burn.mp3 https://open.spotify.com/track/7BPadP3q9qwMkho3IMPU99?si=59c00d1d73644496
+fuk-sumn.mp3 https://open.spotify.com/track/0cbVD7WpHVdHUKwoolzhCZ?si=27903bc9dc3e4bb7
+vultures.mp3 https://open.spotify.com/track/3w9WvHLKSXOsW6aAw0yr1n?si=93b861cc6b44472d
+carnival.mp3 https://open.spotify.com/track/2McT2fkH0VDqPsbiB9HWPq?si=94631b1d0ff1402f
+beg-forgiveness.mp3 https://open.spotify.com/track/2anbsZVE7y9yhI4KD7QYI0?si=276491d548784e3e
+problematic.mp3 https://open.spotify.com/track/7wOpdeL1e8nsK5fQwj40Ox?si=0a6fe92a1a244a0a
+king.mp3 https://open.spotify.com/track/0KXIsj1KjSNlGvNora6BA4?si=097788ee426848a1
