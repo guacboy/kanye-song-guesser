@@ -157,6 +157,20 @@ def test_split_artists_falls_back_to_first_artist_on_compilations():
     assert s.split_artists(t) == (["Kanye West"], ["JAY-Z"])
 
 
+@pytest.mark.parametrize(
+    ("raw", "clean"),
+    [
+        ("BULLY - DELUXE", "BULLY (Deluxe)"),
+        ("Graduation - Deluxe Edition", "Graduation (Deluxe)"),
+        ("Late Registration - deluxe version", "Late Registration (Deluxe)"),
+        ("Watch The Throne (Deluxe)", "Watch The Throne (Deluxe)"),
+        ("Graduation", "Graduation"),
+    ],
+)
+def test_clean_album(raw, clean):
+    assert s.clean_album(raw) == clean
+
+
 def test_build_entry_fields():
     entry = s.build_entry("otis.mp3", OTIS, 341_241_603, None)
     assert entry == {

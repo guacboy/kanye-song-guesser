@@ -144,6 +144,11 @@ def clean_title(title: str) -> str:
     return title.strip()
 
 
+def clean_album(album: str) -> str:
+    """'BULLY - DELUXE' -> 'BULLY (Deluxe)'; 'Graduation' stays as is."""
+    return re.sub(r"\s+-\s+deluxe(?:\s+(?:edition|version))?$", " (Deluxe)", album.strip(), flags=re.I)
+
+
 def plain(text: str) -> str:
     """Lowercase letters and digits only, accents dropped; like normalizeTitle in src/logic/search.ts."""
     text = unicodedata.normalize("NFKD", text.lower().replace("&", "and"))
@@ -192,7 +197,7 @@ def build_entry(
     }
     if features:
         entry["features"] = features
-    entry["album"] = track["album"]["name"]
+    entry["album"] = clean_album(track["album"]["name"])
     entry["file"] = f"audio/{file_name}"
     cover = cover or (previous or {}).get("cover")
     if cover:
@@ -336,6 +341,7 @@ class Kworb:
 def refresh_entry(previous: dict, file_name: str, kworb: Kworb) -> dict:
     """An already-synced song without calling Spotify: only the stream count (and tier) is updated."""
     entry = dict(previous)
+    entry["album"] = clean_album(previous["album"])
     streams = kworb.streams_by_id(previous["spotifyId"])
     if streams is not None:
         tier = tier_for_streams(streams)
