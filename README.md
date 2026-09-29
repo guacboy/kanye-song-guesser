@@ -77,7 +77,7 @@ The gear icon (top right of the main menu and the game) opens a settings pop-up:
 - **SFX**: volume of the sound effects; releasing the slider plays a click at the new level.
 - In a game, also **RESTART** (new run, same playlist) and **QUIT** (back to the main menu).
 
-Volumes are saved in the browser (`localStorage`). A new player starts at 25% audio and 50% SFX. Close the pop-up with the × button, Esc, or a click outside it.
+Volumes are saved in the browser (`localStorage`). A new player starts at 50% audio and 50% SFX. Close the pop-up with the × button, Esc, or a click outside it.
 
 ## Art
 

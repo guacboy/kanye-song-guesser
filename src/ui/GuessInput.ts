@@ -47,6 +47,11 @@ export class GuessInput {
     this.element = scene.add.dom(x, y, root);
   }
 
+  /** True while the suggestion dropdown is showing. */
+  get isOpen(): boolean {
+    return this.matches.length > 0;
+  }
+
   setEnabled(enabled: boolean): void {
     this.input.disabled = !enabled;
     if (!enabled) this.close();

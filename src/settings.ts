@@ -5,7 +5,7 @@ export type VolumeKind = 'music' | 'sfx';
 
 const STORAGE_KEYS: Record<VolumeKind, string> = { music: 'ksg-music-volume', sfx: 'ksg-sfx-volume' };
 /** Starting volumes for a new player (nothing saved yet). */
-const DEFAULT_VOLUME: Record<VolumeKind, number> = { music: 0.25, sfx: 0.5 };
+const DEFAULT_VOLUME: Record<VolumeKind, number> = { music: 0.5, sfx: 0.5 };
 
 const volumes: Record<VolumeKind, number> = { music: load('music'), sfx: load('sfx') };
 const listeners = new Set<() => void>();

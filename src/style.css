@@ -3,9 +3,9 @@
   --bg: #161616;
   --muted: #8a8a8a;
   --radius: 10px;
-  /* --bg at 97%: looks the same, but Chrome's GPU compositor won't treat the box as solid. A solid
+  /* --bg at 99%: looks the same, but Chrome's GPU compositor won't treat the box as solid. A solid
      scrolling box over the canvas can make it skip drawing part of the canvas (the lives). */
-  --bg-not-opaque: rgba(22, 22, 22, 0.97);
+  --bg-not-opaque: rgba(22, 22, 22, 0.99);
   --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -123,6 +123,6 @@ body {
 
 .suggestions li:hover,
 .suggestions li.active {
-  background: rgba(230, 230, 230, 0.97); /* --text, not quite opaque: see --bg-not-opaque */
+  background: rgba(230, 230, 230, 0.99); /* --text, not quite opaque: see --bg-not-opaque */
   color: var(--bg);
 }

@@ -50,16 +50,17 @@ const BAR_REVEAL_Y = CREDITS_Y + 22;
 const TICK_H = 6; // checkpoint line under the bar
 const REVEAL_MS = 450;
 
-// Answer row: text box with the skip/next button to its right.
-const ROW_Y = 425;
+// Answer row (text box with the skip/next button to its right) and the play button sit just below
+// the progress bar and follow it when it slides down on a reveal.
+const ROW_BELOW_BAR = 64; // bar top -> row center (clears the checkpoint label)
 const ROW_H = 40; // .guess-input height in style.css
 const GUESS_W = 300; // .guess width in style.css
 const SKIP_W = 110;
 const ROW_GAP = 8;
 const ROW_LEFT = CX - (GUESS_W + ROW_GAP + SKIP_W) / 2;
 
-const PLAY_Y = 500;
 const PLAY_D = 56;
+const PLAY_BELOW_ROW = 66; // row center -> play button center
 
 const MAX_CLIP = CLIP_LENGTHS[CLIP_LENGTHS.length - 1];
 
@@ -137,13 +138,14 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
     this.tickLabel = makeText(this, 0, 0, '', 11);
 
     // Answer row: text box, then skip/next
-    this.guess = new GuessInput(this, ROW_LEFT + GUESS_W / 2, ROW_Y, SONGS, (g) => this.submitGuess(g));
+    const rowY = BAR_IDLE_Y + ROW_BELOW_BAR;
+    this.guess = new GuessInput(this, ROW_LEFT + GUESS_W / 2, rowY, SONGS, (g) => this.submitGuess(g));
     const skipX = ROW_LEFT + GUESS_W + ROW_GAP + SKIP_W / 2;
     // Silent button: onSkip picks the sound (click, or just the oof for GIVE UP).
-    this.skipBtn = new Button(this, skipX, ROW_Y, '', () => this.onSkip(), SKIP_W, ROW_H, 14, false, false);
+    this.skipBtn = new Button(this, skipX, rowY, '', () => this.onSkip(), SKIP_W, ROW_H, 14, false, false);
 
     // Replay: round button with just the play symbol. ▶'s weight sits left of its box, so nudge it right.
-    this.playBtn = new Button(this, CX, PLAY_Y, '▶', () => this.onPlay(), PLAY_D, PLAY_D, 20, true, false);
+    this.playBtn = new Button(this, CX, rowY + PLAY_BELOW_ROW, '▶', () => this.onPlay(), PLAY_D, PLAY_D, 20, true, false);
     this.playBtn.setLabelOffset(2, -1);
 
 
@@ -163,6 +165,7 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
 
   update(): void {
     this.drawBar(this.time.now);
+    this.placeControls();
     const angle = LIFE_WOBBLE * Math.sin((this.time.now / LIFE_WOBBLE_MS) * Math.PI * 2);
     // Dead lives stop here, keeping the tilt they had when they were lost.
     this.lifeIcons.forEach((img, i) => {
@@ -312,6 +315,19 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
     });
   }
 
+  /**
+   * Keeps the answer row and play button just below the progress bar (which moves on a reveal),
+   * and hides the play button while the suggestion dropdown covers it.
+   */
+  private placeControls(): void {
+    this.playBtn.setVisible(!this.guess.isOpen); // the dropdown opens over it
+    const rowY = this.barY + ROW_BELOW_BAR;
+    if (this.skipBtn.y === rowY) return;
+    this.guess.element.setY(rowY);
+    this.skipBtn.setY(rowY);
+    this.playBtn.setY(rowY + PLAY_BELOW_ROW);
+  }
+
   private drawBar(now: number): void {
     const g = this.bar;
     const x = CX - BAR_W / 2;
@@ -426,7 +442,7 @@ export class GameScene extends Phaser.Scene implements OverlayHost {
   /** Replay button: play the clip and send a ring out from the button. */
   private onPlay(): void {
     this.playClip();
-    const ring = this.add.graphics({ x: CX, y: PLAY_Y });
+    const ring = this.add.graphics({ x: CX, y: this.playBtn.y });
     ring.lineStyle(2, COLORS.textNum).strokeCircle(0, 0, PLAY_D / 2);
     this.tweens.add({ targets: ring, scale: 1.6, alpha: 0, duration: 550, ease: 'Cubic.easeOut', onComplete: () => ring.destroy() });
     this.tweens.add({ targets: this.playBtn, scale: 0.9, duration: 90, yoyo: true, ease: 'Quad.easeOut' });
