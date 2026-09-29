@@ -200,3 +200,19 @@ carnival.mp3 https://open.spotify.com/track/2McT2fkH0VDqPsbiB9HWPq?si=94631b1d0f
 beg-forgiveness.mp3 https://open.spotify.com/track/2anbsZVE7y9yhI4KD7QYI0?si=276491d548784e3e
 problematic.mp3 https://open.spotify.com/track/7wOpdeL1e8nsK5fQwj40Ox?si=0a6fe92a1a244a0a
 king.mp3 https://open.spotify.com/track/0KXIsj1KjSNlGvNora6BA4?si=097788ee426848a1
+
+# VULTURES 2
+slide.mp3 https://open.spotify.com/track/5MGMXOhVvwzCjFgdQsFokR?si=4ba1fbb413104b00
+time-moving-slow.mp3 https://open.spotify.com/track/0JgassGI6jNxpX82jGpcuJ?si=c053607615fe413b
+fried.mp3 https://open.spotify.com/track/4Qay2jEWJYjXmJ8eNOGtaD?si=8f242895fb084bba
+promotion.mp3 https://open.spotify.com/track/6bSfeCXlUaGa3eWCy5qPTb?si=dfc36341c8d34954
+husband.mp3 https://open.spotify.com/track/6LHeisjoP8eHrtu45UbTPO?si=dd08481205eb490b
+lifestyle.mp3 https://open.spotify.com/track/40FRxwg8SEMO3fbMjFfphU?si=e34578ef6d3e4dec
+sky-city.mp3 https://open.spotify.com/track/7a0tTD7xdvKsNcJfMIDWp4?si=3902b967f44a4243
+bomb.mp3 https://open.spotify.com/track/2kgxyflhiicDbF8SDrBxqy?si=647d8812f0e64239
+river.mp3 https://open.spotify.com/track/5RzSnxqTx4vYEp9re5E0ud?si=37482b14d702406e
+forever-rolling.mp3 https://open.spotify.com/track/1MTpRBLniy6298BCdyKUfQ?si=6f9070dfb9624743
+530.mp3 https://open.spotify.com/track/2tPNj9sUt3FbjEUqBzZazv?si=f29b2503a22b4e59
+dead.mp3 https://open.spotify.com/track/488lIy4J0jJdPUiWqa0doB?si=b73c49cb8c4142a1
+forever.mp3 https://open.spotify.com/track/1Cxq3u0RQ0tEBbVofZ9Mma?si=df3e159f7b4d48d8
+my-soul.mp3 https://open.spotify.com/track/3bTkWuPGJ1ueGXBHWVUwAI?si=7dfe4d3636904b36
