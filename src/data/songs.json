@@ -2325,7 +2325,7 @@
     "file": "audio/slide.mp3",
     "cover": "assets/albums/5RV2TNyjylqWJNxQyHBTeJ.jpg",
     "tier": "1m",
-    "streams": 40672778,
+    "streams": 40802232,
     "spotifyId": "5MGMXOhVvwzCjFgdQsFokR"
   },
   {
@@ -2339,7 +2339,7 @@
     "file": "audio/time-moving-slow.mp3",
     "cover": "assets/albums/5RV2TNyjylqWJNxQyHBTeJ.jpg",
     "tier": "1m",
-    "streams": 23327079,
+    "streams": 23391575,
     "spotifyId": "0JgassGI6jNxpX82jGpcuJ"
   },
   {
@@ -2353,7 +2353,7 @@
     "file": "audio/fried.mp3",
     "cover": "assets/albums/5RV2TNyjylqWJNxQyHBTeJ.jpg",
     "tier": "1m",
-    "streams": 35861588,
+    "streams": 36008822,
     "spotifyId": "4Qay2jEWJYjXmJ8eNOGtaD"
   },
   {
@@ -2367,7 +2367,7 @@
     "file": "audio/promotion.mp3",
     "cover": "assets/albums/5RV2TNyjylqWJNxQyHBTeJ.jpg",
     "tier": "1m",
-    "streams": 66527166,
+    "streams": 66729594,
     "spotifyId": "6bSfeCXlUaGa3eWCy5qPTb"
   },
   {
@@ -2381,7 +2381,7 @@
     "file": "audio/husband.mp3",
     "cover": "assets/albums/5RV2TNyjylqWJNxQyHBTeJ.jpg",
     "tier": "1m",
-    "streams": 11663203,
+    "streams": 11679859,
     "spotifyId": "6LHeisjoP8eHrtu45UbTPO"
   },
   {
@@ -2395,7 +2395,7 @@
     "file": "audio/lifestyle.mp3",
     "cover": "assets/albums/5RV2TNyjylqWJNxQyHBTeJ.jpg",
     "tier": "1m",
-    "streams": 10332238,
+    "streams": 10376617,
     "spotifyId": "40FRxwg8SEMO3fbMjFfphU"
   },
   {
@@ -2409,7 +2409,7 @@
     "file": "audio/sky-city.mp3",
     "cover": "assets/albums/5RV2TNyjylqWJNxQyHBTeJ.jpg",
     "tier": "1m",
-    "streams": 18797952,
+    "streams": 18939040,
     "spotifyId": "7a0tTD7xdvKsNcJfMIDWp4"
   },
   {
@@ -2423,7 +2423,7 @@
     "file": "audio/bomb.mp3",
     "cover": "assets/albums/5RV2TNyjylqWJNxQyHBTeJ.jpg",
     "tier": "1m",
-    "streams": 15686625,
+    "streams": 15721582,
     "spotifyId": "2kgxyflhiicDbF8SDrBxqy"
   },
   {
@@ -2437,7 +2437,7 @@
     "file": "audio/river.mp3",
     "cover": "assets/albums/5RV2TNyjylqWJNxQyHBTeJ.jpg",
     "tier": "1m",
-    "streams": 37567987,
+    "streams": 37783923,
     "spotifyId": "5RzSnxqTx4vYEp9re5E0ud"
   },
   {
@@ -2451,7 +2451,7 @@
     "file": "audio/forever-rolling.mp3",
     "cover": "assets/albums/5RV2TNyjylqWJNxQyHBTeJ.jpg",
     "tier": "1m",
-    "streams": 18632833,
+    "streams": 18684987,
     "spotifyId": "1MTpRBLniy6298BCdyKUfQ"
   },
   {
@@ -2465,7 +2465,7 @@
     "file": "audio/530.mp3",
     "cover": "assets/albums/5RV2TNyjylqWJNxQyHBTeJ.jpg",
     "tier": "1m",
-    "streams": 60648098,
+    "streams": 60963551,
     "spotifyId": "2tPNj9sUt3FbjEUqBzZazv"
   },
   {
@@ -2479,7 +2479,7 @@
     "file": "audio/dead.mp3",
     "cover": "assets/albums/5RV2TNyjylqWJNxQyHBTeJ.jpg",
     "tier": "1m",
-    "streams": 32644683,
+    "streams": 32720170,
     "spotifyId": "488lIy4J0jJdPUiWqa0doB"
   },
   {
@@ -2493,7 +2493,7 @@
     "file": "audio/forever.mp3",
     "cover": "assets/albums/5RV2TNyjylqWJNxQyHBTeJ.jpg",
     "tier": "1m",
-    "streams": 6986702,
+    "streams": 7016016,
     "spotifyId": "1Cxq3u0RQ0tEBbVofZ9Mma"
   },
   {
@@ -2507,7 +2507,234 @@
     "file": "audio/my-soul.mp3",
     "cover": "assets/albums/5RV2TNyjylqWJNxQyHBTeJ.jpg",
     "tier": "1m",
-    "streams": 5115482,
+    "streams": 5138516,
     "spotifyId": "3bTkWuPGJ1ueGXBHWVUwAI"
+  },
+  {
+    "title": "TRUE LOVE",
+    "artists": [
+      "DONDA",
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "DONDA 2",
+    "file": "audio/true-love.mp3",
+    "cover": "assets/albums/1ZkGNUz1un0b3Z7EsJl3ci.jpg",
+    "tier": "1m",
+    "streams": 25345653,
+    "spotifyId": "3WbuQIjkR1mIKdwSNlgqpp"
+  },
+  {
+    "title": "BROKEN ROAD",
+    "artists": [
+      "DONDA",
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "DONDA 2",
+    "file": "audio/broken-road.mp3",
+    "cover": "assets/albums/1ZkGNUz1un0b3Z7EsJl3ci.jpg",
+    "tier": "1m",
+    "streams": 14694945,
+    "spotifyId": "4RXIqq6AWKGQIEXd9il5mB"
+  },
+  {
+    "title": "GET LOST",
+    "artists": [
+      "DONDA",
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "DONDA 2",
+    "file": "audio/get-lost.mp3",
+    "cover": "assets/albums/1ZkGNUz1un0b3Z7EsJl3ci.jpg",
+    "tier": "1m",
+    "streams": 6859481,
+    "spotifyId": "4lUBWLqTFEWx3X6qcjWN2A"
+  },
+  {
+    "title": "TOO EASY",
+    "artists": [
+      "DONDA",
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "DONDA 2",
+    "file": "audio/too-easy.mp3",
+    "cover": "assets/albums/1ZkGNUz1un0b3Z7EsJl3ci.jpg",
+    "tier": "1m",
+    "streams": 8329640,
+    "spotifyId": "5JDu5HkUyhcwJHU69ysMvD"
+  },
+  {
+    "title": "KEEP THE FLOWERS",
+    "artists": [
+      "DONDA",
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "DONDA 2",
+    "file": "audio/keep-the-flowers.mp3",
+    "cover": "assets/albums/1ZkGNUz1un0b3Z7EsJl3ci.jpg",
+    "tier": "1m",
+    "streams": 11887989,
+    "spotifyId": "0JTtEdWbdFmqgHPq7i6DnJ"
+  },
+  {
+    "title": "SECURITY",
+    "artists": [
+      "DONDA",
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "DONDA 2",
+    "file": "audio/security.mp3",
+    "cover": "assets/albums/1ZkGNUz1un0b3Z7EsJl3ci.jpg",
+    "tier": "1m",
+    "streams": 4047890,
+    "spotifyId": "005Xv5eX9qBquZFVKvRt0E"
+  },
+  {
+    "title": "LOUIE BAGS",
+    "artists": [
+      "DONDA",
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "DONDA 2",
+    "file": "audio/louie-bags.mp3",
+    "cover": "assets/albums/1ZkGNUz1un0b3Z7EsJl3ci.jpg",
+    "tier": "1m",
+    "streams": 3896673,
+    "spotifyId": "5bu1Sbx3E2nNHzQUYXeAAj"
+  },
+  {
+    "title": "SCIFI",
+    "artists": [
+      "DONDA",
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "DONDA 2",
+    "file": "audio/scifi.mp3",
+    "cover": "assets/albums/1ZkGNUz1un0b3Z7EsJl3ci.jpg",
+    "tier": "1m",
+    "streams": 6491914,
+    "spotifyId": "3OEvHAJQiJSxw076rUF1SN"
+  },
+  {
+    "title": "LORD LIFT ME UP",
+    "artists": [
+      "DONDA",
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "DONDA 2",
+    "file": "audio/lord-lift-me-up.mp3",
+    "cover": "assets/albums/1ZkGNUz1un0b3Z7EsJl3ci.jpg",
+    "tier": "1m",
+    "streams": 4923758,
+    "spotifyId": "1RopXkbl5fE7gf7fjQIKRf"
+  },
+  {
+    "title": "CITY OF GOD",
+    "artists": [
+      "DONDA",
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "DONDA 2",
+    "file": "audio/city-of-gods.mp3",
+    "cover": "assets/albums/1ZkGNUz1un0b3Z7EsJl3ci.jpg",
+    "tier": "1m",
+    "streams": 11023186,
+    "spotifyId": "1yJqk94FvUxZ7F3SWhcwHz",
+    "aliases": [
+      "city of gods"
+    ]
+  },
+  {
+    "title": "FIRST TIME IN A LONG TIME",
+    "artists": [
+      "DONDA",
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "DONDA 2",
+    "file": "audio/first-time-in-a-long-time.mp3",
+    "cover": "assets/albums/1ZkGNUz1un0b3Z7EsJl3ci.jpg",
+    "tier": "1m",
+    "streams": 6760353,
+    "spotifyId": "7aUzsxDB0DYz7IHX83b2b4"
+  },
+  {
+    "title": "BURN EVERYTHING",
+    "artists": [
+      "DONDA",
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "DONDA 2",
+    "file": "audio/burn-everything.mp3",
+    "cover": "assets/albums/1ZkGNUz1un0b3Z7EsJl3ci.jpg",
+    "tier": "1m",
+    "streams": 7161110,
+    "spotifyId": "4mVBfQgc0bpA3eLNEpzv2F"
+  },
+  {
+    "title": "CITY OF CHI",
+    "artists": [
+      "DONDA",
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "DONDA 2",
+    "file": "audio/city-of-chi.mp3",
+    "cover": "assets/albums/1ZkGNUz1un0b3Z7EsJl3ci.jpg",
+    "tier": "1m",
+    "streams": 4094501,
+    "spotifyId": "5YHnlCyJPAzSQ4D1n7mSs5"
+  },
+  {
+    "title": "JESSE",
+    "artists": [
+      "DONDA",
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "DONDA 2",
+    "file": "audio/jesse.mp3",
+    "cover": "assets/albums/1ZkGNUz1un0b3Z7EsJl3ci.jpg",
+    "tier": "1m",
+    "streams": 6592670,
+    "spotifyId": "1FwCGiIiWy3zpLavmMYQfD"
+  },
+  {
+    "title": "MAINTENANCE",
+    "artists": [
+      "DONDA",
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "DONDA 2",
+    "file": "audio/maintenance.mp3",
+    "cover": "assets/albums/1ZkGNUz1un0b3Z7EsJl3ci.jpg",
+    "tier": "1m",
+    "streams": 3349911,
+    "spotifyId": "72AZ3V52rs9NfgMNhALxln"
+  },
+  {
+    "title": "SUZY",
+    "artists": [
+      "DONDA",
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "DONDA 2",
+    "file": "audio/suzy.mp3",
+    "cover": "assets/albums/1ZkGNUz1un0b3Z7EsJl3ci.jpg",
+    "tier": "1m",
+    "streams": 3777132,
+    "spotifyId": "1u1rZu5iTVoNtddc4yqvn4"
   }
 ]
