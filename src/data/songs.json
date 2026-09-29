@@ -2736,5 +2736,295 @@
     "tier": "1m",
     "streams": 3777132,
     "spotifyId": "1u1rZu5iTVoNtddc4yqvn4"
+  },
+  {
+    "title": "KING",
+    "artists": [
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "BULLY - DELUXE",
+    "file": "audio/king-2.mp3",
+    "cover": "assets/albums/3hwveWhYFxGDLy6K6xlwFh.jpg",
+    "tier": "1m",
+    "streams": 39650921,
+    "spotifyId": "0bzDXvdOnnU4AuHJb3QfUP",
+    "aliases": [
+      "king 2"
+    ]
+  },
+  {
+    "title": "THIS A MUST",
+    "artists": [
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "BULLY - DELUXE",
+    "file": "audio/this-a-must.mp3",
+    "cover": "assets/albums/3hwveWhYFxGDLy6K6xlwFh.jpg",
+    "tier": "1m",
+    "streams": 28484954,
+    "spotifyId": "4rFi7Ws4b32pPSnqGDwbCc"
+  },
+  {
+    "title": "FATHER",
+    "artists": [
+      "Kanye West",
+      "Ye"
+    ],
+    "features": [
+      "Travis Scott"
+    ],
+    "album": "BULLY - DELUXE",
+    "file": "audio/father.mp3",
+    "cover": "assets/albums/3hwveWhYFxGDLy6K6xlwFh.jpg",
+    "tier": "1m",
+    "streams": 97236714,
+    "spotifyId": "7brLC72TlCo8kXGzqnnqXR"
+  },
+  {
+    "title": "ALL THE LOVE",
+    "artists": [
+      "Kanye West",
+      "Ye"
+    ],
+    "features": [
+      "Andre Troutman"
+    ],
+    "album": "BULLY - DELUXE",
+    "file": "audio/all-the-love.mp3",
+    "cover": "assets/albums/3hwveWhYFxGDLy6K6xlwFh.jpg",
+    "tier": "1m",
+    "streams": 95073471,
+    "spotifyId": "4pUInFMBNgrmVIaqTapNAt"
+  },
+  {
+    "title": "PUNCH DRUNK",
+    "artists": [
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "BULLY - DELUXE",
+    "file": "audio/punch-drunk.mp3",
+    "cover": "assets/albums/3hwveWhYFxGDLy6K6xlwFh.jpg",
+    "tier": "1m",
+    "streams": 36163857,
+    "spotifyId": "42va7I3vz04MohVTVCvM1a"
+  },
+  {
+    "title": "WHATEVER WORKS",
+    "artists": [
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "BULLY - DELUXE",
+    "file": "audio/whatever-works.mp3",
+    "cover": "assets/albums/3hwveWhYFxGDLy6K6xlwFh.jpg",
+    "tier": "1m",
+    "streams": 32174719,
+    "spotifyId": "4H8SC39SRocjDvp3sYyuBu"
+  },
+  {
+    "title": "MAMA’S FAVORITE",
+    "artists": [
+      "Kanye West",
+      "Ye"
+    ],
+    "features": [
+      "Nine Vicious"
+    ],
+    "album": "BULLY - DELUXE",
+    "file": "audio/mama's-favorite.mp3",
+    "cover": "assets/albums/3hwveWhYFxGDLy6K6xlwFh.jpg",
+    "tier": "1m",
+    "streams": 24145706,
+    "spotifyId": "7qsjL36A88SfiKCiMNGw1O"
+  },
+  {
+    "title": "SISTERS AND BROTHERS",
+    "artists": [
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "BULLY - DELUXE",
+    "file": "audio/sisters-and-brothers.mp3",
+    "cover": "assets/albums/3hwveWhYFxGDLy6K6xlwFh.jpg",
+    "tier": "1m",
+    "streams": 25839810,
+    "spotifyId": "4ydRg2pLgsUjTgJPxsx7ed"
+  },
+  {
+    "title": "BULLY",
+    "artists": [
+      "Kanye West",
+      "Ye"
+    ],
+    "features": [
+      "CeeLo Green"
+    ],
+    "album": "BULLY - DELUXE",
+    "file": "audio/bully.mp3",
+    "cover": "assets/albums/3hwveWhYFxGDLy6K6xlwFh.jpg",
+    "tier": "1m",
+    "streams": 27954657,
+    "spotifyId": "5IEZWP7whsJw543CFDqiAc"
+  },
+  {
+    "title": "HIGHS AND LOWS",
+    "artists": [
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "BULLY - DELUXE",
+    "file": "audio/highs-and-lows.mp3",
+    "cover": "assets/albums/3hwveWhYFxGDLy6K6xlwFh.jpg",
+    "tier": "1m",
+    "streams": 35863625,
+    "spotifyId": "2rp6ug2Gm49BG2UdTNVzWW"
+  },
+  {
+    "title": "I CAN’T WAIT",
+    "artists": [
+      "Kanye West",
+      "Ye"
+    ],
+    "features": [
+      "Ms. Lauryn Hill"
+    ],
+    "album": "BULLY - DELUXE",
+    "file": "audio/i-can't-wait.mp3",
+    "cover": "assets/albums/3hwveWhYFxGDLy6K6xlwFh.jpg",
+    "tier": "1m",
+    "streams": 9073702,
+    "spotifyId": "6ImNhLq3RabOnEHfoRdvd4"
+  },
+  {
+    "title": "WHITE LINES",
+    "artists": [
+      "Kanye West",
+      "Ye"
+    ],
+    "features": [
+      "Andre Troutman"
+    ],
+    "album": "BULLY - DELUXE",
+    "file": "audio/white-lines.mp3",
+    "cover": "assets/albums/3hwveWhYFxGDLy6K6xlwFh.jpg",
+    "tier": "1m",
+    "streams": 23626383,
+    "spotifyId": "1xBGdIV6NH94vr808DT0Yh"
+  },
+  {
+    "title": "CIRCLES",
+    "artists": [
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "BULLY - DELUXE",
+    "file": "audio/circles.mp3",
+    "cover": "assets/albums/3hwveWhYFxGDLy6K6xlwFh.jpg",
+    "tier": "1m",
+    "streams": 17055130,
+    "spotifyId": "4N0aVKm8za8OP4YbPWWeGH"
+  },
+  {
+    "title": "PREACHER MAN",
+    "artists": [
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "BULLY - DELUXE",
+    "file": "audio/preacher-man.mp3",
+    "cover": "assets/albums/3hwveWhYFxGDLy6K6xlwFh.jpg",
+    "tier": "1m",
+    "streams": 57863771,
+    "spotifyId": "5dF8ekrpJgJy68QKIhWT8Q"
+  },
+  {
+    "title": "BEAUTY AND THE BEAST",
+    "artists": [
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "BULLY - DELUXE",
+    "file": "audio/beauty-and-the-beast.mp3",
+    "cover": "assets/albums/3hwveWhYFxGDLy6K6xlwFh.jpg",
+    "tier": "1m",
+    "streams": 41595718,
+    "spotifyId": "5rSnkcvd4xC8FuTF3cPtL1"
+  },
+  {
+    "title": "DAMN",
+    "artists": [
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "BULLY - DELUXE",
+    "file": "audio/damn.mp3",
+    "cover": "assets/albums/3hwveWhYFxGDLy6K6xlwFh.jpg",
+    "tier": "1m",
+    "streams": 30764700,
+    "spotifyId": "04ZSAlRVKSgQ2NEHuntHwZ"
+  },
+  {
+    "title": "LAST BREATH",
+    "artists": [
+      "Kanye West",
+      "Ye"
+    ],
+    "features": [
+      "Peso Pluma"
+    ],
+    "album": "BULLY - DELUXE",
+    "file": "audio/last-breath.mp3",
+    "cover": "assets/albums/3hwveWhYFxGDLy6K6xlwFh.jpg",
+    "tier": "1m",
+    "streams": 3230695,
+    "spotifyId": "1ci8ZFaGfVbN8bgLhJwLad"
+  },
+  {
+    "title": "THIS ONE HERE",
+    "artists": [
+      "Kanye West",
+      "Ye"
+    ],
+    "album": "BULLY - DELUXE",
+    "file": "audio/this-one-here.mp3",
+    "cover": "assets/albums/3hwveWhYFxGDLy6K6xlwFh.jpg",
+    "tier": "1m",
+    "streams": 21251005,
+    "spotifyId": "074zpqGrIdEYzGQAFZfDp1"
+  },
+  {
+    "title": "OK",
+    "artists": [
+      "Kanye West",
+      "Ye"
+    ],
+    "features": [
+      "Don Toliver"
+    ],
+    "album": "BULLY - DELUXE",
+    "file": "audio/ok.mp3",
+    "cover": "assets/albums/3hwveWhYFxGDLy6K6xlwFh.jpg",
+    "tier": "1m",
+    "streams": 37759405,
+    "spotifyId": "5UNo2nitxVTkBA9QYmnHJx"
+  },
+  {
+    "title": "MISSION CONTROL",
+    "artists": [
+      "Kanye West",
+      "Ye"
+    ],
+    "features": [
+      "The WRLDFMS Tony Williams"
+    ],
+    "album": "BULLY - DELUXE",
+    "file": "audio/mission-control.mp3",
+    "cover": "assets/albums/3hwveWhYFxGDLy6K6xlwFh.jpg",
+    "tier": "1m",
+    "streams": 3559130,
+    "spotifyId": "040LDuJ8MWKKhV9Fdwc64N"
   }
 ]

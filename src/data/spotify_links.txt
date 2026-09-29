@@ -234,3 +234,25 @@ city-of-chi.mp3 https://open.spotify.com/track/5YHnlCyJPAzSQ4D1n7mSs5?si=4e23542
 jesse.mp3 https://open.spotify.com/track/1FwCGiIiWy3zpLavmMYQfD?si=feb1aea372b445ff
 maintenance.mp3 https://open.spotify.com/track/72AZ3V52rs9NfgMNhALxln?si=f2c6fc2f99b44d63
 suzy.mp3 https://open.spotify.com/track/1u1rZu5iTVoNtddc4yqvn4?si=e05a71dfd5374ed3
+
+# BULLY (Deluxe)
+king-2.mp3 https://open.spotify.com/track/0bzDXvdOnnU4AuHJb3QfUP
+this-a-must.mp3 https://open.spotify.com/track/4rFi7Ws4b32pPSnqGDwbCc
+father.mp3 https://open.spotify.com/track/7brLC72TlCo8kXGzqnnqXR
+all-the-love.mp3 https://open.spotify.com/track/4pUInFMBNgrmVIaqTapNAt
+punch-drunk.mp3 https://open.spotify.com/track/42va7I3vz04MohVTVCvM1a
+whatever-works.mp3 https://open.spotify.com/track/4H8SC39SRocjDvp3sYyuBu
+mama's-favorite.mp3 https://open.spotify.com/track/7qsjL36A88SfiKCiMNGw1O
+sisters-and-brothers.mp3 https://open.spotify.com/track/4ydRg2pLgsUjTgJPxsx7ed
+bully.mp3 https://open.spotify.com/track/5IEZWP7whsJw543CFDqiAc
+highs-and-lows.mp3 https://open.spotify.com/track/2rp6ug2Gm49BG2UdTNVzWW
+i-can't-wait.mp3 https://open.spotify.com/track/6ImNhLq3RabOnEHfoRdvd4
+white-lines.mp3 https://open.spotify.com/track/1xBGdIV6NH94vr808DT0Yh
+circles.mp3 https://open.spotify.com/track/4N0aVKm8za8OP4YbPWWeGH
+preacher-man.mp3 https://open.spotify.com/track/5dF8ekrpJgJy68QKIhWT8Q
+beauty-and-the-beast.mp3 https://open.spotify.com/track/5rSnkcvd4xC8FuTF3cPtL1
+damn.mp3 https://open.spotify.com/track/04ZSAlRVKSgQ2NEHuntHwZ
+last-breath.mp3 https://open.spotify.com/track/1ci8ZFaGfVbN8bgLhJwLad
+this-one-here.mp3 https://open.spotify.com/track/074zpqGrIdEYzGQAFZfDp1
+ok.mp3 https://open.spotify.com/track/5UNo2nitxVTkBA9QYmnHJx
+mission-control.mp3 https://open.spotify.com/track/040LDuJ8MWKKhV9Fdwc64N
