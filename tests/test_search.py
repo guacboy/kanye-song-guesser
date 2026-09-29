@@ -76,6 +76,12 @@ def test_sort_is_alphabetical_by_title(call):
     ]
 
 
+def test_sort_breaks_title_ties_by_album(call):
+    a = make_song("KING", album="VULTURES 1")
+    b = make_song("KING", album="BULLY")
+    assert [s["album"] for s in call("sortSongs", [a, b])] == ["BULLY", "VULTURES 1"]
+
+
 def test_sort_breaks_title_ties_by_credits(call):
     a = make_song("Monster", artists=["Kanye West"])
     b = make_song("Monster", artists=["Big Sean"])
@@ -152,11 +158,40 @@ def test_guess_with_accents_is_correct(call):
     assert call("isCorrect", make_song("Cafe"), "café") is True
 
 
-def test_search_results_are_alphabetical(call):
-    # "t" matches every song; the result must be sorted, not in input order.
+def test_search_lists_title_matches_before_album_matches(call):
+    pool = [
+        make_song("Selah", album="JESUS IS KING"),
+        make_song("KING", album="BULLY"),
+        make_song("Follow God", album="JESUS IS KING"),
+        make_song("Kings Row", album="Other"),
+        make_song("Stronger", album="Graduation"),
+    ]
+    assert titles(call("searchSongs", pool, "king")) == ["KING", "Kings Row", "Follow God", "Selah"]
+
+
+def test_album_matches_are_sorted_by_album_then_title(call):
+    pool = [
+        make_song("Water", album="JESUS IS KING"),
+        make_song("Stars", album="KINGDOM"),
+        make_song("Closed On Sunday", album="JESUS IS KING"),
+        make_song("Alpha", album="KINGDOM"),
+    ]
+    songs = call("searchSongs", pool, "king")
+    assert [(s["album"], s["title"]) for s in songs] == [
+        ("JESUS IS KING", "Closed On Sunday"),
+        ("JESUS IS KING", "Water"),
+        ("KINGDOM", "Alpha"),
+        ("KINGDOM", "Stars"),
+    ]
+
+
+def test_search_results_are_alphabetical_within_each_group(call):
+    # "t" matches every song (via "Kanye West"); title matches come first, each group sorted.
     result = titles(call("searchSongs", POOL, "t"))
-    assert result == titles(call("sortSongs", [s for s in POOL if s["title"] in result]))
-    assert result[0] == "bound 2"
+    by_title = [s for s in POOL if "t" in s["title"].lower()]
+    rest = [s for s in POOL if s not in by_title]
+    assert result == titles(call("sortSongs", by_title)) + titles(call("sortByAlbum", rest))
+    assert result[-1] == "bound 2"
 
 
 def test_search_ignores_punctuation(call):
